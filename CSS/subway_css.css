@@ -1,0 +1,434 @@
+
+body{
+    background-color:lightgray;     
+}
+h1{font-size: 26px; padding: 0; border: 0; margin: 0; color: black;}
+h2{font-size: 14px; padding: 5px; border: 0; margin: 0; color: black; text-align: center;}
+h3{font-size: 20px; padding: 0; border: 0; margin: 0; color: purple;}
+h4{font-size: 22px; padding: 0px; border: 0; margin: 0; color: black; background-color: gold; text-align: center;}
+h5{font-size: 20px;}
+p{padding:0;border:0;margin:0;}
+tr{text-align:right;}
+lists{border:0;margin:0;padding:0;}
+inputs{border:0;margin:0;padding:0;}
+
+/*Table CSS*/
+table{
+ 
+   margin: 5px; 
+   border-collapse: collapse;
+   border-spacing:20px;
+}
+th{
+    padding:5px;
+    border:0;
+    margin:0;
+    font-weight:bold;
+    text-align:center;
+    background-color: lightgreen;
+}
+td{
+    padding:5px;
+    border:0;
+    margin:0; 
+    background-color: lightgreen;
+}
+
+/*BEGINNING OF LOGIN PAGE CSS */
+#login_div{
+    width:411px;
+    height:300px;
+    overflow-y:hidden;
+    margin-top:125px;
+    border: 3px solid darkgreen;
+    border-bottom-left-radius:13px;
+    border-bottom-right-radius:13px;
+    border-top-right-radius:13px;
+    border-top-left-radius:13px;
+    background:yellow;
+    margin-left:auto;
+    margin-right:auto;
+}
+#logo_holder{
+   width: 411px;
+   height:150px;
+  
+   background:white;
+}
+#form_div{
+    background-color:yellow;
+    margin-left:80px;
+    padding:5px;
+    float:left;
+    font-size:18px;
+    font-weight: bold;
+    background:yellow; 
+}
+/*END OF LOGIN PAGE CSS*/
+
+
+/*Top of All Pages CSS*/
+#page_top{
+    width:1100px;
+    background:white;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+    border-top-left-radius:15px;
+    border-top-right-radius:15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+    
+    z-index:20;
+}
+#top_image{
+    margin-left:20px;
+}
+#tab_bar{
+    width:100%;
+    height:15px;
+    position:relative;
+    background:darkgreen;
+    border-left: 2px darkgreen;
+    border-right: 2px darkgreen;
+}
+/*END OF TOP OF ALL PAGES*/
+
+
+/*BEGINNING OF WELCOME PAGE CSS*/
+#welcome_left{
+    height: 350px;
+    width:201px;
+    background:yellow;
+    float:left;
+    border-bottom-left-radius:15px;
+    text-align:center;
+    padding-top:100px;
+}
+#welcome_title{
+    width:750px;
+    float:left;
+    margin-top:15px;
+    margin-left:60px;
+    padding:20px;
+    background:darkgreen;
+    color:white;
+    text-align:center;
+    font-weight:bold;
+}
+#welcome_sched{
+    width: 750px;
+    position:relative;
+    margin-left:60px;
+    margin-right:auto;
+    float:left;
+    background: lightgreen;
+    padding:20px;
+    padding-top:10px;
+    text-align:center;
+}
+#welcome_right{
+    float:left;
+    width:790px;
+    padding:25px;
+}
+#welcome_body{
+    width:100%;
+    height:450px;
+    background:white;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+}
+/*END OF WELCOME PAGE CSS*/
+
+
+/*BEGINNING OF MANAGE SCHEDULES CSS*/
+#manage_left{
+    height:450px;
+    width:160px;
+    background:yellow;
+    float:left;
+    border-bottom-left-radius:15px;
+    text-align:center;
+    padding-top:100px;
+}
+#manage_right{
+    float:left;
+    position:relative;
+    width: 790px;
+    padding:25px;
+}
+#generate_title{
+    width:750px;
+    float:left;
+    margin-top:15px;
+    margin-left:60px;
+    padding:20px;
+    background:darkgreen;
+    color:white;
+    text-align:center;
+    font-weight:bold;
+}
+#generate_schedule{
+    width: 750px;
+    position:relative;
+    margin-left:60px;
+    margin-right:auto;
+    float:left;
+    background: lightgreen;
+    padding:20px;
+    padding-top:5px;
+    padding-bottom:5px;
+    text-align:center;
+}
+#manage_body{
+    width:100%;
+    height:550px;
+    background:white;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+}
+/*END OF MANAGE SCHEDULE CSS*/
+
+
+/*Productivity Section of the Manage Schedule Page CSS*/
+#product_right{
+    float:left;
+    height:450px;
+    width: 770px;
+    background:white;
+}
+#product_left{
+    height:350px;
+    width:180px;
+    background:yellow;
+    float:left;
+    text-align:center;
+    padding-top:100px;
+    border-bottom-left-radius:15px;
+}
+
+#product_info{
+    position:relative;
+    padding:25px;
+}
+#product_list{
+    float:left;
+    width:170px;
+    height:250px;
+    background:lightgreen;
+    text-align:right;
+    padding:15px;
+}
+#past_product_list{
+    float:left;
+    width: 420px;
+    height:250px;
+    background:lightgreen; 
+    padding:15px;
+    padding-top:20px;
+    margin-left:50px;
+}
+#product_titles{
+    position:relative;  
+    padding-top:25px;
+    padding-left:25px;
+}
+#past_product_title{
+    float:left;
+    width:420px;
+    color:white;
+    background:darkgreen;
+    margin-left:50px;
+    padding:15px;
+    text-align:center;
+}
+#current_product_title{
+    float:left;
+    width:170px;
+    color:white;
+    background:darkgreen;
+    padding:15px;
+    text-align:center;
+}
+#product_body{
+    width:100%;
+    height:450px;
+    background:white;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;  
+}
+/*END OF PRODUCTIVITY CSS*/
+
+
+/*Employee Page CSS*/
+.employee_time_fields{
+    width:35px;
+}
+#employee_table{
+    border-spacing:10px;
+}
+#employee_body{
+    overflow-y:hidden;
+    position:relative;
+    width:100%;
+    padding-top:30px;
+    height:530px;
+    background:white;
+    margin-left:auto; 
+    margin-right:auto;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+#employee_left{
+    float:left;
+    height:100%;
+    margin-left:130px;
+    margin-right:45px;
+}
+#employee_right{
+    float:left;
+    margin-left:40px;
+}
+/*View Schedule Page CSS*/
+#view_schedule_body{
+    width:100%;
+    height:450px;
+    background:white;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+}
+#view_schedule_left{
+    height:350px;
+    width:200px;
+    background:yellow;
+    float:left;
+    border-bottom-left-radius:15px;
+    text-align:center;
+    padding-top:100px;
+}
+#view_schedule_right{
+    float:left;
+}
+/*Buttons*/
+.subway_buttons{
+    text-decoration:none;
+    font-size:15px;
+    text-align:center;
+    position:relative;
+}
+
+/*A HREF CSS*/
+a:link{
+    color:black;
+    text-decoration:none;
+}
+a:visited {
+    color: black;
+    text-decoration:none;
+}
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+a:active {
+    color:black;
+    text-decoration:none;
+}
+
+/*Tabs and Tab Bar CSS*/
+#nav_div{
+    position:absolute;
+    clear:both;
+}
+.subway_tabs{
+    position:relative;
+    text-align:center;
+    list-style:none;
+    margin:0;
+    padding-bottom: -20px;
+    line-height:35px;
+    width: 100%;
+}
+.subway_tabs li{
+    z-index:0;
+    position:relative;
+    border:2px solid gray;
+    border-bottom:0px;
+    background:white;
+    color:black;
+    display:inline-block;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    margin: 0 -5px;
+    padding: 0 15px;
+}
+.subway_tabs li:before{
+    z-index:1;
+    left: -6px;
+    bottom: -1px;
+    width: 6px;
+    height: 6px;
+   
+    border-bottom-right-radius: 16px;
+    border-width: 0 1px 1px 0;
+}
+.subway_tabs li:after{
+    position:absolute;
+    right:-6px;
+    bottom: -1px;
+    width: 6px;
+    height: 6px;
+    border-bottom-right-radius: 16px;
+    border-width: 0 1px 1px 0;
+}
+.subway_tabs li.current_position{
+    background:lightgreen;
+    color: black;
+    z-index:2;
+    border-bottom-color:darkgreen;
+    border:2px solid darkgreen;
+    
+}
+.login_table{
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+}
+.product_field{
+    width:45px;
+}
+.sched_field{
+    width:70px;
+    height:30px;
+    background:white;
+    color:black;
+}
+.sched_emp{
+    text-align:left;
+}
+
+.emp_title{
+    background:darkgreen;
+    color:white;
+    text-align:center;
+}
+.generate_text_field{
+    background:white;
+    color:black;
+    width:70px;
+    height:30px; 
+}

@@ -1,0 +1,78 @@
+<?php
+    //Start session
+    session_start();
+    
+    $user_name= $_POST['user_name'];
+    $password= $_POST['password'];
+    
+    //Call the validateUser function.
+    $stripped_name = validateUser($user_name);
+    $stripped_password = validateUser($password);    
+     
+    function validateUser($user_info){
+    
+        //Variables to hold the user's login information
+        $temp_info= "";
+        $user_input = $user_info;
+        
+       //For loop to go through each character of the user's login information
+        for($x=0; $x<strlen($user_input);$x++){
+            
+            switch($user_info[$x]){
+                
+                case'(': $temp_info.="";
+                    break;
+                case')': $temp_info.="";
+                    break;
+                case'<': $temp_info.="";
+                    break;
+                case'>': $temp_info.="";
+                    break;
+                case';': $temp_info.="";
+                    break;
+                case'"': $temp_info.="";
+                    break;
+                case'&': $temp_info.="";
+                    break;
+                case'@': $temp_info.='';
+                    break;
+                default: $temp_info.=$user_info[$x];
+            }
+        }
+        return $temp_info;
+    }
+     
+    echo "\nstripped name:  $stripped_name";
+    $dbConn = mysqli_connect("localhost", "root", "admin", "test");
+    if (mysqli_connect_errno()) {
+        printf("DB connect error: %s\n", mysqli_connect_error());
+        exit();
+    }
+    $sqlCommand = 'select name, password from test.employee where name="'.$stripped_name.'" and password="'.$stripped_password.'"';
+    echo "\nQuery: $sqlCommand";
+
+    $result = mysqli_query($dbConn, $sqlCommand);
+
+    if ( false===$result ) {
+        printf("DB fetch error: %s\n", mysqli_error($dbConn));
+    }
+    while ($row = mysqli_fetch_array($result)){
+        $dbName = $row["name"];
+        $dbPass = $row["password"];
+    }
+
+    /*$sqlCommand = "update test.employee set name=boyeah where employee_id=1";
+    $query = mysqli_query($con, $sqlCommand);*/
+    
+    //if($stripped_name === "test" && $stripped_password === "test"){
+    if($stripped_name==$dbName && $stripped_password==$dbPass){
+        $_SESSION['user_name'] = $stripped_name;
+        $_SESSION['user_password'] = $stripped_password;
+        header("Location: mainMenu.php");
+    }
+    else{
+        
+        $_SESSION['user_error'] = true;
+        header("Location: index.php");
+    }
+?>

@@ -1,0 +1,33 @@
+<?php
+
+    echo "<link rel='stylesheet' href='subway_css.css' type='text/css'>";
+              
+	session_start();
+	
+	if(!isset($_SESSION['user_name_error']))
+		$_SESSION['user_name_error'] = '';
+	
+	if(!isset($_SESSION['password_error']))
+		$_SESSION['password_error'] = ''; 		      
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title></title>
+    </head>
+    <body>
+    	
+    	<table> 
+    		<form action = "validateUser.php" method = "POST">
+    			<tr><th>
+    				<h2>Subway Scheduling Program:</h2>
+    			</th></tr>
+    	
+    			<tr><td>User Name: <input type="text" name="user_name" value ="<?php echo $_SESSION['user_name_error'];?>"required/></td></tr>
+    			<tr><td>Password: <input type="text" name="password" value="<?php echo $_SESSION['password_error'];?>"required/></td></tr>
+    			<tr><td><input type="submit" value="Log In:"/></td></tr>	
+    		</form>
+    	</table
+    </body>
+</html>
