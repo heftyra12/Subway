@@ -1,17 +1,34 @@
 <?php
-
 include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once '../../Subway/HelperFiles/Availability.php';
 include_once '../../Subway/HelperFiles/config.php';
 
 session_start();
 
+if(isset($_SESSION['no_product']))
+    unset($_SESSION['no_product']);
+
+//Variables to hold textfield data / input errors
+
+if(!isset($_SESSION['first_name']))
+    $_SESSION['first_name']= "";
+if(!isset($_SESSION['last_name']))
+    $_SESSION['last_name']= "";
+if(!isset($_SESSION['email']))
+    $_SESSION['email']= "";
+if(!isset($_SESSION['type']))
+    $_SESSION['type']= "";
+if(!isset($_SESSION['minor']))
+    $_SESSION['minor']= "";
+
+//Checks for updating an employee without selecting from the list
 if (!isset($_SESSION['no_employee_selected']))
     $_SESSION['no_employee_selected'] = "false";
-
+//Trying to add an employee when the user is working with a selected employee from the list
 if (!isset($_SESSION['duplicate_employee']))
     $_SESSION['duplicate_employee'] = "false";
-
+if(!isset($_SESSION['fulltime_minor']))
+    $_SESSION['fulltime_minor'] = "false";
 $sqlCommand = 'SELECT idemp,first_name,last_name,email,type,minor FROM test.emp';
 
 $result = mysqli_query($db_connect, $sqlCommand);
@@ -23,7 +40,7 @@ $x = 0;
 while ($row = mysqli_fetch_array($result)) {
 
     $employee = new employeeClass;
-
+    
     $employee->setEmployeeID($row["idemp"]);
     $employee->setEmployeeFirstName($row["first_name"]);
     $employee->setEmployeeLastName($row["last_name"]);
@@ -40,8 +57,6 @@ $sqlCommand = 'SELECT idschedule,monday_start,monday_end,tuesday_start,tuesday_e
 $new_result = mysqli_query($db_connect, $sqlCommand);
 
 $availability_array = array();
-
-
 
 while($row = mysqli_fetch_array($new_result)){
     
@@ -74,12 +89,8 @@ for($x=0;$x< count($availability_array);$x++){
     }
 }
 
-
 $_SESSION['availability_array'] = $availability_array;
-
-
 $_SESSION['employee_array'] = $employee_array;
-
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +98,7 @@ $_SESSION['employee_array'] = $employee_array;
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
-        <title>Subway Scheduling Program: Manage Employees</title>
+        <title>Subway Scheduling Program: Employees</title>
     </head>
     <body>
 
@@ -95,11 +106,11 @@ $_SESSION['employee_array'] = $employee_array;
         
             <div id="top_image">
 
-                <img src="/Images/temp_top_logo.png" align="center">
+                <img src="/Images/temp_top_logo_3.png" align="center">
             </div>
 
             <ul class="subway_tabs">
-                <li><a href="/MainMenu/index.php">Welcome:</a></li>
+                <li><a href="/MainMenu/index.php">Home:</a></li>
                 <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
                 <li><a href="/ViewSchedule/index.php">View Schedule:</a></li>
                 <li class="current_position">Employees:</li>
@@ -111,7 +122,6 @@ $_SESSION['employee_array'] = $employee_array;
             
             </div>
     
-
     <div id="employee_body">
 
         <?php
@@ -126,68 +136,554 @@ $_SESSION['employee_array'] = $employee_array;
             echo "<script language=javascript>alert('Error: Cannot add a duplicate employee')</script>";
             unset($_SESSION['duplicate_employee']);
         }
-
-        if (isset($_SESSION['error_found']))
-            echo $_SESSION['error_found'];
-        unset($_SESSION['error_found']);
+        if($_SESSION['fulltime_minor'] === "true"){
+            
+            echo "<script language=javascript>alert('Error: A minor cannot be a full-time employee')</script>";
+            unset($_SESSION['fulltime_minor']);
+        }
         ?>
         
             <div id="employee_left">
-            <table>
-                <th class="emp_title">Edit Employees:</th>
+            <table id="emp_table">
+                <th class="emp_title" colspan="4">Edit Employees:</th>
                 <form action="/HelperFiles/validateEmployee.php" method="POST">
 
-                    <tr><td>First Name:<input type="text" id="first_name" name="first_name" value="" required/></td></tr>
-                    <tr><td>Last Name:<input type="text" id="last_name" name="last_name" value=""required/></td></tr>
-                    <tr><td>Email:<input type="text" id="email" name="email" value="" required/></td></tr>
+                    <tr><td colspan="3">First Name:<input type="text" id="first_name" name="first_name" value="<?php echo $_SESSION['first_name'];?>" required/></td></tr>
+                    <tr><td colspan="3">Last Name:<input type="text" id="last_name" name="last_name" value="<?php echo $_SESSION['last_name'];?>"required/></td></tr>
+                    <tr><td colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" required/></td></tr>
                     
-                    <tr><td>Type: <select id="employee_type" name="type"/>
-                    <option value="Full-Time">Full-Time</option>
-                    <option value="Part-Time">Part-Time</option>
-                    <option value="Manager">Manager</option>
-                    <tr><td>Minor: <select id="minor" name="minor" default="Pick One:"/>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                    </select></td></tr>
-                    <tr><td>Action: <select id="update_option" name="update_option"/>
-                    <option value="Add">Add</option>
-                    <option value="Update">Update</option>
-                    <option value="Delete">Delete</option>
-                    </select></td></tr>
-                    <tr><td>Availability:</td></tr>
-                    <tr><td>
-                            Monday:  Start:<input type="text"id="monday_start" name="monday_start" class="employee_time_fields" value=""required/>
-                                       End:<input type="text"id="monday_end" name="monday_end" class="employee_time_fields" value=""required/>
+                    <tr><td colspan="3">Type:<select id="employee_type" name="type" value="<?php echo $_SESSION['type']; ?>"/>
+                                                <option value="Full-Time">Full-Time</option>
+                                                <option value="Part-Time">Part-Time</option>
+                                                <option value="Manager">Manager</option>
+                                            </select></td></tr>
+                    <tr><td colspan="3">Minor:<select id="minor" name="minor" value="<?php echo $_SESSION['minor'];?>"/>
+                                                 <option value="No">No</option>
+                                                 <option value="Yes">Yes</option>
+                                                
+                                           
+                                            </select></td></tr>
+                    <tr><td colspan="3">Action:<select id="update_option" name="update_option" value="<?php echo $_SESSION['update_option'];?>"/>
+                                                <option value="Add">Add</option>
+                                                <option value="Update">Update</option>
+                                                <option value="Delete">Delete</option>
+                                            </select></td></tr>
+                    <tr><td>Availability:</td><td>Start:</td><td>End:</td></tr>
+                                    
+                    <tr><td>Monday:</td><td>
+                           <select id="monday_start" name="monday_start" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">1:00</option>
+                               <option value="1330">1:30</option>
+                               <option value="1400">2:00</option>
+                               <option value="1450">2:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select></td><td>
+               <select name="monday_end" id="monday_end" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select>
                     </td></tr>
                     <tr><td>
-                            Tuesday:  Start:<input type="text" id="tuesday_start" name="tuesday_start" class="employee_time_fields" value=""required/>
-                                        End:<input type="text" id="tuesday_end" name="tuesday_end" class="employee_time_fields" value=""required/>
+                           Tuesday:</td><td><select id="tuesday_start" name="tuesday_start" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select></td><td>
+               <select name="tuesday_end" id="tuesday_end" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select>
                     </td></tr>
-                    <tr><td>Wednesday:  Start:<input type="text" id="wednesday_start" name="wednesday_start" class="employee_time_fields" value=""required/>
-                                          End:<input type="text" id="wednesday_end" name="wednesday_end" class="employee_time_fields" value=""required/>
+                    <tr><td>
+                           Wednesday:</td><td><select id="wednesday_start" name="wednesday_start" vlaue="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select></td><td>
+               <select name="wednesday_end" id="wednesday_end" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select>
                     </td></tr>
-                    <tr><td>Thursday:  Start:<input type="text" id="thursday_start" name="thursday_start" class="employee_time_fields" value=""required/>
-                                         End:<input type="text" id="thursday_end" name="thursday_end" class="employee_time_fields" value =""required/>
+                    <tr><td>
+                           Thursday:</td><td><select id="thursday_start" name="thursday_start" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select></td><td>
+               <select name="thursday_end" id="thursday_end" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select>
                     </td></tr>
-                    <tr><td>Friday:  Start:<input type="text" id="friday_start" name="friday_start" class="employee_time_fields" value=""required/>
-                                       End:<input type="text" id="friday_end" name="friday_end" class="employee_time_fields" value="" required/>
+                    <tr><td>
+                           Friday:</td><td><select id="friday_start" name="friday_start" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select></td><td>
+               <select name="friday_end" id="friday_end" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select>
                     </td></tr>
-                    <tr><td>Saturday:  Start:<input type="text" id="saturday_start" name="saturday_start" class="employee_time_fields" value="" required/>
-                                         End:<input type="text" id="saturday_end" name="saturday_end" class="employee_time_fields" value="" required/>
+                    <tr><td>
+                           Saturday:</td><td><select id="saturday_start" name="saturday_start" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select></td><td>
+               <select name="saturday_end" id="saturday_end" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select>
                     </td></tr>
-                    <tr><td>Sunday:  Start:<input type="text"id="sunday_start" name="sunday_start" class="employee_time_fields" value="" required/>
-                                       End:<input type="text"id="sunday_end" name="sunday_end" class="employee_time_fields" value="" required/>
+                    <tr><td>
+                           Sunday:</td><td><select id="sunday_start" name="sunday_start" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select></td><td>
+               <select name="sunday_end" id="sunday_end" value="">
+                               <option value="0600">06:00</option>
+                               <option value="0630">06:30</option>
+                               <option value="0700">07:00</option>
+                               <option value="0730">07:30</option>
+                               <option value="0800">08:00</option>
+                               <option value="0830">08:30</option>
+                               <option value="0900">09:00</option>
+                               <option value="0930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
+                           </select>
                     </td></tr>
-                    <tr><td><input type="submit" value="Submit"/></td></tr>
+                    <tr><td colspan="3"><input type="submit" value="Submit"/></td></tr>
                     <input type="hidden" id="employee_id" name="employee_id" value=""/>
                     <input type="hidden" id="array_index" name="array_index" value=""/>
                 </form>
             </table>
         </div>
         <div id="employee_right">
-            <table class=""employee_table">
+            <table class="employee_table">
                 <form>
-                    <tr><th class="emp_title" colspan="7">Subway Employees</th></tr>
+                    <tr><th class="emp_title" colspan="8">Subway Employees</th></tr>
 
 <?php
 for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
@@ -274,10 +770,7 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
         var sat_end = sat_end;
         var sun_start = sun_start;
         var sun_end = sun_end;
-        
-        alert(fri_end);
-        
-        
+         
         document.getElementById('first_name').value = first_name;
         document.getElementById('last_name').value = last_name;
         document.getElementById('email').value = email;
@@ -299,9 +792,10 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
         document.getElementById('sunday_start').value = sun_start;
         document.getElementById('sunday_end').value = sun_end;
         
-       document.getElementById('array_index').value = array_index;
+        document.getElementById('array_index').value = array_index;
         document.getElementById('employee_id').value = employee_id;
         
     }
 </script>
+
 
