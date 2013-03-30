@@ -5,6 +5,16 @@ include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 
 if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
+
+//for 1 to 7 (days) 
+$avail_arry=array();
+$avail_qry = mysqli_query($db_connect,"select employee_id, start, end from subway.availability where day=1 order by start asc");
+while($res = mysql_fetch_array($avail_qry)) {
+    $dataArray[$res['id']] = $res['employee_id'];
+    echo($res['id']);
+    $dataArray[$res['start']] = $res['start'];
+    $dataArray[$res['end']] = $res['end'];
+}
 ?>
 
 <!DOCTYPE html>
