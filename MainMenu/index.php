@@ -5,17 +5,13 @@ include_once'../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 
-if (isset($_SESSION['no_product']))
+if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
 
 
 $sqlCommand = "SELECT idemp, first_name, last_name from test.emp";
-
 $result = mysqli_query($db_connect, $sqlCommand);
-
 $schedule_array = array();
-
-$x = 0;
 
 while ($row = mysqli_fetch_array($result)) {
 
@@ -37,7 +33,6 @@ $_SESSION['schedule_array'] = $schedule_array;
         <title>Subway Scheduling Program: Main Menu</title>
     </head>
     <body>
-
         <div id="page_top">
             <div id="top_image">
                 <img src="/Images/temp_top_logo_3.png" align="center">
@@ -52,14 +47,12 @@ $_SESSION['schedule_array'] = $schedule_array;
                 <li><a href="/ScheduleParameters/index.php">Business Rules:</a></li>
             </ul>       
 
-            <div id="tab_bar">
+            <div id="tab_bar"></div>
 
-            </div>
+            <div id="normal_body">
+                <div id="normal_left">
 
-            <div id="welcome_body">
-                <div id="welcome_left">
-
-                    <form action="/HelperFiles/changePassword.php" >
+                    <form action="changePassword.php" >
                         <input type="submit" value ="Change Password"> 
                     </form>
                     </br>
@@ -71,10 +64,28 @@ $_SESSION['schedule_array'] = $schedule_array;
 
                 </div>
 
-                <div id="welcome_right">
+                <div id="normal_right">
 
-                    <div id="welcome_title">This Week's Schedule</div>
-                    <div id="welcome_sched">
+                    <?php
+                    
+                        if(isset($_SESSION['password_change_success']))
+                            
+                            if($_SESSION['password_change_success']==="yes"){
+                                
+                                //Tell user password change was successful
+                                echo "<script language = javascript>alert('Password Change Successful');</script>";
+                                unset($_SESSION['password_change_success']);
+                                
+                                //If either of the password change error fiedls are set, unset them. 
+                                if(isset($_SESSION['current_password_error']))
+                                    unset($_SESSION['current_password_error']);
+                                if(isset($_SESSION['new_password_error']))
+                                    unset($_SESSION['new_password_error']);
+                            }
+                    ?>
+                    
+                    <div id="home_title">This Week's Schedule</div>
+                    <div id="home_sched">
                         <table>
                             <tr><th>Employee:</th><th>Wednesday:</th><th>Thursday:</th><th>Friday:</th><th>Saturday:</th>
                                 <th>Sunday:</th><th>Monday:</th><th>Tuesday:</th><th>Total Hours:</th></tr> 
