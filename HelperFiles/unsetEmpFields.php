@@ -1,0 +1,12 @@
+<?php
+if(isset($_SESSION['first_name']))
+    unset($_SESSION['first_name']);
+if(isset($_SESSION['last_name']))
+    unset($_SESSION['last_name']);
+if(isset($_SESSION['email']))
+    unset($_SESSION['email']);
+if(isset($_SESSION['type']))
+    unset($_SESSION['type']);
+if(isset($_SESSION['minor']))
+    unset($_SESSION['minor']);
+?>
