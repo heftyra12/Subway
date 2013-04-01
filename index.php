@@ -27,8 +27,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
         <title></title>
+        <!--Place cursor in the username field:-->
+        <script language="javascript" type="text/javascript">
+        function placefocus()
+        {
+            document.loginform.user_name.focus();
+        }
+        </script> 
     </head>
-    <body background="/Images/test_background.png">
+    <body background="/Images/test_background.png" onLoad="placefocus()">
     	       
         <div id="login_div">
             
@@ -37,7 +44,7 @@
             </div>
             </br>
             <div id="form_div" background-color="yellow">
-                <form action = "/HelperFiles/validateUser.php" method = "POST" align="left">
+                <form action = "/HelperFiles/validateUser.php" method = "POST" align="left" name="loginform">
     			User Name: <input type="text" name="user_name" value ="<?php echo $_SESSION['user_name_error'];?>" autocomplete="off" required/></br>
 
                         </br>
