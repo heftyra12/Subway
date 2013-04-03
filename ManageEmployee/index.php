@@ -29,7 +29,7 @@ if (!isset($_SESSION['duplicate_employee']))
     $_SESSION['duplicate_employee'] = "false";
 if(!isset($_SESSION['fulltime_minor']))
     $_SESSION['fulltime_minor'] = "false";
-$sqlCommand = 'SELECT idemp,first_name,last_name,email,type,minor FROM test.emp';
+$sqlCommand = 'SELECT employee_id,first_name,last_name,email,emp_type,emp_minor FROM subway.employee';
 
 $result = mysqli_query($db_connect, $sqlCommand);
 
@@ -41,18 +41,18 @@ while ($row = mysqli_fetch_array($result)) {
 
     $employee = new employeeClass;
     
-    $employee->setEmployeeID($row["idemp"]);
+    $employee->setEmployeeID($row["employee_id"]);
     $employee->setEmployeeFirstName($row["first_name"]);
     $employee->setEmployeeLastName($row["last_name"]);
     $employee->setEmployeeEmail($row["email"]);
-    $employee->setEmployeeType($row["type"]);
-    $employee->setEmployeeMinor($row["minor"]);
+    $employee->setEmployeeType($row["emp_type"]);
+    $employee->setEmployeeMinor($row["emp_minor"]);
 
     array_push($employee_array, $employee);
 }
 
 $sqlCommand = 'SELECT idschedule,monday_start,monday_end,tuesday_start,tuesday_end,wednesday_start,wednesday_end,thursday_start,thursday_end,friday_start,friday_end,
-    saturday_start,saturday_end,sunday_start,sunday_end FROM test.schedule';
+    saturday_start,saturday_end,sunday_start,sunday_end FROM subway.schedule';
 
 $new_result = mysqli_query($db_connect, $sqlCommand);
 

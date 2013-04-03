@@ -22,7 +22,7 @@ if($new_password !== $new_password_again){
 
 else if(($current_password === $password)&&($new_password === $new_password_again)){
     
-    $updatePasswordSQL = "UPDATE test.login SET password ='$new_password' WHERE user_name ='$user_name'";
+    $updatePasswordSQL = "UPDATE subway.employee SET password ='$new_password' WHERE user_name ='$user_name'";
    
     mysqli_query($db_connect,$updatePasswordSQL);
     

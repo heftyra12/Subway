@@ -9,7 +9,7 @@ if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
 
 
-$sqlCommand = "SELECT idemp, first_name, last_name from test.emp";
+$sqlCommand = "SELECT employee_id, first_name, last_name from subway.employee";
 $result = mysqli_query($db_connect, $sqlCommand);
 $schedule_array = array();
 
