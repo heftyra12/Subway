@@ -73,6 +73,7 @@ table td,table th{
     background:white;
     margin-left:auto;
     margin-right:auto;
+    margin-top:3%;
     position:relative;
     border-top-left-radius:15px;
     border-top-right-radius:15px;
@@ -211,7 +212,11 @@ table td,table th{
 }
 /*END OF MANAGE SCHEDULE CSS*/
 
-
+input{
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border:solid 1px black;
+}
 /*Productivity Section of the Manage Schedule Page CSS*/
 .product_label{
   
@@ -379,6 +384,8 @@ a:active {
     position:absolute;
     clear:both;
 }
+
+/*TAB BAR CSS*/
 .subway_tabs{
     position:relative;
     text-align:center;
@@ -399,8 +406,8 @@ a:active {
     border-top-left-radius:10px;
     border-top-right-radius:10px;
     margin: 0 -5px;
-    padding: 0 15px;
-    width:125px;
+    width:14%;
+    font-size:85%;
 }
 .subway_tabs li:before{
     z-index:1;
@@ -408,9 +415,6 @@ a:active {
     bottom: -1px;
     width: 6px;
     height: 6px;
-   
-    border-bottom-right-radius: 16px;
-    border-width: 0 1px 1px 0;
 }
 .subway_tabs li:after{
     position:absolute;
@@ -418,8 +422,6 @@ a:active {
     bottom: -1px;
     width: 6px;
     height: 6px;
-    border-bottom-right-radius: 16px;
-    border-width: 0 1px 1px 0;
 }
 .subway_tabs li.current_position{
     background:lightgreen;
@@ -427,8 +429,9 @@ a:active {
     z-index:2;
     border-bottom: 10px solid #015643;
     border:2px solid #015643;
-    
 }
+/*END OF TAB BAR CSS*/
+
 .login_table{
     border-top-left-radius:10px;
     border-top-right-radius:10px;
@@ -465,4 +468,3 @@ a:active {
     width:70px;
     height:30px; 
 }
-    
