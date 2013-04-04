@@ -22,7 +22,7 @@ session_start();
                 </div>
          
            <ul class="subway_tabs">
-            <li><a href="/MainMenu/index.php">Welcome:</a></li>
+            <li><a href="/MainMenu/index.php">Home:</a></li>
             <li><a href="/ManageSchedule/index.php">Create Schedule:</a></li>
             <li><a href="/ViewSchedule/index.php">View Schedule:</a></li>
             <li><a href="/ManageEmployee/index.php">Employees:</a</li>

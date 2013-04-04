@@ -40,7 +40,7 @@ $_SESSION['schedule_array'] = $schedule_array;
 
             <ul class="subway_tabs">
                 <li class="current_position">Home:</li>
-                <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
+                <li><a href="/ManageSchedule/index.php">Create Schedule:</a></li>
                 <li><a href="/ViewSchedule/index.php">View Schedule:</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees:</a></li>
                 <li><a href="/EditRequests/index.php" >Requests:</a></li>
