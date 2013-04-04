@@ -69,11 +69,12 @@ table td,table th{
 
 /*Top of All Pages CSS*/
 #page_top{
-    width:90%;
+    width:98%;
+    height:50%;
     background:white;
     margin-left:auto;
     margin-right:auto;
-    margin-top:3%;
+    margin-top:1%;
     position:relative;
     border-top-left-radius:15px;
     border-top-right-radius:15px;
@@ -82,23 +83,20 @@ table td,table th{
     z-index:20;
 }
 #top_image{
-    margin-left:20px;
+    margin-left:2%;
 }
 #tab_bar{
     width:100%;
     height:15px;
     position:relative;
     background:#015643;
-    border-left: 2px #015643;
-    border-right: 2px #015643;
 }
 /*END OF TOP OF ALL PAGES*/
 
 /*NORMAL SIZE BODY CSS*/
 #normal_body{
     width:100%;
-    height:500px;
-    background:#FFFFB2;
+    height: 600px;
     border-bottom-left-radius:15px;
     border-bottom-right-radius:15px;
     margin-left:auto;
@@ -107,19 +105,23 @@ table td,table th{
 }
 #normal_right{
     float:left;
-    width:850px;
-    margin-top:25px;
+    width:88%;
+    height:100%;
+    background:#FFFFB2;
     margin-right:auto;
     margin-left:auto;
+    overflow-x:auto;
+    overflow-y:auto;
+    border-bottom-right-radius:15px;
 }
 #normal_left{
-    height: 400px;
-    width:201px;
+    height:100%;
+    overflow-x:auto;
+    width:12%;
     background:#FEF200;
     float:left;
     border-bottom-left-radius:15px;
     text-align:center;
-    padding-top:100px;
 }
 /*END NORMAL SIZE BODY CSS*/
 
@@ -127,8 +129,8 @@ table td,table th{
 #home_title{
     width:850px;
     float:left;
-    margin-top:15px;
-    margin-left:60px;
+    margin-top:8%;
+    margin-left:10%;
     padding:20px;
     background:#015643;
     color:white;
@@ -138,19 +140,20 @@ table td,table th{
 #home_sched{
     width: 850px;
     position:relative;
-    margin-left:60px;
+    margin-left:10%;
     margin-right:auto;
     float:left;
     background: lightgreen;
     padding:20px;
-    padding-top:10px;
+    padding-top:2%;
     text-align:center;
 }
 /*END OF HOME PAGE CSS*/
+
+/*PASSWORD CHANGE CSS*/
 #password_table{
     margin-left:38%;
-    margin-top:3%;
-    
+    margin-top:3%;   
 }
 
 /*PASSWORD CHANGE PAGE CSS*/
@@ -453,7 +456,6 @@ a:active {
 .emp_table{
     padding:5px;
 }
-
 .emp_title{
     background:#015643;
     color:white;
@@ -461,7 +463,6 @@ a:active {
     width:100%;
     padding-left:40px;
 }
-
 .generate_text_field{
     background:white;
     color:black;
