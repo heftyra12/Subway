@@ -1,9 +1,11 @@
 <?php
+session_start();
+
 include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once '../../Subway/HelperFiles/Availability.php';
 include_once '../../Subway/HelperFiles/config.php';
 
-session_start();
+
 
 if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
@@ -51,46 +53,46 @@ while ($row = mysqli_fetch_array($result)) {
     array_push($employee_array, $employee);
 }
 
-$sqlCommand = 'SELECT idschedule,monday_start,monday_end,tuesday_start,tuesday_end,wednesday_start,wednesday_end,thursday_start,thursday_end,friday_start,friday_end,
-    saturday_start,saturday_end,sunday_start,sunday_end FROM subway.schedule';
-
-$new_result = mysqli_query($db_connect, $sqlCommand);
-
-$availability_array = array();
-
-while($row = mysqli_fetch_array($new_result)){
-    
-    $availability = new Availability;
-    
-    $availability->setID($row["idschedule"]);
-    $availability->setMondayStart($row["monday_start"]);
-    $availability->setMondayEnd($row["monday_end"]);
-    $availability->setTuesdayStart($row["tuesday_start"]);
-    $availability->setTuesdayEnd($row["tuesday_end"]);
-    $availability->setWednesdayStart($row["wednesday_start"]);
-    $availability->setWednesdayEnd($row["wednesday_end"]);
-    $availability->setThursdayStart($row["thursday_start"]);
-    $availability->setThursdayEnd($row["thursday_end"]);
-    $availability->setFridayStart($row["friday_start"]);
-    $availability->setFridayEnd($row["friday_end"]);
-    $availability->setSaturdayStart($row["saturday_start"]);
-    $availability->setSaturdayEnd($row["saturday_end"]);
-    $availability->setSundayStart($row["sunday_start"]);
-    $availability->setSundayEnd($row["sunday_end"]);
-    
-    array_push($availability_array,$availability);
-}
-
-for($x=0;$x< count($availability_array);$x++){
-    
-    if($availability_array[$x]->getID() === $employee_array[$x]->getEmployeeID()){
-        
-        $employee_array[$x]->setEmployeeAvailability($availability_array[$x]);
-    }
-}
-
-$_SESSION['availability_array'] = $availability_array;
-$_SESSION['employee_array'] = $employee_array;
+//$sqlCommand = 'SELECT idschedule,monday_start,monday_end,tuesday_start,tuesday_end,wednesday_start,wednesday_end,thursday_start,thursday_end,friday_start,friday_end,
+//    saturday_start,saturday_end,sunday_start,sunday_end FROM subway.schedule';
+//
+//$new_result = mysqli_query($db_connect, $sqlCommand);
+//
+//$availability_array = array();
+//
+//while($row = mysqli_fetch_array($new_result)){
+//    
+//    $availability = new Availability;
+//    
+//    $availability->setID($row["idschedule"]);
+//    $availability->setMondayStart($row["monday_start"]);
+//    $availability->setMondayEnd($row["monday_end"]);
+//    $availability->setTuesdayStart($row["tuesday_start"]);
+//    $availability->setTuesdayEnd($row["tuesday_end"]);
+//    $availability->setWednesdayStart($row["wednesday_start"]);
+//    $availability->setWednesdayEnd($row["wednesday_end"]);
+//    $availability->setThursdayStart($row["thursday_start"]);
+//    $availability->setThursdayEnd($row["thursday_end"]);
+//    $availability->setFridayStart($row["friday_start"]);
+//    $availability->setFridayEnd($row["friday_end"]);
+//    $availability->setSaturdayStart($row["saturday_start"]);
+//    $availability->setSaturdayEnd($row["saturday_end"]);
+//    $availability->setSundayStart($row["sunday_start"]);
+//    $availability->setSundayEnd($row["sunday_end"]);
+//    
+//    array_push($availability_array,$availability);
+//}
+//
+//for($x=0;$x< count($availability_array);$x++){
+//    
+//    if($availability_array[$x]->getID() === $employee_array[$x]->getEmployeeID()){
+//        
+//        $employee_array[$x]->setEmployeeAvailability($availability_array[$x]);
+//    }
+//}
+//
+//$_SESSION['availability_array'] = $availability_array;
+//$_SESSION['employee_array'] = $employee_array;
 ?>
 
 <!DOCTYPE html>
@@ -111,7 +113,7 @@ $_SESSION['employee_array'] = $employee_array;
 
             <ul class="subway_tabs">
                 <li><a href="/MainMenu/index.php">Home:</a></li>
-                <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
+                <li><a href="/ManageSchedule/index.php">Create Schedule:</a></li>
                 <li><a href="/ViewSchedule/index.php">View Schedule:</a></li>
                 <li class="current_position">Employees:</li>
                 <li><a href="/EditRequests/index.php" value="edit_requests">Requests:</a></li>

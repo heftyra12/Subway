@@ -17,12 +17,12 @@ session_start();
         
             <div id="top_image">
 
-                <img src="/Images/temp_top_logo.png" align="center">
+                <img src="/Images/temp_top_logo_3.png" align="center">
             </div>
 
         <ul class="subway_tabs">
             <li><a href="/MainMenu/index.php">Welcome:</a></li>
-            <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
+            <li><a href="/ManageSchedule/index.php">Create Schedule:</a></li>
             <li class="current_position">View Schedule:</li>
             <li><a href="/ManageEmployee/index.php">Employees:</li>
             <li><a href="/EditRequests/index.php">Requests:</a></li>
