@@ -58,11 +58,11 @@
         public function setEmployeeEmail($email){
             $this->employee_email = $email;
         }
-        public function setEmployeeType($employee_type){
-            $this->employee_type = $employee_type;
+        public function setEmployeeType($emp_type){
+            $this->employee_type = $emp_type;
         }
-        public function setEmployeeMinor($minor){
-            $this->employee_minor = $minor;
+        public function setEmployeeMinor($emp_minor){
+            $this->employee_minor = $emp_minor;
         }
         public function setEmployeeAvailability($employee_availability){
             $this->employee_availability = $employee_availability;

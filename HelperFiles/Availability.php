@@ -2,7 +2,7 @@
 
 class Availability{
     
-    public $id;
+    public $employee_id;
     public $monday_start;
     public $monday_end;
     public $tuesday_start;
@@ -34,17 +34,16 @@ class Availability{
         $this->saturday_end="";
         $this->sunday_start="";
         $this->sunday_end="";
-        $this->id="";
+        $this->employee_id="";
     }
     
     //Get Methods.
-    public function getID(){
-        return $this->id;
+    public function getEmployeeID(){
+        return $this->employee_id;
     }
     public function getMondayStart(){
         return $this->monday_start;
     }
-    
     public function getMondayEnd(){
         return $this->monday_end;
     }
@@ -86,8 +85,8 @@ class Availability{
     }
     
     //Set Methods
-    public function setID($id){
-        $this->id=$id;
+    public function setEmployeeID($employee_id){
+        $this->employee_id=$employee_id;
     }
     public function setMondayStart($monday_start){
         $this->monday_start = $monday_start;
