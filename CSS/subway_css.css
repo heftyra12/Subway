@@ -137,6 +137,47 @@ table td,table th{
 }
 /*END NORMAL SIZE BODY CSS*/
 
+/*SMALL BODY CSS*/
+#small_body{
+    width:100%;
+    height: 450px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+    background:#FFFFB2;
+}
+#small_left{
+    float:left;
+    width:13%;
+    height:100%;
+    background:#FEF200;
+    border-bottom-left-radius:15px;
+    overflow-x:auto;
+}
+#small_left_buttons{
+    margin-left:12%;
+    margin-top:5%;
+}
+#small_right{
+    float:left;  
+    border-bottom-right-radius:15px;
+    width:85%; 
+    margin-right:auto;
+    margin-left:auto;
+    overflow-x:auto;
+    overflow-y:auto;
+}
+/*END OF SMALL BODY CSS*/
+
+/*PRODUCTIVITY CSS*/
+#prod_table{
+    margin-left: 18%;
+    margin-top:3%;
+}
+/*END PRODUCTIVITY CSS*/
+
 /*HOME PAGE CSS*/
 #home_title{
     width:850px;
@@ -232,86 +273,7 @@ input{
     border-radius: 5px;
     border:solid 1px black;
 }
-/*Productivity Section of the Manage Schedule Page CSS*/
-.product_label{
-  
-}
-#product_right{
-    float:left;
-    height:550px;
-    width: 87%;
-    overflow-y:scroll;
-    background:#FFFFB2;
-}
-#product_left{
-    height:450px;
-    width:13%;
-    background:#FEF200;
-    float:left;
-    text-align:center;
-    padding-top:100px;
-    border-bottom-left-radius:15px;
-}
-#product_info{
-    position:relative;
-    width:100%;
-}
-#product_list{
-    float:left;
-    width:51%;
-    margin-left:3%;
-    margin-right:auto;
-    height:100%;
-    background:lightgreen;
-    text-align:right;
-    padding:10px;
-}
-#past_product_list{
-    float:left;
-    width: 25%;
-    height:100%;
-    background:lightgreen; 
-    padding:15px;
-    padding-top:20px;
-    margin-left:5%;
-}
-#product_titles{
-    position:relative;
-    width:100%;
-    height:12%;
-    background:#FFFFB2;
-}
-#past_product_title{
-    float:left;
-    width:25%;
-    color:white;
-    background:#015643;
-    margin-top:3%;
-    margin-left:5%;
-    padding:15px;
-    text-align:center;
-}
-#current_product_title{
-    float:left;
-    width:50%;
-    padding:15px;
-    margin-left:3%;
-    margin-top:3%;
-    color:white;
-    background:#015643;
-    text-align:center;
-}
-#product_body{
-    width:100%;
-    height:100%;
-    background:#FFFFB2;
-    border-bottom-left-radius:15px;
-    border-bottom-right-radius:15px;
-    margin-left:auto;
-    margin-right:auto;
-    position:relative;  
-}
-/*END OF PRODUCTIVITY CSS*/
+
 #rule_description{
     width:220px;
 }
