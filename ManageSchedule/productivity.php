@@ -62,7 +62,7 @@ if (isset($_SESSION['no_product']))
 
                 <div id="small_right">
                     <div id="prod_table">
-                    <form>
+                    <form action="/HelperFiles/validateProductivity.php" method="POST">
                         <table style="text-align:right">
                             <tr><th id="table_title" colspan="8">Enter Productivity:</th></tr>
                             <tr><td class="product_label">Wednesday</td><td class="product_label">Thursday</td>
