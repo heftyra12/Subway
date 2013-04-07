@@ -25,6 +25,7 @@ th{
     background-color: lightgreen;
 }
 td{
+    text-align:left;
     border:0;
     margin:0; 
     background-color: lightgreen;
@@ -34,6 +35,10 @@ table td,table th{
     padding: 5px;
     text-align:right;
 }
+
+/*CSS FOR ALL TABLE TITLES*/
+
+/*END TABLE TITLE CSS*/
 
 /*BEGINNING OF LOGIN PAGE CSS */
 #login_div{
@@ -92,7 +97,13 @@ table td,table th{
     background:#015643;
 }
 /*END OF TOP OF ALL PAGES*/
-
+#table_title{
+    background:#015643;
+    color:white;
+    text-align:center;
+    
+    padding-left:40px;
+}
 /*NORMAL SIZE BODY CSS*/
 #normal_body{
     width:100%;
@@ -102,6 +113,7 @@ table td,table th{
     margin-left:auto;
     margin-right:auto;
     position:relative;
+    background:#FFFFB2;
 }
 #normal_right{
     float:left;
@@ -300,10 +312,10 @@ input{
     position:relative;  
 }
 /*END OF PRODUCTIVITY CSS*/
-
-
+#rule_description{
+    width:220px;
+}
 /*Employee Page CSS*/
-_
 .employee_time_fields{
     width:35px;
 }
@@ -316,7 +328,6 @@ _
     border-bottom-left-radius:15px;
     border-bottom-right-radius:15px;
 }
-
 #employee_left{
     float:left;
     width: 30%;
@@ -456,16 +467,15 @@ a:active {
 .emp_table{
     padding:5px;
 }
-.emp_title{
-    background:#015643;
-    color:white;
-    text-align:center;
-    width:100%;
-    padding-left:40px;
-}
 .generate_text_field{
     background:white;
     color:black;
     width:70px;
     height:30px; 
+}
+.rule_description_field{
+    width:100px;
+    background:white;
+    color:black;
+    height:30px;
 }

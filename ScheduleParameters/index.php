@@ -68,14 +68,19 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
         <div id="normal_body">
         
             <div id="employee_left"> 
+                <form action ="/HelperFiles/validateParameterChanges.php" method="POST">
             <table>
                 <tr><th id="table_title" colspan="2">Edit Scheduling Parameters</th></tr>
-                <tr><td>Description:</td><td><input type="text" id="rule_desc" value="" readonly></td></tr>
-                <tr><td>Value:</td><td><input type="text" id="rule_value_one"></td></tr>
+                <tr><td>Description:</td><td><input type="text" id="rule_description" name="rule_descripton" value="" readonly></td></tr>
+                <tr><td>Value:</td><td><input type="text" id="rule_value_one" name="rule_value_one"></td></tr>
                 <tr><td></td><td><input type="submit" value="Update"></td></tr>
             </table>
             </div>
             
+            <input type="hidden" id="store_id" name="store_id" value="">
+            <input type="hidden" id="rule_id" name="rule_id" value="">
+                
+            </form>
             
             <div id="employee_right">
             <table>
@@ -85,11 +90,13 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
                     /*For loop to put all existing rules into a drop down box*/
                     for($x=0; $x<count($business_rule_array);$x++){
                         
-                        
+                        $rule_id = $business_rule_array[$x]->getRuleID();
+                        $store_id = $business_rule_array[$x]->getStoreID();
                         $description = $business_rule_array[$x]->getRuleDescription();
                         $value_one = $business_rule_array[$x]->getRuleValueOne();
-                        
-                        echo "<tr><td><input type='radio' id='business_rule' name='business_rule' value='' onclick='displayRuleValues($x,\"$description\",\"$value_one\");'>";
+                       
+                        echo "<tr><td><input type='radio' id='business_rule' name='business_rule' value='' 
+                            onclick='displayRuleValues($x,\"$rule_id\",\"$store_id\",\"$description\",\"$value_one\");'>";
                         echo "</td><td>";
                         echo $business_rule_array[$x]->getRuleDescription();
                         echo "</td><td>";
@@ -108,15 +115,17 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
 
 <script language="Javascript">
 
-    function displayRuleValues(index,description,value_one){
+    function displayRuleValues(index,rule_id,store_id,description,value_one){
         
         var array_index = index;
+        var rule_id = rule_id;
+        var store_id = store_id;
         var rule_description = description;
         var value_one = value_one;
         
-        document.getElementById('rule_desc').value = rule_description;
+        document.getElementById('rule_description').value = rule_description;
         document.getElementById('rule_value_one').value = value_one;
-        
+        document.getElementById('store_id').value = store_id;
+        document.getElementById('rule_id').value = rule_id;
     }
-
 </script>
