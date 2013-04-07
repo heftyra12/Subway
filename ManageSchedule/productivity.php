@@ -78,8 +78,7 @@ if (isset($_SESSION['no_product']))
                                 <td><input type="text" name="mon_prod" id="mon_prod" class="product_field"></td>
                                 <td><input type="text" name="tues_prod" id="tues_prod" class ="product_field"></td>
                             </tr>
-
-
+                            
                             <input type="hidden" id="productivity" name="productivity" value=""/>
                             <input type="hidden" id="generate" name="generate" value=""/>
                             <input type="hidden" id="edit" name="edit" value=""/>
