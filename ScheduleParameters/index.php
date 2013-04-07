@@ -65,7 +65,7 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
          
          <div id="tab_bar"></div>
           
-        <div id="normal_body">
+        <div id="small_body">
         
             <div id="employee_left"> 
                 <form action ="/HelperFiles/validateParameterChanges.php" method="POST">
@@ -122,10 +122,11 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
         var store_id = store_id;
         var rule_description = description;
         var value_one = value_one;
+       
         
         document.getElementById('rule_description').value = rule_description;
         document.getElementById('rule_value_one').value = value_one;
         document.getElementById('store_id').value = store_id;
-        document.getElementById('rule_id').value = rule_id;
+        document.getElementById('rule_id').value = rule_id;   
     }
 </script>
