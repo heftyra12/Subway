@@ -4,6 +4,10 @@ session_start();
 //Include the db connection file.
 include_once'config.php';
 
+if(!isset($_SESSION['no_day_selected']))
+    $_SESSION['no_day_selected'] = "false";
+
+
 //Form Values
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
@@ -42,13 +46,18 @@ if(isset($_POST['tues_check'])){
     array_push($request_day_array,$day);
 }
 
+//User must select a day for the request. If no day is selected
+//they are sent back to the form. 
+if(empty($request_day_array)){
+    
+    $_SESSION['no_day_selected'] = "true";
+    header("Location: /EditRequests/index.php");
+}
 
 for($x = 0; $x < count($request_day_array);$x++){
     echo $request_day_array[$x];
     echo "<br/>";
 }
-
-
 
 echo $first_name;
 echo $last_name;
