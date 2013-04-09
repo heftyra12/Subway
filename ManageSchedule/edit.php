@@ -40,7 +40,7 @@ $_SESSION['schedule_array']=$schedule_array;
         <div id="page_top"/>
             <div id="top_image">
 
-                <img src="/Images/temp_top_logo.png" align="center">
+                <img src="/Images/temp_top_logo.png" id="image" align="center">
             </div>
         
             <ul class="subway_tabs">

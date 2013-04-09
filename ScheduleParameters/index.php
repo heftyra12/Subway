@@ -51,7 +51,7 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
          <div id="page_top"/>
          
             <div id="top_image">    
-                <img src="/Images/temp_top_logo_3.png" align="center">
+                <img src="/Images/temp_top_logo_3.png" id="image" align="center">
             </div>
          
            <ul class="subway_tabs">
