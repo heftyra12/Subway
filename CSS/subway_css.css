@@ -299,8 +299,11 @@ input{
     margin-top:2%;
     margin-left:16%;
     text-align: left;
-    background:#FFFFB2;
-    
+    background:#FFFFB2;  
+}
+
+#employee_far_right{
+    float:left;
 }
 #employee_right{
     width:37%;
@@ -309,6 +312,27 @@ input{
     height:90%;
     float:left;
 }
+/*END EMPLOYEE CSS*/
+
+/*REQUEST PAGE CSS*/
+
+#request_far_right{
+    margin-top:3%;
+    margin-left:8%;
+    float:left;
+}
+#request_left{
+    margin-top:3%;
+    margin-left:12%;
+    float:left;
+}
+#request_right{
+    margin-top:3%;
+    margin-left:8%;
+    float:left;
+}
+/*END REQUEST CSS*/
+
 /*View Schedule Page CSS*/
 #view_schedule_body{
     width:100%;
