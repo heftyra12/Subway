@@ -305,16 +305,37 @@ if(!isset($_SESSION['no_day_selected']))
     
     function startDate(){
         
+        //Variable the value of the month selected by the user
         var month_selected = document.getElementById("start_request_month").value;
+        
+        //These variables will hold the entire select object instead of the selected option.
+        var end_month_list = document.getElementById("end_request_month");
+        var total_months = document.getElementById("start_request_month");
         var day_list = document.getElementById("start_request_day");
-        var i;
-   
-        if(month_selected == "01" || month_selected == "12" || month_selected == "03" ||
-            month_selected == "05" || month_selected == "07" || month_selected == "08" || month_selected == "10"){
-   
-            day_list.options.length = 0;
+ 
+        //Variable to determine how many months need to be added to the end request 
+        //date month drop down list. 
+        var months_to_add = 12 - month_selected + 1;
+        var index = month_selected -1;
+        end_month_list.options.length = 0; 
+       
+        for(var i = 0; i < months_to_add;i++){
+           
+            var option = document.createElement("Option");
+           
+            option.text = total_months.options[index].text;
+            option.value = total_months.options[index].value;
+           
+            end_month_list.options[i] = option; 
+            index++;
+        }
+        
+        if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||
+            month_selected == "5" || month_selected == "7" || month_selected == "8" || month_selected == "10"){
+             
+            day_list.options.length = 0; 
             
-            for(i = 0; i < 31; i++){
+            for(var i = 0; i < 31; i++){
                 
                 var option = document.createElement("Option");
                 option.text = i+1;
@@ -323,10 +344,10 @@ if(!isset($_SESSION['no_day_selected']))
                 day_list.options[i] =option;    
             }
         }
-        if(month_selected == "02"){
+        if(month_selected == "2"){
             
            day_list.options.length = 0; 
-            for(i = 0; i < 28; i++){
+            for(var i = 0; i < 28; i++){
                 
                 var option = document.createElement("Option");
                 option.text = i+1;
@@ -335,11 +356,11 @@ if(!isset($_SESSION['no_day_selected']))
                 day_list.options[i] = option; 
             }
         }
-        if(month_selected == "04" || month_selected == "06" || month_selected == "11"){
+        if(month_selected == "4" || month_selected == "6" || month_selected == "11"){
             
             day_list.options.length = 0; 
             
-            for(i = 0; i < 30; i++){
+            for(var i = 0; i < 30; i++){
                 
                 var option = document.createElement("Option");
                 option.text = i+1;
@@ -348,11 +369,11 @@ if(!isset($_SESSION['no_day_selected']))
                 day_list.options[i] = option;
             }
         }
-        if(month_selected == "09"){
+        if(month_selected == "9"){
             
             day_list.options.length = 0; 
             
-            for(i = 0; i < 29; i++){
+            for(var i = 0; i < 29; i++){
                 
                 var option = document.createElement("Option");
                 option.text = i+1;
@@ -361,7 +382,6 @@ if(!isset($_SESSION['no_day_selected']))
                 day_list.options[i] = option;
             }
         }
- 
     }
     
     function endDate(){
@@ -370,8 +390,8 @@ if(!isset($_SESSION['no_day_selected']))
         var day_list = document.getElementById("end_request_day");
         var i;
    
-        if(month_selected == "01" || month_selected == "12" || month_selected == "03" ||
-            month_selected == "05" || month_selected == "07" || month_selected == "08" || month_selected == "10"){
+        if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||
+            month_selected == "5" || month_selected == "7" || month_selected == "8" || month_selected == "10"){
    
             day_list.options.length = 0;
             
@@ -384,7 +404,7 @@ if(!isset($_SESSION['no_day_selected']))
                 day_list.options[i] =option;    
             }
         }
-        if(month_selected == "02"){
+        if(month_selected == "2"){
             
            day_list.options.length = 0; 
             for(i = 0; i < 28; i++){
@@ -396,7 +416,7 @@ if(!isset($_SESSION['no_day_selected']))
                 day_list.options[i] = option; 
             }
         }
-        if(month_selected == "04" || month_selected == "06" || month_selected == "11"){
+        if(month_selected == "4" || month_selected == "6" || month_selected == "11"){
             
             day_list.options.length = 0; 
             
@@ -409,7 +429,7 @@ if(!isset($_SESSION['no_day_selected']))
                 day_list.options[i] = option;
             }
         }
-        if(month_selected == "09"){
+        if(month_selected == "9"){
             
             day_list.options.length = 0; 
             
@@ -422,7 +442,5 @@ if(!isset($_SESSION['no_day_selected']))
                 day_list.options[i] = option;
             }
         }
- 
     }
 </script>
-    
