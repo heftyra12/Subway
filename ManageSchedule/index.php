@@ -4,6 +4,11 @@ session_start();
 include_once '../../Subway/HelperFiles/config.php';
 include_once '../../Subway/HelperFiles/employeeClass.php';
 
+if(isset($_SESSION['no_day_selected']))
+    unset($_SESSION['no_day_selected']);
+if(!isset($_SESSION['no_product']))
+    $_SESSION['no_product'] = "false";
+
 $sqlCommand = "SELECT employee_id, first_name, last_name from subway.employee";
 
 $result = mysqli_query($db_connect, $sqlCommand);

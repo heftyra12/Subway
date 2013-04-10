@@ -7,6 +7,8 @@ include_once '../../Subway/HelperFiles/config.php';
 
 if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
+if(isset($_SESSION['no_day_selected']))
+    unset($_SESSION['no_day_selected']);
 
 //Variables to hold textfield data / input errors
 

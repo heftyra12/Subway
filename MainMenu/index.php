@@ -7,7 +7,8 @@ include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 
 if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
-
+if(isset($_SESSION['no_day_selected']))
+    unset($_SESSION['no_day_selected']);
 
 $sqlCommand = "SELECT employee_id, first_name, last_name from subway.employee";
 $result = mysqli_query($db_connect, $sqlCommand);
