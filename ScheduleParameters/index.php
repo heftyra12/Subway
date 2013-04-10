@@ -10,6 +10,8 @@ include_once'../../Subway/HelperFiles/businessRuleClass.php';
 
 if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
+if(isset($_SESSION['no_day_selected']))
+    unset($_SESSION['no_day_selected']);
 
 /*query command*/
 $sqlCommand = 'SELECT busn_rule_id,store_id,descr,value0,value1 FROM subway.parameters';
