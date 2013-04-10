@@ -1,9 +1,8 @@
 <?php
+session_start();
 
 include_once'config.php';
 include_once'employeeClass.php';
-
-session_start();
 
 $employee_id = $_POST['employee_id'];
 $first_name = $_POST['first_name'];
