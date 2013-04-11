@@ -120,7 +120,7 @@ table td,table th{
 }
 #normal_right{
     float:left;
-    width:88%;
+    width:87%;
     height:100%;
     background:#FFFFB2;
     margin-right:auto;
@@ -132,7 +132,7 @@ table td,table th{
 #normal_left{
     height:100%;
     overflow-x:auto;
-    width:12%;
+    width:13%;
     background:#FEF200;
     float:left;
     border-bottom-left-radius:15px;
