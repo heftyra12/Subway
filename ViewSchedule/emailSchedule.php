@@ -4,7 +4,6 @@ session_start();
 
 include_once '../../Subway/HelperFiles/unsetEmpFields.php';
 
-
 if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
 ?>
@@ -55,10 +54,17 @@ if(isset($_SESSION['no_product']))
         
         <div id="normal_right">
             
-            <div id="schedule">
+            <div id="employee_left">
+                
+                <table>
+                    
+                    <tr><th id="table_title" colspan="5">Current Schedule</th></tr>
+                    <tr><td>TEMP</td></tr>
+                    
+                </table>
             </div>
             
-            <div id="employee_table">
+            <div id="employee_right">
                 
                 <table>
                     <form action="/HelperFiles/verifyEmail.php" method="POST">
