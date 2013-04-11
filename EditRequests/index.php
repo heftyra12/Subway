@@ -13,7 +13,7 @@ if(isset($_SESSION['no_product']))
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
-
+        <script type="text/javascript" src="/HelperFiles/JS/setTime.js"></script>
         <title></title>
     </head>
     <body>
@@ -126,24 +126,24 @@ if(isset($_SESSION['no_product']))
                             <tr>
                                 <td>Start Time</td>
                                 <td><select id="start_request" name="start_request">
-                                        <option value="entire_day" onclick="startTime();">Entire Day</option>
-                                        <option value="0600" onclick="startTime();">06:00</option>
-                                        <option value="0700" onclick ="startTime();">07:00</option>
-                                        <option value="0800" onclick="startTime();">08:00</option>
-                                        <option value="0900" onclick="startTime();">09:00</option>
-                                        <option value="1000" onclick="startTime();">10:00</option>
-                                        <option value="1100" onclick="startTime();">11:00</option>
-                                        <option value="1200" onclick="startTime();">12:00</option>
-                                        <option value="1300" onclick="startTime();">01:00</option>
-                                        <option value="1400" onclick="startTime();">02:00</option>
-                                        <option value="1500" onclick="startTime();">03:00</option>
-                                        <option value="1600" onclick="startTime();">04:00</option>
-                                        <option value="1700" onclick="startTime();">05:00</option>
-                                        <option value="1800" onclick="startTime();">06:00</option>
-                                        <option value="1900" onclick="startTime();">07:00</option>
-                                        <option value="2000" onclick="startTime();">08:00</option>
-                                        <option value="2100" onclick="startTime();">09:00</option>
-                                        <option value="2200" onclick="startTime();">10:00</option>
+                                        <option value="entire_day" onclick="startTime('start_request');">Entire Day</option>
+                                        <option value="0600" onclick="startTime('start_request');">06:00</option>
+                                        <option value="0700" onclick ="startTime('start_request');">07:00</option>
+                                        <option value="0800" onclick="startTime('start_request');">08:00</option>
+                                        <option value="0900" onclick="startTime('start_request');">09:00</option>
+                                        <option value="1000" onclick="startTime('start_request');">10:00</option>
+                                        <option value="1100" onclick="startTime('start_request');">11:00</option>
+                                        <option value="1200" onclick="startTime('start_request');">12:00</option>
+                                        <option value="1300" onclick="startTime('start_request');">01:00</option>
+                                        <option value="1400" onclick="startTime('start_request');">02:00</option>
+                                        <option value="1500" onclick="startTime('start_request');">03:00</option>
+                                        <option value="1600" onclick="startTime('start_request');">04:00</option>
+                                        <option value="1700" onclick="startTime('start_request');">05:00</option>
+                                        <option value="1800" onclick="startTime('start_request');">06:00</option>
+                                        <option value="1900" onclick="startTime('start_request');">07:00</option>
+                                        <option value="2000" onclick="startTime('start_request');">08:00</option>
+                                        <option value="2100" onclick="startTime('start_request');">09:00</option>
+                                        <option value="2200" onclick="startTime('start_request');">10:00</option>
                                     </select>        
                                 </td>
                             </tr>
@@ -229,35 +229,6 @@ if(isset($_SESSION['no_product']))
         document.getElementById("first_name").value = first; 
         document.getElementById("last_name").value =last;
     } 
-    
-    function startTime(){
-        
-        var start_time_selected = document.getElementById("start_request").value;
-       
-        var start_time_list = document.getElementById("start_request");
-        var end_time_list = document.getElementById("end_request");
-       
-        //Get index location of the selected start time.
-        for(var x =0; x < start_time_list.options.length;x++){
-            if(start_time_list.options[x].value == start_time_selected){
-                var index;
-                index = x;
-            }
-        }
-        
-        var slots_to_add = start_time_list.options.length - index;
-       
-        end_time_list.options.length=0;
-        
-        for(var i =0; i < slots_to_add; i++){
-            
-            var option = document.createElement("Option");
-            option.text = start_time_list.options[index].text;
-            option.value = start_time_list.options[index].value;
-            end_time_list.options[i] = option;
-            index++;   
-        }        
-    }
     
     function startDay(){
         
