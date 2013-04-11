@@ -46,7 +46,6 @@ if(!isset($_SESSION['no_day_selected']))
                     }
                 ?>
                 
-                
                 <div id="request_left">
                     
                     <table>
@@ -235,8 +234,8 @@ if(!isset($_SESSION['no_day_selected']))
                     </table>
                 </div>
             </div>
-</div>
-</body>
+        </div>
+    </body>
 </html>
 <script language="Javascript">
 
@@ -390,6 +389,7 @@ if(!isset($_SESSION['no_day_selected']))
                     var option = document.createElement("Option");
                     option.text = i+1;
                     option.value = i+1;
+                    option.onclick=function(){endDate();};
                     day_list.options[i] =option;    
                 }
             }
@@ -401,6 +401,7 @@ if(!isset($_SESSION['no_day_selected']))
                     var option = document.createElement("Option");
                     option.text = i+1;
                     option.value = i+1;
+                    option.onclick=function(){endDate();};
                     day_list.options[i] = option; 
                 }
             }
@@ -412,6 +413,7 @@ if(!isset($_SESSION['no_day_selected']))
                     var option = document.createElement("Option");
                     option.text = i+1;
                     option.value = i+1;
+                    option.onclick=function(){endDate();};
                     day_list.options[i] = option;
                 }
             }
@@ -423,9 +425,11 @@ if(!isset($_SESSION['no_day_selected']))
                     var option = document.createElement("Option");
                     option.text = i+1;
                     option.value = i+1;
+                    option.onclick=function(){endDate();};
                     day_list.options[i] = option;
                 }
             }
         }
     }
 </script>
+    
