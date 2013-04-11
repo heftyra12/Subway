@@ -4,14 +4,12 @@ include_once'../../Subway/HelperFiles/employeeClass.php';
 session_start();
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 
-
 if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
 
 if(!isset($_SESSION['no_day_selected']))
     $_SESSION['no_day_selected']="false";
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -65,56 +63,56 @@ if(!isset($_SESSION['no_day_selected']))
                             <tr>
                                 <td>Start Date:</td>
                                 <td>Month:
-                                <select id="start_request_month" name="start_request_month" onChange ="startDate();">
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03">March</option>
-                                        <option value="04">April</option>
-                                        <option value="05">May</option>
-                                        <option value="06">June</option>
-                                        <option value="07">July</option>
-                                        <option value="08">August</option>
-                                        <option value="09">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
+                                <select id="start_request_month" name="start_request_month">
+                                        <option value="1" onclick="startDate();">January</option>
+                                        <option value="2" onclick="startDate();">February</option>
+                                        <option value="3" onclick="startDate();">March</option>
+                                        <option value="4" onclick="startDate();">April</option>
+                                        <option value="5" onclick="startDate();">May</option>
+                                        <option value="6" onclick="startDate();">June</option>
+                                        <option value="7" onclick="startDate();">July</option>
+                                        <option value="8" onclick="startDate();">August</option>
+                                        <option value="9" onclick="startDate();">September</option>
+                                        <option value="10" onclick="startDate();">October</option>
+                                        <option value="11" onclick="startDate();">November</option>
+                                        <option value="12" onclick="startDate();">December</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr><td></td>
                                 <td>Day:
                                     <select id="start_request_day"  name="start_request_day">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                        <option value="24">24</option>
-                                        <option value="25">25</option>
-                                        <option value="26">26</option>
-                                        <option value="27">27</option>
-                                        <option value="28">28</option>
-                                        <option value="29">29</option>
-                                        <option value="30">30</option>
-                                        <option value="31">31</option>
+                                        <option value="1" onclick="startDay();">1</option>
+                                        <option value="2" onclick="startDay();">2</option>
+                                        <option value="3" onclick="startDay();">3</option>
+                                        <option value="4" onclick="startDay();">4</option>
+                                        <option value="5" onclick="startDay();">5</option>
+                                        <option value="6" onclick="startDay();">6</option>
+                                        <option value="7" onclick="startDay();">7</option>
+                                        <option value="8" onclick="startDay();">8</option>
+                                        <option value="9" onclick="startDay();">9</option>
+                                        <option value="10" onclick="startDay();">10</option>
+                                        <option value="11" onclick="startDay();">11</option>
+                                        <option value="12" onclick="startDay();">12</option>
+                                        <option value="13" onclick="startDay();">13</option>
+                                        <option value="14" onclick="startDay();">14</option>
+                                        <option value="15" onclick="startDay();">15</option>
+                                        <option value="16" onclick="startDay();">16</option>
+                                        <option value="17" onclick="startDay();">17</option>
+                                        <option value="18" onclick="startDay();">18</option>
+                                        <option value="19" onclick="startDay();">19</option>
+                                        <option value="20" onclick="startDay();">20</option>
+                                        <option value="21" onclick="startDay();">21</option>
+                                        <option value="22" onclick="startDay();">22</option>
+                                        <option value="23" onclick="startDay();">23</option>
+                                        <option value="24" onclick="startDay();">24</option>
+                                        <option value="25" onclick="startDay();">25</option>
+                                        <option value="26" onclick="startDay();">26</option>
+                                        <option value="27" onclick="startDay();">27</option>
+                                        <option value="28" onclick="startDay();">28</option>
+                                        <option value="29" onclick="startDay();">29</option>
+                                        <option value="30" onclick="startDay();">30</option>
+                                        <option value="31" onclick="startDay();">31</option>
                                     </select>
                                 </td>
                             </tr>
@@ -122,56 +120,15 @@ if(!isset($_SESSION['no_day_selected']))
                                 <td>End Date:</td>
                             
                                 <td>Month:
-                                <select id="end_request_month" name="end_request_month" onChange ="endDate();">
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03">March</option>
-                                        <option value="04">April</option>
-                                        <option value="05">May</option>
-                                        <option value="06">June</option>
-                                        <option value="07">July</option>
-                                        <option value="08">August</option>
-                                        <option value="09">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
+                                <select id="end_request_month" name="end_request_month">
+                                       
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td><td>Day:
                                     <select id="end_request_day"  name="end_request_day">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                        <option value="24">24</option>
-                                        <option value="25">25</option>
-                                        <option value="26">26</option>
-                                        <option value="27">27</option>
-                                        <option value="28">28</option>
-                                        <option value="29">29</option>
-                                        <option value="30">30</option>
-                                        <option value="31">31</option>   
+                                       
                                     </select>
                                 </td>
                             </tr>
@@ -295,12 +252,40 @@ if(!isset($_SESSION['no_day_selected']))
     //The text fields in that table are read only, so only 
     //current employees can have a request entered/edited/deleted
     function insertEmployee(first, last){
-        
         $first = first; 
         $last = last;
-        
         document.getElementById("first_name").value = first; 
         document.getElementById("last_name").value =last;
+    } 
+    
+    function startDay(){
+        
+        var start_month_selected = document.getElementById("start_request_month").value;
+        var end_month_selected = document.getElementById("end_request_month").value;
+        var start_day_selected = document.getElementById("start_request_day").value;
+        
+        var start_list = document.getElementById("start_request_month");
+        var start_day_list = document.getElementById("start_request_day");
+        
+        var end_list = document.getElementById("end_request_month");
+        var day_list = document.getElementById("end_request_day");
+     
+        var days_to_add = start_day_list.options.length - start_month_selected +1;
+        var index = start_day_selected -1;
+        
+        if(start_month_selected == end_month_selected){
+            
+            day_list.options.length = 0; 
+            
+            for(var x = 0; x < days_to_add; x++){
+                
+                var option = document.createElement("Option");
+                option.text = start_day_list[index].text;
+                option.value = start_day_list[index].value;
+                day_list.options[x] = option;
+                index++;  
+            }
+        }
     }
     
     function startDate(){
@@ -310,24 +295,24 @@ if(!isset($_SESSION['no_day_selected']))
         
         //These variables will hold the entire select object instead of the selected option.
         var end_month_list = document.getElementById("end_request_month");
+        var end_day_list = document.getElementById("end_request_day");
         var total_months = document.getElementById("start_request_month");
         var day_list = document.getElementById("start_request_day");
- 
+       
         //Variable to determine how many months need to be added to the end request 
         //date month drop down list. 
         var months_to_add = 12 - month_selected + 1;
         var index = month_selected -1;
+       
         end_month_list.options.length = 0; 
        
         for(var i = 0; i < months_to_add;i++){
-           
             var option = document.createElement("Option");
-           
             option.text = total_months.options[index].text;
             option.value = total_months.options[index].value;
-           
-            end_month_list.options[i] = option; 
-            index++;
+            option.onclick = function(){endDate();};
+            end_month_list.options[i] = option;         
+            index++;  
         }
         
         if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||
@@ -336,36 +321,34 @@ if(!isset($_SESSION['no_day_selected']))
             day_list.options.length = 0; 
             
             for(var i = 0; i < 31; i++){
-                
                 var option = document.createElement("Option");
                 option.text = i+1;
                 option.value = i+1;
-                 
-                day_list.options[i] =option;    
+                option.onclick = function(){startDay();};
+                day_list.options[i] = option;   
             }
         }
         if(month_selected == "2"){
             
-           day_list.options.length = 0; 
+            day_list.options.length = 0; 
+            
             for(var i = 0; i < 28; i++){
-                
                 var option = document.createElement("Option");
                 option.text = i+1;
                 option.value = i+1;
-               
-                day_list.options[i] = option; 
+                option.onclick= function(){startDay();};
+                day_list.options[i] = option;
             }
         }
         if(month_selected == "4" || month_selected == "6" || month_selected == "11"){
             
             day_list.options.length = 0; 
-            
+           
             for(var i = 0; i < 30; i++){
-                
                 var option = document.createElement("Option");
                 option.text = i+1;
                 option.value = i+1;
-                
+                option.onclick = function(){startDay();};
                 day_list.options[i] = option;
             }
         }
@@ -374,73 +357,74 @@ if(!isset($_SESSION['no_day_selected']))
             day_list.options.length = 0; 
             
             for(var i = 0; i < 29; i++){
-                
                 var option = document.createElement("Option");
                 option.text = i+1;
                 option.value = i+1;
-                
-                day_list.options[i] = option;
+                option.onclick = function(){startDay();};
+                day_list.options[i] = option;    
             }
         }
     }
-    
     function endDate(){
+    
+        var start_month = document.getElementById("start_request_month").value;
+        var end_month = document.getElementById("end_request_month").value;
         
-        var month_selected = document.getElementById("end_request_month").value;
-        var day_list = document.getElementById("end_request_day");
-        var i;
+        if(start_month == end_month){
+            startDay();
+        }
+        else{
+           
+            var month_selected = document.getElementById("end_request_month").value;
+            var day_list = document.getElementById("end_request_day");
    
-        if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||
-            month_selected == "5" || month_selected == "7" || month_selected == "8" || month_selected == "10"){
+            if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||
+                month_selected == "5" || month_selected == "7" || month_selected == "8" || month_selected == "10"){
    
-            day_list.options.length = 0;
+                day_list.options.length = 0;
             
-            for(i = 0; i < 31; i++){
+                for(var i = 0; i < 31; i++){
                 
-                var option = document.createElement("Option");
-                option.text = i+1;
-                option.value = i+1;
-                 
-                day_list.options[i] =option;    
+                    var option = document.createElement("Option");
+                    option.text = i+1;
+                    option.value = i+1;
+                    day_list.options[i] =option;    
+                }
             }
-        }
-        if(month_selected == "2"){
+            if(month_selected == "2"){
             
-           day_list.options.length = 0; 
-            for(i = 0; i < 28; i++){
+                day_list.options.length = 0; 
                 
-                var option = document.createElement("Option");
-                option.text = i+1;
-                option.value = i+1;
-               
-                day_list.options[i] = option; 
+                for(var i = 0; i < 28; i++){
+                    var option = document.createElement("Option");
+                    option.text = i+1;
+                    option.value = i+1;
+                    day_list.options[i] = option; 
+                }
             }
-        }
-        if(month_selected == "4" || month_selected == "6" || month_selected == "11"){
+            if(month_selected == "4" || month_selected == "6" || month_selected == "11"){
             
-            day_list.options.length = 0; 
+                day_list.options.length = 0; 
             
-            for(i = 0; i < 30; i++){
-                
-                var option = document.createElement("Option");
-                option.text = i+1;
-                option.value = i+1;
-                
-                day_list.options[i] = option;
+                for(var i = 0; i < 30; i++){
+                    var option = document.createElement("Option");
+                    option.text = i+1;
+                    option.value = i+1;
+                    day_list.options[i] = option;
+                }
             }
-        }
-        if(month_selected == "9"){
+            if(month_selected == "9"){
             
-            day_list.options.length = 0; 
+                day_list.options.length = 0; 
             
-            for(i = 0; i < 29; i++){
-                
-                var option = document.createElement("Option");
-                option.text = i+1;
-                option.value = i+1;
-                
-                day_list.options[i] = option;
+                for(var i = 0; i < 29; i++){
+                    var option = document.createElement("Option");
+                    option.text = i+1;
+                    option.value = i+1;
+                    day_list.options[i] = option;
+                }
             }
         }
     }
 </script>
+    
