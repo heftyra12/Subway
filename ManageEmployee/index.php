@@ -31,7 +31,8 @@ if (!isset($_SESSION['duplicate_employee']))
     $_SESSION['duplicate_employee'] = "false";
 if(!isset($_SESSION['fulltime_minor']))
     $_SESSION['fulltime_minor'] = "false";
-$sqlCommand = 'SELECT employee_id,first_name,last_name,email,emp_type,emp_minor FROM subway.employee';
+$sqlCommand = 'SELECT employee_id,first_name,last_name,email,emp_type,emp_minor
+    FROM subway.employee';
 
 $result = mysqli_query($db_connect, $sqlCommand);
 
@@ -53,7 +54,8 @@ while ($row = mysqli_fetch_array($result)) {
     array_push($employee_array, $employee);
 }
 
-$sqlCommand = 'SELECT employee_id,monday_start,monday_end,tuesday_start,tuesday_end,wednesday_start,wednesday_end,thursday_start,thursday_end,friday_start,friday_end,
+$sqlCommand = 'SELECT employee_id,monday_start,monday_end,tuesday_start,tuesday_end,
+    wednesday_start,wednesday_end,thursday_start,thursday_end,friday_start,friday_end,
     saturday_start,saturday_end,sunday_start,sunday_end FROM subway.employee';
 
 $new_result = mysqli_query($db_connect, $sqlCommand);
@@ -155,14 +157,14 @@ $_SESSION['employee_array'] = $employee_array;
                     <tr><td colspan="3">Last Name:<input type="text" id="last_name" name="last_name" value="<?php echo $_SESSION['last_name'];?>"required/></td></tr>
                     <tr><td colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" required/></td></tr>
                     
-                    <tr><td colspan="3">Type:<select id="employee_type" name="emp_type" value="<?php echo $_SESSION['emp_type']; ?>"/>
-                                                <option value="Full-Time">Full-Time</option>
-                                                <option value="Part-Time">Part-Time</option>
-                                                <option value="Manager">Manager</option>
+                    <tr><td colspan="3">Type:<select id="emp_type" name="emp_type" value="<?php echo $_SESSION['emp_type']; ?>"/>
+                                                <option value="F">Full-Time</option>
+                                                <option value="P">Part-Time</option>
+                                                <option value="M">Manager</option>
                                             </select></td></tr>
-                    <tr><td colspan="3">Minor:<select id="minor" name="emp_minor" value="<?php echo $_SESSION['emp_minor'];?>"/>
-                                                 <option value="No">No</option>
-                                                 <option value="Yes">Yes</option>
+                    <tr><td colspan="3">Minor:<select id="emp_minor" name="emp_minor" value="<?php echo $_SESSION['emp_minor'];?>"/>
+                                                 <option value="N">No</option>
+                                                 <option value="Y">Yes</option>
                                             </select></td></tr>
                     <tr><td colspan="3">Action:<select id="update_option" name="update_option" value="<?php echo $_SESSION['update_option'];?>"/>
                                                 <option value="Add">Add</option>
@@ -693,8 +695,8 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     $first = $_SESSION['employee_array'][$x]->getEmployeeFirstName();
     $last = $_SESSION['employee_array'][$x]->getEmployeeLastName();
     $email = $_SESSION['employee_array'][$x]->getEmployeeEmail();
-    $type = $_SESSION['employee_array'][$x]->getEmployeeType();
-    $minor = $_SESSION['employee_array'][$x]->getEmployeeMinor();
+    $emp_type = $_SESSION['employee_array'][$x]->getEmployeeType();
+    $emp_minor = $_SESSION['employee_array'][$x]->getEmployeeMinor();
     $mon_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getMondayStart();
     $mon_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getMondayEnd();
     $tues_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getTuesdayStart();
@@ -709,11 +711,11 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     $sat_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getSaturdayEnd();
     $sun_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getSundayStart();
     $sun_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getSundayEnd();
-        
+
     echo"<tr><td class='employee_table'><input type='radio' id='employee' name='employee' onclick = 'insertEmployee($x,\"$id\",
-                                  \"$first\",\"$last\",\"$email\",\"$minor\",\"$type\",\"$mon_start\",\"$mon_end\",\"$tues_start\",
-                                   \"$tues_end\",\"$wed_start\",\"$wed_end\",\"$thurs_start\",\"$thurs_end\",\"$fri_start\",\"$fri_end\",
-                                       \"$sat_start\",\"$sat_end\",\"$sun_start\",\"$sun_end\");' value=''></td>";
+        \"$first\",\"$last\",\"$email\",\"$emp_minor\",\"$emp_type\",\"$mon_start\",\"$mon_end\",\"$tues_start\",
+        \"$tues_end\",\"$wed_start\",\"$wed_end\",\"$thurs_start\",\"$thurs_end\",\"$fri_start\",\"$fri_end\",
+        \"$sat_start\",\"$sat_end\",\"$sun_start\",\"$sun_end\");' value=''></td>";
                                     
     echo "<td class='employee_table'>";
     echo $first;
@@ -722,9 +724,9 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     echo "</td><td class='employee_table'>";
     echo $email;
     echo "</td><td class='employee_table'>";
-    echo $type;
+    echo $emp_type;
     echo "</td><td class='employee_table'>";
-    echo $minor;
+    echo $emp_minor;
     echo"</td></tr>";
 }
 ?>
@@ -746,14 +748,14 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
      * will only have to modify the fields that need modification. Everything else is 
      * plugged in for them. 
      */
-    function insertEmployee(index,id,first,last,email,minor,type,mon_start,mon_end,tues_start,tues_end,wed_start,wed_end,
+    function insertEmployee(index,id,first,last,email,emp_minor,emp_type,mon_start,mon_end,tues_start,tues_end,wed_start,wed_end,
                                 thurs_start,thurs_end,fri_start,fri_end,sat_start,sat_end,sun_start,sun_end){
        
         var first_name = first;
         var last_name = last; 
         var email = email;
-        var minor = minor;
-        var type = type;
+        var emp_minor = emp_minor;
+        var emp_type = emp_type;
         var array_index = index; 
         var employee_id = id;
         
@@ -775,10 +777,10 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
         document.getElementById('first_name').value = first_name;
         document.getElementById('last_name').value = last_name;
         document.getElementById('email').value = email;
-        document.getElementById('minor').value = minor;
-        document.getElementById('employee_type').value = type;
+        document.getElementById('emp_minor').value = emp_minor;
+        document.getElementById('emp_type').value = emp_type;
         
-        document.getElementById('monday_start').value = mon_start
+        document.getElementById('monday_start').value = mon_start;
         document.getElementById('monday_end').value = mon_end;
         document.getElementById('tuesday_start').value = tues_start;
         document.getElementById('tuesday_end').value = tues_end;

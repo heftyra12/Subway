@@ -18,7 +18,7 @@
             $this->employee_email = "";
             $this->employee_type ="";
             $this->employee_id ="";
-            $this->employee_minor ="No";
+            $this->employee_minor ="";
             $this->employee_availability="";
         }
          
@@ -69,4 +69,3 @@
         }
     }
 ?>
-
