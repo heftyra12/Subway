@@ -6,9 +6,6 @@ include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 
 if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
-
-if(!isset($_SESSION['no_day_selected']))
-    $_SESSION['no_day_selected']="false";
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,12 +36,6 @@ if(!isset($_SESSION['no_day_selected']))
             <div id="tab_bar"></div>
     
             <div id="normal_body">
-                 
-                <?php
-                    if($_SESSION['no_day_selected'] === "true"){   
-                        echo "<script language=javascript>alert('Error: At least one request day must be selected.')</script>";
-                    }
-                ?>
                 
                 <div id="request_left">
                     
@@ -135,48 +126,31 @@ if(!isset($_SESSION['no_day_selected']))
                             <tr>
                                 <td>Start Time</td>
                                 <td><select id="start_request" name="start_request">
-                                        <option value="entire_day">Entire Day</option>
-                                        <option value="0600" onclick="test('0600');">06:00</option>
-                                        <option value="0700">07:00</option>
-                                        <option value="0800">08:00</option>
-                                        <option value="0900">09:00</option>
-                                        <option value="1000">10:00</option>
-                                        <option value="1100">11:00</option>
-                                        <option value="1200">12:00</option>
-                                        <option value="1300">01:00</option>
-                                        <option value="1400">02:00</option>
-                                        <option value="1500">03:00</option>
-                                        <option value="1600">04:00</option>
-                                        <option value="1700">05:00</option>
-                                        <option value="1800">06:00</option>
-                                        <option value="1900">07:00</option>
-                                        <option value="2000">08:00</option>
-                                        <option value="2100">09:00</option>
-                                        <option value="2200">10:00</option>
+                                        <option value="entire_day" onclick="startTime();">Entire Day</option>
+                                        <option value="0600" onclick="startTime();">06:00</option>
+                                        <option value="0700" onclick ="startTime();">07:00</option>
+                                        <option value="0800" onclick="startTime();">08:00</option>
+                                        <option value="0900" onclick="startTime();">09:00</option>
+                                        <option value="1000" onclick="startTime();">10:00</option>
+                                        <option value="1100" onclick="startTime();">11:00</option>
+                                        <option value="1200" onclick="startTime();">12:00</option>
+                                        <option value="1300" onclick="startTime();">01:00</option>
+                                        <option value="1400" onclick="startTime();">02:00</option>
+                                        <option value="1500" onclick="startTime();">03:00</option>
+                                        <option value="1600" onclick="startTime();">04:00</option>
+                                        <option value="1700" onclick="startTime();">05:00</option>
+                                        <option value="1800" onclick="startTime();">06:00</option>
+                                        <option value="1900" onclick="startTime();">07:00</option>
+                                        <option value="2000" onclick="startTime();">08:00</option>
+                                        <option value="2100" onclick="startTime();">09:00</option>
+                                        <option value="2200" onclick="startTime();">10:00</option>
                                     </select>        
                                 </td>
                             </tr>
                             <tr>
                                 <td>End Time</td>
                                 <td><select id="end_request" name="end_request">
-                                        <option>Entire Day</option>
-                                        <option value="0600">06:00</option>
-                                        <option value="0700">07:00</option>
-                                        <option value="0800">08:00</option>
-                                        <option value="0900">09:00</option>
-                                        <option value="1000">10:00</option>
-                                        <option value="1100">11:00</option>
-                                        <option value="1200">12:00</option>
-                                        <option value="1300">01:00</option>
-                                        <option value="1400">02:00</option>
-                                        <option value="1500">03:00</option>
-                                        <option value="1600">04:00</option>
-                                        <option value="1700">05:00</option>
-                                        <option value="1800">06:00</option>
-                                        <option value="1900">07:00</option>
-                                        <option value="2000">08:00</option>
-                                        <option value="2100">09:00</option>
-                                        <option value="2200">10:00</option>
+                                        
                                     </select>
                                 </td>
                             </tr>
@@ -234,8 +208,8 @@ if(!isset($_SESSION['no_day_selected']))
                     </table>
                 </div>
             </div>
-        </div>
-    </body>
+</div>
+</body>
 </html>
 <script language="Javascript">
 
@@ -256,6 +230,35 @@ if(!isset($_SESSION['no_day_selected']))
         document.getElementById("last_name").value =last;
     } 
     
+    function startTime(){
+        
+        var start_time_selected = document.getElementById("start_request").value;
+       
+        var start_time_list = document.getElementById("start_request");
+        var end_time_list = document.getElementById("end_request");
+       
+        //Get index location of the selected start time.
+        for(var x =0; x < start_time_list.options.length;x++){
+            if(start_time_list.options[x].value == start_time_selected){
+                var index;
+                index = x;
+            }
+        }
+        
+        var slots_to_add = start_time_list.options.length - index;
+       
+        end_time_list.options.length=0;
+        
+        for(var i =0; i < slots_to_add; i++){
+            
+            var option = document.createElement("Option");
+            option.text = start_time_list.options[index].text;
+            option.value = start_time_list.options[index].value;
+            end_time_list.options[i] = option;
+            index++;   
+        }        
+    }
+    
     function startDay(){
         
         var start_month_selected = document.getElementById("start_request_month").value;
@@ -270,7 +273,7 @@ if(!isset($_SESSION['no_day_selected']))
         var index = start_day_selected -1;
         
         if(start_month_selected == end_month_selected){
-          
+       
             day_list.options.length = 0; 
             
             for(var x = 0; x < days_to_add; x++){
