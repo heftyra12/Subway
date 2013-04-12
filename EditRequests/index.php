@@ -23,7 +23,7 @@ if(isset($_SESSION['no_product']))
             </div>
 
             <ul class="subway_tabs">
-                <li><a href="/MainMenu/index.php">Home:</a></li>
+                <li><a href="/MainMenu/index.php">Home</a></li>
                 <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
                 <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees</li>
@@ -236,14 +236,16 @@ if(isset($_SESSION['no_product']))
         
         //These variables will hold the entire select object instead of the selected option.
         var end_month_list = document.getElementById("end_request_month");
+        var end_day_list = document.getElementById("end_request_day");
         var total_months = document.getElementById("start_request_month");
         var day_list = document.getElementById("start_request_day");
-       
+        
         //Variable to determine how many months need to be added to the end request 
         //date month drop down list. 
         var months_to_add = 12 - month_selected +1;
         var index = month_selected;
        
+        end_day_list.options.length=0;
         end_month_list.options.length = 0; 
        
         for(var i = 0; i < months_to_add;i++){
