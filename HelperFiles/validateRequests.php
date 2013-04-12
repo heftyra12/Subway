@@ -65,8 +65,30 @@ echo $update_choice;
 echo $start_request;
 echo $end_request;
 
+$result = mysqli_query($db_connect, "select max(request_id)+1 as count from subway.request");        
+while($row = mysqli_fetch_array($result)){
+    $nextRequestId = $row["count"];
+}
+
+// got side-tracked and started working on this
+// feel free to throw it away if you don't need it
+$employee_id=2;
+$start_date = '2013-05-18';
+$end_date = '2013-05-20';
+$start_time=600;
+$end_time=2200;
+$addRequestSQL = "INSERT INTO `subway`.`request` (`request_id`, `employee_id`,
+    `start_date`, `end_date`, `start_time`, `end_time`) VALUES 
+    ($nextRequestId, $employee_id, $start_date, $end_date, '$start_time, $end_time)";
+
 
 if($update_choice ==="add"){
+    //Here's an example of the query to insert:
+    //INSERT INTO `subway`.`request` (`request_id`, `employee_id`, `start_date`,
+    // `end_date`, `start_time`, `end_time`) VALUES ('1', '1', '2013-05-18',
+    //  '2013-05-20', '600', '2200');
+    mysqli_query($db_connect, $addRequestSQL);
+    header("Location:/ManageEmployee/index.php");
     
     
 }
