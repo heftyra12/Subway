@@ -35,17 +35,18 @@ $_SESSION['schedule_array'] = $schedule_array;
     </head>
     <body>
         <div id="page_top">
+            
             <div id="top_image">
                 <img src="/Images/temp_top_logo_3.png" id="image" align="center">
             </div>
 
             <ul class="subway_tabs">
-                <li class="current_position">Home:</li>
-                <li><a href="/ManageSchedule/index.php">Create Schedule:</a></li>
-                <li><a href="/ViewSchedule/index.php">View Schedule:</a></li>
-                <li><a href="/ManageEmployee/index.php">Employees:</a></li>
-                <li><a href="/EditRequests/index.php" >Requests:</a></li>
-                <li><a href="/ScheduleParameters/index.php">Business Rules:</a></li>
+                <li class="current_position">Home</li>
+                <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
+                <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
+                <li><a href="/ManageEmployee/index.php">Employees</a></li>
+                <li><a href="/EditRequests/index.php" >Requests</a></li>
+                <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
             </ul>       
 
             <div id="tab_bar"></div>
@@ -85,13 +86,10 @@ $_SESSION['schedule_array'] = $schedule_array;
                             }
                     ?>
                     
-                    <div id="home_title">This Week's Schedule</div>
-                    <div id="home_sched">
                         <table>
+                            <tr><th id="table_title" colspan="15">This Week's Schedule</th></tr>
                             <tr><th>Employee:</th><th>Wednesday:</th><th>Thursday:</th><th>Friday:</th><th>Saturday:</th>
                                 <th>Sunday:</th><th>Monday:</th><th>Tuesday:</th><th>Total Hours:</th></tr> 
-
-                            </br>   
 
                             <?php
                             for ($x = 0; $x < count($_SESSION['schedule_array']); $x++) {

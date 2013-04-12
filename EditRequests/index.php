@@ -23,14 +23,12 @@ if(isset($_SESSION['no_product']))
             </div>
 
             <ul class="subway_tabs">
-                <div id="test">
                 <li><a href="/MainMenu/index.php">Home:</a></li>
                 <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
                 <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees</li>
                 <li class="current_position">Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
-                <div id="text">
             </ul>       
         
             <div id="tab_bar"></div>
@@ -321,6 +319,7 @@ if(isset($_SESSION['no_product']))
             option.text = "---";
             day_list.options[0] = option;
             
+           
             document.getElementById("start_request_month").value = month_selected;
    
             if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||

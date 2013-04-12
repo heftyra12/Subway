@@ -57,12 +57,12 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
             </div>
          
            <ul class="subway_tabs">
-            <li><a href="/MainMenu/index.php">Home:</a></li>
+            <li><a href="/MainMenu/index.php">Home</a></li>
             <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
-            <li><a href="/ViewSchedule/index.php">View Schedule:</a></li>
-            <li><a href="/ManageEmployee/index.php">Employees:</a</li>
-            <li><a href="/EditRequests/index.php">Requests:</a></li>
-            <li class="current_position">Business Rules:</li>
+            <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
+            <li><a href="/ManageEmployee/index.php">Employees</a</li>
+            <li><a href="/EditRequests/index.php">Requests</a></li>
+            <li class="current_position">Business Rules</li>
         </ul>      
          
          <div id="tab_bar"></div>

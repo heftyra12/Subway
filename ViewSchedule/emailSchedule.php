@@ -27,12 +27,12 @@ if(isset($_SESSION['no_product']))
             </div>
 
         <ul class="subway_tabs">
-            <li><a href="/MainMenu/index.php">Home:</a></li>
+            <li><a href="/MainMenu/index.php">Home</a></li>
             <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
-            <li class="current_position">View Schedule:</li>
-            <li><a href="/ManageEmployee/index.php">Employees:</li>
-            <li><a href="/EditRequests/index.php">Requests:</a></li>
-            <li><a href="/ScheduleParameters/index.php">Business Rules:</a></li>
+            <li class="current_position">View Schedule</li>
+            <li><a href="/ManageEmployee/index.php">Employees</li>
+            <li><a href="/EditRequests/index.php">Requests</a></li>
+            <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
         </ul>    
 
         <div id="tab_bar">

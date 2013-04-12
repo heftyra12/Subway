@@ -44,21 +44,21 @@ $_SESSION['schedule_array']=$schedule_array;
             </div>
         
             <ul class="subway_tabs">
-                <li><a href="/MainMenu/index.php">Welcome:</a></li>
+                <li><a href="/MainMenu/index.php">Welcome</a></li>
                 <li class="current_position">Create Schedule</a></li>
-                <li><a href="/ViewSchedule/index.php">View Schedule:</a></li>
-                <li><a href="/ManageEmployee/index.php">Employees:</a></li>
-                <li><a href="/EditRequests/index.php">Requests:</a></li>
-                <li><a href="/ScheduleParameters/index.php">Business Rules:</a></li>
+                <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
+                <li><a href="/ManageEmployee/index.php">Employees</a></li>
+                <li><a href="/EditRequests/index.php">Requests</a></li>
+                <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
             </ul>     
         
             <div id="tab_bar">
             
             </div>
 
-    <div id="manage_body">
+    <div id="normal_body">
 
-        <div id="manage_left">
+        <div id="normal_left">
             <form  action="productivity.php" method="POST">
                 <input type="submit" value="Enter Productivity" class="subway_buttons"/>
             </form>
@@ -70,19 +70,14 @@ $_SESSION['schedule_array']=$schedule_array;
             </form>
         </div>
 
-        <div id="manage_right">
-            
-            <div id="generate_title">Edit Schedule:</div>
-            <div id="generate_schedule">
+        <div id="normal_right">
                 
                 <table>
                 <form action="" method="POST">
-                    
+                    <tr><th id="table_title" colspan="15">Edit Schedule:</th></tr>
                 <tr><th>Employee:</th><th>Wednesday:</th><th>Thursday:</th><th>Friday:</th><th>Saturday:</th>
                     <th>Sunday:</th><th>Monday:</th><th>Tuesday:</th><th>Total Hours:</th></tr> 
-                
-                </br>   
-                
+                 
                 <?php
                 
                     for($x=0;$x<count($_SESSION['schedule_array']);$x++){

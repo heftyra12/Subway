@@ -13,27 +13,28 @@ inputs{border:0;margin:0;padding:0;}
 
 /*Table CSS*/
 table{
-   margin: 0px; 
+   padding:10px;
    border-collapse: collapse;
-   border-spacing:20px;
+}
+#test{
+    width:2px;
+    background:black;
 }
 th{
+    border: solid black;
+    padding:5px;
     border:0;
     margin:0;
     font-weight:bold;
     text-align:center;
-    background-color: lightgreen;
+    background:lightgreen;
 }
 td{
-    text-align:left;
+    padding:5px;
+    text-align:right;
     border:0;
     margin:0; 
-    background-color: lightgreen;
-}
-
-table td,table th{
-    padding: 5px;
-    text-align:right;
+    background: lightgreen;
 }
 
 /*CSS FOR ALL TABLE TITLES*/
@@ -104,8 +105,8 @@ table td,table th{
     background:#015643;
     color:white;
     text-align:center;
+    padding:9px;
     
-    padding-left:40px;
 }
 /*NORMAL SIZE BODY CSS*/
 #normal_body{
@@ -120,7 +121,7 @@ table td,table th{
 }
 #normal_right{
     float:left;
-    width:87%;
+    width:85%;
     height:100%;
     background:#FFFFB2;
     margin-right:auto;
@@ -132,7 +133,7 @@ table td,table th{
 #normal_left{
     height:100%;
     overflow-x:auto;
-    width:13%;
+    width:15%;
     background:#FEF200;
     float:left;
     border-bottom-left-radius:15px;
@@ -153,14 +154,14 @@ table td,table th{
 }
 #small_left{
     float:left;
-    width:13%;
+    width:15%;
     height:100%;
     background:#FEF200;
     border-bottom-left-radius:15px;
     overflow-x:auto;
 }
 #small_left_buttons{
-    margin-left:12%;
+    margin-left:10%;
     margin-top:5%;
 }
 #small_right{
@@ -194,14 +195,10 @@ table td,table th{
     font-weight:bold;
 }
 #home_sched{
-    width: 850px;
-    position:relative;
     margin-left:10%;
+    margin-top:4%;
     margin-right:auto;
     float:left;
-    background: lightgreen;
-    padding:20px;
-    padding-top:2%;
     text-align:center;
 }
 /*END OF HOME PAGE CSS*/
@@ -297,20 +294,30 @@ input{
     float:left;
     width: 30%;
     margin-top:2%;
-    margin-left:16%;
+    margin-right:5%;
+    margin-left:20%;
     text-align: left;
-    background:#FFFFB2;  
-}
-
-#employee_far_right{
-    float:left;
+    background:#FFFFB2; 
+    overflow-x:auto;
+    overflow-y:auto;
 }
 #employee_right{
     width:37%;
+    overflow-x:auto;
+    overflow-y:auto;
     margin-top:2%;
     margin-left:2%;
     height:90%;
     float:left;
+}
+#employee_far_right{
+    margin-top:2%;
+    margin-right:2%;
+    margin-left:2%;
+    overflow-x:auto;
+    overflow-y:auto;
+    float:left;
+    width:30%;
 }
 /*END EMPLOYEE CSS*/
 
@@ -395,7 +402,7 @@ a:active {
     list-style:none;
     margin:0;
     padding-bottom: -20px;
-    line-height:35px;
+    line-height:170%;
     width: 100%;
 }
 .subway_tabs li{
@@ -413,6 +420,7 @@ a:active {
     font-size:80%;
 }
 .subway_tabs li:before{
+    position:absolute;
     z-index:1;
     left: -6px;
     bottom: -1px;

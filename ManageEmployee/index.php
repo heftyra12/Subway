@@ -111,17 +111,16 @@ $_SESSION['employee_array'] = $employee_array;
         <div id="page_top"/>
         
             <div id="top_image">
-
                 <img src="/Images/temp_top_logo_3.png" id="image" align="center">
             </div>
 
             <ul class="subway_tabs">
-                <li><a href="/MainMenu/index.php">Home:</a></li>
-                <li><a href="/ManageSchedule/index.php">Create Schedule:</a></li>
-                <li><a href="/ViewSchedule/index.php">View Schedule:</a></li>
-                <li class="current_position">Employees:</li>
-                <li><a href="/EditRequests/index.php" value="edit_requests">Requests:</a></li>
-                <li><a href="/ScheduleParameters/index.php">Business Rules:</a></li>
+                <li><a href="/MainMenu/index.php">Home</a></li>
+                <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
+                <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
+                <li class="current_position">Employees</li>
+                <li><a href="/EditRequests/index.php" value="edit_requests">Requests</a></li>
+                <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
             </ul>   
 
             <div id="tab_bar">
