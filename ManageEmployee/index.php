@@ -175,280 +175,287 @@ $_SESSION['employee_array'] = $employee_array;
                     <tr><td>Availability:</td><td>Start:</td><td>End:</td></tr>
                                     
                     <tr><td>Monday:</td><td>
-                           <select id="monday_start" name="monday_start" value="">
-                               <option value="600" onclick="startTime('monday_start')">06:00</option>
-                               <option value="630" onclick="startTime('monday_start')">06:30</option>
-                               <option value="700" onclick="startTime('monday_start')">07:00</option>
-                               <option value="730" onclick="startTime('monday_start')">07:30</option>
-                               <option value="800" onclick="startTime('monday_start')">08:00</option>
-                               <option value="830" onclick="startTime('monday_start')">08:30</option>
-                               <option value="900" onclick="startTime('monday_start')">09:00</option>
-                               <option value="930" onclick="startTime('monday_start')">09:30</option>
-                               <option value="1000"onclick="startTime('monday_start')">10:00</option>
-                               <option value="1030" onclick="startTime('monday_start')">10:30</option>
-                               <option value="1100"onclick="startTime('monday_start')">11:00</option>
-                               <option value="1130" onclick="startTime('monday_start')">11:30</option>
-                               <option value="1200" onclick="startTime('monday_start')">12:00</option>
-                               <option value="1230" onclick="startTime('monday_start')">12:30</option>
-                               <option value="1300" onclick="startTime('monday_start')">1:00</option>
-                               <option value="1330" onclick="startTime('monday_start')">1:30</option>
-                               <option value="1400" onclick="startTime('monday_start')">2:00</option>
-                               <option value="1450" onclick="startTime('monday_start')">2:30</option>
-                               <option value="1500" onclick="startTime('monday_start')">03:00</option>
-                               <option value="1530" onclick="startTime('monday_start')">03:30</option>
-                               <option value="1600" onclick="startTime('monday_start')">04:00</option>
-                               <option value="1630" onclick="startTime('monday_start')">04:30</option>
-                               <option value="1700" onclick="startTime('monday_start')">05:00</option>
-                               <option value="1730" onclick="startTime('monday_start')">05:30</option>
-                               <option value="1800" onclick="startTime('monday_start')">06:00</option>
-                               <option value="1830" onclick="startTime('monday_start')">06:30</option>
-                               <option value="1900" onclick="startTime('monday_start')">07:00</option>
-                               <option value="1930" onclick="startTime('monday_start')">07:30</option>
-                               <option value="2000" onclick="startTime('monday_start')">08:00</option>
-                               <option value="2030" onclick="startTime('monday_start')">08:30</option>
-                               <option value="2100" onclick="startTime('monday_start')">09:00</option>
-                               <option value="2130" onclick="startTime('monday_start')">09:30</option>
-                               <option value="2200" onclick="startTime('monday_start')">10:00</option>
+                           <select id="monday_start" name="monday_start" onChange="startTime('monday_start');">
+                               <option>---</option>
+                               <option value="600">06:00</option>
+                               <option value="630">06:30</option>
+                               <option value="700">07:00</option>
+                               <option value="730">07:30</option>
+                               <option value="800">08:00</option>
+                               <option value="830">08:30</option>
+                               <option value="900">09:00</option>
+                               <option value="930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
                            </select></td><td>
                <select name="monday_end" id="monday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Tuesday:</td><td><select id="tuesday_start" name="tuesday_start" value="">
-                               <option value="600" onclick="startTime('tuesday_start')">06:00</option>
-                               <option value="630" onclick="startTime('tuesday_start')">06:30</option>
-                               <option value="700" onclick="startTime('tuesday_start')">07:00</option>
-                               <option value="730" onclick="startTime('tuesday_start')">07:30</option>
-                               <option value="800" onclick="startTime('tuesday_start')">08:00</option>
-                               <option value="830" onclick="startTime('tuesday_start')">08:30</option>
-                               <option value="900" onclick="startTime('tuesday_start')">09:00</option>
-                               <option value="930" onclick="startTime('tuesday_start')">09:30</option>
-                               <option value="1000" onclick="startTime('tuesday_start')">10:00</option>
-                               <option value="1030" onclick="startTime('tuesday_start')">10:30</option>
-                               <option value="1100" onclick="startTime('tuesday_start')">11:00</option>
-                               <option value="1130" onclick="startTime('tuesday_start')">11:30</option>
-                               <option value="1200" onclick="startTime('tuesday_start')">12:00</option>
-                               <option value="1230" onclick="startTime('tuesday_start')">12:30</option>
-                               <option value="1300" onclick="startTime('tuesday_start')">01:00</option>
-                               <option value="1330" onclick="startTime('tuesday_start')">01:30</option>
-                               <option value="1400" onclick="startTime('tuesday_start')">02:00</option>
-                               <option value="1450" onclick="startTime('tuesday_start')">02:30</option>
-                               <option value="1500" onclick="startTime('tuesday_start')">03:00</option>
-                               <option value="1530" onclick="startTime('tuesday_start')">03:30</option>
-                               <option value="1600" onclick="startTime('tuesday_start')">04:00</option>
-                               <option value="1630" onclick="startTime('tuesday_start')">04:30</option>
-                               <option value="1700" onclick="startTime('tuesday_start')">05:00</option>
-                               <option value="1730" onclick="startTime('tuesday_start')">05:30</option>
-                               <option value="1800" onclick="startTime('tuesday_start')" >06:00</option>
-                               <option value="1830" onclick="startTime('tuesday_start')">06:30</option>
-                               <option value="1900" onclick="startTime('tuesday_start')">07:00</option>
-                               <option value="1930" onclick="startTime('tuesday_start')">07:30</option>
-                               <option value="2000" onclick="startTime('tuesday_start')">08:00</option>
-                               <option value="2030" onclick="startTime('tuesday_start')">08:30</option>
-                               <option value="2100" onclick="startTime('tuesday_start')">09:00</option>
-                               <option value="2130" onclick="startTime('tuesday_start')">09:30</option>
-                               <option value="2200" onclick="startTime('tuesday_start')">10:00</option>
+                           Tuesday:</td><td><select id="tuesday_start" name="tuesday_start" onChange="startTime('tuesday_start');">
+                                <option>---</option>
+                               <option value="600">06:00</option>
+                               <option value="630">06:30</option>
+                               <option value="700">07:00</option>
+                               <option value="730">07:30</option>
+                               <option value="800">08:00</option>
+                               <option value="830">08:30</option>
+                               <option value="900">09:00</option>
+                               <option value="930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
                            </select></td><td>
                <select name="tuesday_end" id="tuesday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Wednesday:</td><td><select id="wednesday_start" name="wednesday_start" vlaue="">
-                               <option value="600" onclick="startTime('wednesday_start')">06:00</option>
-                               <option value="630" onclick="startTime('wednesday_start')">06:30</option>
-                               <option value="700" onclick="startTime('wednesday_start')">07:00</option>
-                               <option value="730" onclick="startTime('wednesday_start')">07:30</option>
-                               <option value="800" onclick="startTime('wednesday_start')">08:00</option>
-                               <option value="830" onclick="startTime('wednesday_start')">08:30</option>
-                               <option value="900" onclick="startTime('wednesday_start')">09:00</option>
-                               <option value="930" onclick="startTime('wednesday_start')">09:30</option>
-                               <option value="1000" onclick="startTime('wednesday_start')">10:00</option>
-                               <option value="1030" onclick="startTime('wednesday_start')">10:30</option>
-                               <option value="1100" onclick="startTime('wednesday_start')">11:00</option>
-                               <option value="1130" onclick="startTime('wednesday_start')">11:30</option>
-                               <option value="1200" onclick="startTime('wednesday_start')">12:00</option>
-                               <option value="1230" onclick="startTime('wednesday_start')">12:30</option>
-                               <option value="1300" onclick="startTime('wednesday_start')">01:00</option>
-                               <option value="1330" onclick="startTime('wednesday_start')">01:30</option>
-                               <option value="1400" onclick="startTime('wednesday_start')">02:00</option>
-                               <option value="1450" onclick="startTime('wednesday_start')">02:30</option>
-                               <option value="1500" onclick="startTime('wednesday_start')">03:00</option>
-                               <option value="1530" onclick="startTime('wednesday_start')">03:30</option>
-                               <option value="1600" onclick="startTime('wednesday_start')">04:00</option>
-                               <option value="1630" onclick="startTime('wednesday_start')">04:30</option>
-                               <option value="1700" onclick="startTime('wednesday_start')">05:00</option>
-                               <option value="1730" onclick="startTime('wednesday_start')">05:30</option>
-                               <option value="1800" onclick="startTime('wednesday_start')">06:00</option>
-                               <option value="1830" onclick="startTime('wednesday_start')">06:30</option>
-                               <option value="1900" onclick="startTime('wednesday_start')">07:00</option>
-                               <option value="1930" onclick="startTime('wednesday_start')">07:30</option>
-                               <option value="2000" onclick="startTime('wednesday_start')">08:00</option>
-                               <option value="2030" onclick="startTime('wednesday_start')">08:30</option>
-                               <option value="2100" onclick="startTime('wednesday_start')">09:00</option>
-                               <option value="2130" onclick="startTime('wednesday_start')">09:30</option>
-                               <option value="2200" onclick="startTime('wednesday_start')">10:00</option>
+                           Wednesday:</td><td><select id="wednesday_start" name="wednesday_start" onChange="startTime('wednesday_start');">
+                                <option>---</option> 
+                               <option value="600">06:00</option>
+                               <option value="630">06:30</option>
+                               <option value="700">07:00</option>
+                               <option value="730">07:30</option>
+                               <option value="800">08:00</option>
+                               <option value="830">08:30</option>
+                               <option value="900">09:00</option>
+                               <option value="930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
                            </select></td><td>
                <select name="wednesday_end" id="wednesday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Thursday:</td><td><select id="thursday_start" name="thursday_start" value="">
-                               <option value="600" onclick="startTime('thursday_start')">06:00</option>
-                               <option value="630" onclick="startTime('thursday_start')">06:30</option>
-                               <option value="700" onclick="startTime('thursday_start')">07:00</option>
-                               <option value="730" onclick="startTime('thursday_start')">07:30</option>
-                               <option value="800" onclick="startTime('thursday_start')">08:00</option>
-                               <option value="830" onclick="startTime('thursday_start')">08:30</option>
-                               <option value="900" onclick="startTime('thursday_start')">09:00</option>
-                               <option value="930" onclick="startTime('thursday_start')">09:30</option>
-                               <option value="1000" onclick="startTime('thursday_start')">10:00</option>
-                               <option value="1030" onclick="startTime('thursday_start')">10:30</option>
-                               <option value="1100" onclick="startTime('thursday_start')">11:00</option>
-                               <option value="1130" onclick="startTime('thursday_start')">11:30</option>
-                               <option value="1200" onclick="startTime('thursday_start')">12:00</option>
-                               <option value="1230" onclick="startTime('thursday_start')">12:30</option>
-                               <option value="1300" onclick="startTime('thursday_start')">01:00</option>
-                               <option value="1330" onclick="startTime('thursday_start')">01:30</option>
-                               <option value="1400" onclick="startTime('thursday_start')">02:00</option>
-                               <option value="1450" onclick="startTime('thursday_start')">02:30</option>
-                               <option value="1500" onclick="startTime('thursday_start')">03:00</option>
-                               <option value="1530" onclick="startTime('thursday_start')">03:30</option>
-                               <option value="1600" onclick="startTime('thursday_start')">04:00</option>
-                               <option value="1630" onclick="startTime('thursday_start')">04:30</option>
-                               <option value="1700" onclick="startTime('thursday_start')">05:00</option>
-                               <option value="1730" onclick="startTime('thursday_start')">05:30</option>
-                               <option value="1800" onclick="startTime('thursday_start')">06:00</option>
-                               <option value="1830" onclick="startTime('thursday_start')">06:30</option>
-                               <option value="1900" onclick="startTime('thursday_start')">07:00</option>
-                               <option value="1930" onclick="startTime('thursday_start')">07:30</option>
-                               <option value="2000" onclick="startTime('thursday_start')">08:00</option>
-                               <option value="2030" onclick="startTime('thursday_start')">08:30</option>
-                               <option value="2100" onclick="startTime('thursday_start')">09:00</option>
-                               <option value="2130" onclick="startTime('thursday_start')">09:30</option>
-                               <option value="2200" onclick="startTime('thursday_start')">10:00</option>
+                           Thursday:</td><td><select id="thursday_start" name="thursday_start" onChange="startTime('thursday_start');">
+                                <option>---</option>
+                               <option value="600">06:00</option>
+                               <option value="630">06:30</option>
+                               <option value="700">07:00</option>
+                               <option value="730">07:30</option>
+                               <option value="800">08:00</option>
+                               <option value="830">08:30</option>
+                               <option value="900">09:00</option>
+                               <option value="930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
                            </select></td><td>
                <select name="thursday_end" id="thursday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Friday:</td><td><select id="friday_start" name="friday_start" value="">
-                               <option value="600" onclick="startTime('friday_start')">06:00</option>
-                               <option value="630" onclick="startTime('friday_start')">06:30</option>
-                               <option value="700" onclick="startTime('friday_start')">07:00</option>
-                               <option value="730" onclick="startTime('friday_start')">07:30</option>
-                               <option value="800" onclick="startTime('friday_start')">08:00</option>
-                               <option value="830" onclick="startTime('friday_start')">08:30</option>
-                               <option value="900" onclick="startTime('friday_start')">09:00</option>
-                               <option value="930" onclick="startTime('friday_start')">09:30</option>
-                               <option value="1000" onclick="startTime('friday_start')">10:00</option>
-                               <option value="1030" onclick="startTime('friday_start')">10:30</option>
-                               <option value="1100" onclick="startTime('friday_start')">11:00</option>
-                               <option value="1130" onclick="startTime('friday_start')">11:30</option>
-                               <option value="1200" onclick="startTime('friday_start')">12:00</option>
-                               <option value="1230" onclick="startTime('friday_start')">12:30</option>
-                               <option value="1300" onclick="startTime('friday_start')">01:00</option>
-                               <option value="1330" onclick="startTime('friday_start')">01:30</option>
-                               <option value="1400" onclick="startTime('friday_start')">02:00</option>
-                               <option value="1450" onclick="startTime('friday_start')">02:30</option>
-                               <option value="1500" onclick="startTime('friday_start')">03:00</option>
-                               <option value="1530" onclick="startTime('friday_start')">03:30</option>
-                               <option value="1600" onclick="startTime('friday_start')">04:00</option>
-                               <option value="1630" onclick="startTime('friday_start')">04:30</option>
-                               <option value="1700" onclick="startTime('friday_start')">05:00</option>
-                               <option value="1730" onclick="startTime('friday_start')">05:30</option>
-                               <option value="1800" onclick="startTime('friday_start')">06:00</option>
-                               <option value="1830" onclick="startTime('friday_start')">06:30</option>
-                               <option value="1900" onclick="startTime('friday_start')">07:00</option>
-                               <option value="1930" onclick="startTime('friday_start')">07:30</option>
-                               <option value="2000" onclick="startTime('friday_start')">08:00</option>
-                               <option value="2030" onclick="startTime('friday_start')">08:30</option>
-                               <option value="2100" onclick="startTime('friday_start')">09:00</option>
-                               <option value="2130" onclick="startTime('friday_start')">09:30</option>
-                               <option value="2200" onclick="startTime('friday_start')">10:00</option>
+                           Friday:</td><td><select id="friday_start" name="friday_start" onChange="startTime('friday_start');">
+                                <option>---</option>
+                               <option value="600">06:00</option>
+                               <option value="630">06:30</option>
+                               <option value="700">07:00</option>
+                               <option value="730">07:30</option>
+                               <option value="800">08:00</option>
+                               <option value="830">08:30</option>
+                               <option value="900">09:00</option>
+                               <option value="930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
                            </select></td><td>
                <select name="friday_end" id="friday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Saturday:</td><td><select id="saturday_start" name="saturday_start" value="">
-                               <option value="600" onclick="startTime('saturday_start')">06:00</option>
-                               <option value="630" onclick="startTime('saturday_start')">06:30</option>
-                               <option value="700" onclick="startTime('saturday_start')">07:00</option>
-                               <option value="730" onclick="startTime('saturday_start')">07:30</option>
-                               <option value="800" onclick="startTime('saturday_start')">08:00</option>
-                               <option value="830" onclick="startTime('saturday_start')">08:30</option>
-                               <option value="900" onclick="startTime('saturday_start')">09:00</option>
-                               <option value="930" onclick="startTime('saturday_start')">09:30</option>
-                               <option value="1000" onclick="startTime('saturday_start')">10:00</option>
-                               <option value="1030" onclick="startTime('saturday_start')">10:30</option>
-                               <option value="1100" onclick="startTime('saturday_start')">11:00</option>
-                               <option value="1130" onclick="startTime('saturday_start')">11:30</option>
-                               <option value="1200" onclick="startTime('saturday_start')">12:00</option>
-                               <option value="1230" onclick="startTime('saturday_start')">12:30</option>
-                               <option value="1300" onclick="startTime('saturday_start')">01:00</option>
-                               <option value="1330" onclick="startTime('saturday_start')">01:30</option>
-                               <option value="1400" onclick="startTime('saturday_start')">02:00</option>
-                               <option value="1450" onclick="startTime('saturday_start')">02:30</option>
-                               <option value="1500" onclick="startTime('saturday_start')">03:00</option>
-                               <option value="1530" onclick="startTime('saturday_start')">03:30</option>
-                               <option value="1600" onclick="startTime('saturday_start')">04:00</option>
-                               <option value="1630" onclick="startTime('saturday_start')">04:30</option>
-                               <option value="1700" onclick="startTime('saturday_start')">05:00</option>
-                               <option value="1730" onclick="startTime('saturday_start')">05:30</option>
-                               <option value="1800" onclick="startTime('saturday_start')">06:00</option>
-                               <option value="1830" onclick="startTime('saturday_start')">06:30</option>
-                               <option value="1900" onclick="startTime('saturday_start')">07:00</option>
-                               <option value="1930" onclick="startTime('saturday_start')">07:30</option>
-                               <option value="2000" onclick="startTime('saturday_start')">08:00</option>
-                               <option value="2030" onclick="startTime('saturday_start')">08:30</option>
-                               <option value="2100" onclick="startTime('saturday_start')">09:00</option>
-                               <option value="2130" onclick="startTime('saturday_start')">09:30</option>
-                               <option value="2200" onclick="startTime('saturday_start')">10:00</option>
+                           Saturday:</td><td><select id="saturday_start" name="saturday_start" onChange="startTime('saturday_start');">
+                                <option>---</option> 
+                               <option value="600">06:00</option>
+                               <option value="630">06:30</option>
+                               <option value="700">07:00</option>
+                               <option value="730">07:30</option>
+                               <option value="800">08:00</option>
+                               <option value="830">08:30</option>
+                               <option value="900">09:00</option>
+                               <option value="930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
                            </select></td><td>
                <select name="saturday_end" id="saturday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Sunday:</td><td><select id="sunday_start" name="sunday_start" value="">
-                               <option value="600" onclick="startTime('sunday_start')">06:00</option>
-                               <option value="630" onclick="startTime('sunday_start')">06:30</option>
-                               <option value="700" onclick="startTime('sunday_start')">07:00</option>
-                               <option value="730" onclick="startTime('sunday_start')">07:30</option>
-                               <option value="800" onclick="startTime('sunday_start')">08:00</option>
-                               <option value="830" onclick="startTime('sunday_start')">08:30</option>
-                               <option value="900" onclick="startTime('sunday_start')">09:00</option>
-                               <option value="930" onclick="startTime('sunday_start')">09:30</option>
-                               <option value="1000" onclick="startTime('sunday_start')">10:00</option>
-                               <option value="1030" onclick="startTime('sunday_start')">10:30</option>
-                               <option value="1100" onclick="startTime('sunday_start')">11:00</option>
-                               <option value="1130" onclick="startTime('sunday_start')">11:30</option>
-                               <option value="1200" onclick="startTime('sunday_start')">12:00</option>
-                               <option value="1230" onclick="startTime('sunday_start')">12:30</option>
-                               <option value="1300" onclick="startTime('sunday_start')">01:00</option>
-                               <option value="1330" onclick="startTime('sunday_start')">01:30</option>
-                               <option value="1400" onclick="startTime('sunday_start')">02:00</option>
-                               <option value="1450" onclick="startTime('sunday_start')">02:30</option>
-                               <option value="1500" onclick="startTime('sunday_start')">03:00</option>
-                               <option value="1530" onclick="startTime('sunday_start')">03:30</option>
-                               <option value="1600" onclick="startTime('sunday_start')">04:00</option>
-                               <option value="1630" onclick="startTime('sunday_start')">04:30</option>
-                               <option value="1700" onclick="startTime('sunday_start')">05:00</option>
-                               <option value="1730" onclick="startTime('sunday_start')">05:30</option>
-                               <option value="1800" onclick="startTime('sunday_start')">06:00</option>
-                               <option value="1830" onclick="startTime('sunday_start')">06:30</option>
-                               <option value="1900" onclick="startTime('sunday_start')">07:00</option>
-                               <option value="1930" onclick="startTime('sunday_start')">07:30</option>
-                               <option value="2000" onclick="startTime('sunday_start')">08:00</option>
-                               <option value="2030" onclick="startTime('sunday_start')" >08:30</option>
-                               <option value="2100" onclick="startTime('sunday_start')">09:00</option>
-                               <option value="2130" onclick="startTime('sunday_start')">09:30</option>
-                               <option value="2200" onclick="startTime('sunday_start')">10:00</option>
+                           Sunday:</td><td><select id="sunday_start" name="sunday_start" onChange="startTime('sunday_start');">
+                               <option>---</option>
+                               <option value="600">06:00</option>
+                               <option value="630">06:30</option>
+                               <option value="700">07:00</option>
+                               <option value="730">07:30</option>
+                               <option value="800">08:00</option>
+                               <option value="830">08:30</option>
+                               <option value="900">09:00</option>
+                               <option value="930">09:30</option>
+                               <option value="1000">10:00</option>
+                               <option value="1030">10:30</option>
+                               <option value="1100">11:00</option>
+                               <option value="1130">11:30</option>
+                               <option value="1200">12:00</option>
+                               <option value="1230">12:30</option>
+                               <option value="1300">01:00</option>
+                               <option value="1330">01:30</option>
+                               <option value="1400">02:00</option>
+                               <option value="1450">02:30</option>
+                               <option value="1500">03:00</option>
+                               <option value="1530">03:30</option>
+                               <option value="1600">04:00</option>
+                               <option value="1630">04:30</option>
+                               <option value="1700">05:00</option>
+                               <option value="1730">05:30</option>
+                               <option value="1800">06:00</option>
+                               <option value="1830">06:30</option>
+                               <option value="1900">07:00</option>
+                               <option value="1930">07:30</option>
+                               <option value="2000">08:00</option>
+                               <option value="2030">08:30</option>
+                               <option value="2100">09:00</option>
+                               <option value="2130">09:30</option>
+                               <option value="2200">10:00</option>
                            </select></td><td>
                <select name="sunday_end" id="sunday_end" value="">
                                
@@ -515,64 +522,3 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
 </body>
 </html>
 
-<script language="Javascript">
-   
-    /*
-     * The insertEmployee method will take the array index that the user selected along
-     * with the first, last, email, minor, and type of that employee in the existing 
-     * employee table. These values will then be inserted into the form that allows
-     * the user to modify employees. This should lead to less input errors as the user
-     * will only have to modify the fields that need modification. Everything else is 
-     * plugged in for them. 
-     */
-    function insertEmployee(index,id,first,last,email,emp_minor,emp_type,mon_start,mon_end,tues_start,tues_end,wed_start,wed_end,
-                                thurs_start,thurs_end,fri_start,fri_end,sat_start,sat_end,sun_start,sun_end){
-       
-        var first_name = first;
-        var last_name = last; 
-        var email = email;
-        var emp_minor = emp_minor;
-        var emp_type = emp_type;
-        var array_index = index; 
-        var employee_id = id;
-        
-        var mon_start = mon_start;
-        var mon_end = mon_end;
-        var tues_start = tues_start;
-        var tues_end = tues_end;
-        var wed_start = wed_start;
-        var wed_end = wed_end;
-        var thurs_start = thurs_start;
-        var thurs_end = thurs_end;
-        var fri_start = fri_start;
-        var fri_end = fri_end;
-        var sat_start = sat_start;
-        var sat_end = sat_end;
-        var sun_start = sun_start;
-        var sun_end = sun_end;
-         
-        document.getElementById('first_name').value = first_name;
-        document.getElementById('last_name').value = last_name;
-        document.getElementById('email').value = email;
-        document.getElementById('emp_minor').value = emp_minor;
-        document.getElementById('emp_type').value = emp_type;
-        
-        document.getElementById('monday_start').value = mon_start;
-        document.getElementById('monday_end').value = mon_end;
-        document.getElementById('tuesday_start').value = tues_start;
-        document.getElementById('tuesday_end').value = tues_end;
-        document.getElementById('wednesday_start').value = wed_start;
-        document.getElementById('wednesday_end').value = wed_end;
-        document.getElementById('thursday_start').value = thurs_start;
-        document.getElementById('thursday_end').value = thurs_end;
-        document.getElementById('friday_start').value = fri_start;
-        document.getElementById('friday_end').value = fri_end;
-        document.getElementById('saturday_start').value = sat_start;
-        document.getElementById('saturday_end').value = sat_end;
-        document.getElementById('sunday_start').value = sun_start;
-        document.getElementById('sunday_end').value = sun_end;
-        
-        document.getElementById('array_index').value = array_index;
-        document.getElementById('employee_id').value = employee_id;   
-    }
-</script>

@@ -53,56 +53,27 @@ if(isset($_SESSION['no_product']))
                             <tr>
                                 <td>Start Date:</td>
                                 <td>Month:
-                                <select id="start_request_month" name="start_request_month">
-                                        <option value="1" onclick="startDate();">January</option>
-                                        <option value="2" onclick="startDate();">February</option>
-                                        <option value="3" onclick="startDate();">March</option>
-                                        <option value="4" onclick="startDate();">April</option>
-                                        <option value="5" onclick="startDate();">May</option>
-                                        <option value="6" onclick="startDate();">June</option>
-                                        <option value="7" onclick="startDate();">July</option>
-                                        <option value="8" onclick="startDate();">August</option>
-                                        <option value="9" onclick="startDate();">September</option>
-                                        <option value="10" onclick="startDate();">October</option>
-                                        <option value="11" onclick="startDate();">November</option>
-                                        <option value="12" onclick="startDate();">December</option>
+                                <select id="start_request_month" name="start_request_month" onChange ="startDate();">
+                                        <option>-----</option>
+                                        <option value="1">January</option>
+                                        <option value="2">February</option>
+                                        <option value="3">March</option>
+                                        <option value="4">April</option>
+                                        <option value="5">May</option>
+                                        <option value="6">June</option>
+                                        <option value="7">July</option>
+                                        <option value="8">August</option>
+                                        <option value="9">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr><td></td>
                                 <td>Day:
-                                    <select id="start_request_day"  name="start_request_day">
-                                        <option value="1" onclick="startDay();">1</option>
-                                        <option value="2" onclick="startDay();">2</option>
-                                        <option value="3" onclick="startDay();">3</option>
-                                        <option value="4" onclick="startDay();">4</option>
-                                        <option value="5" onclick="startDay();">5</option>
-                                        <option value="6" onclick="startDay();">6</option>
-                                        <option value="7" onclick="startDay();">7</option>
-                                        <option value="8" onclick="startDay();">8</option>
-                                        <option value="9" onclick="startDay();">9</option>
-                                        <option value="10" onclick="startDay();">10</option>
-                                        <option value="11" onclick="startDay();">11</option>
-                                        <option value="12" onclick="startDay();">12</option>
-                                        <option value="13" onclick="startDay();">13</option>
-                                        <option value="14" onclick="startDay();">14</option>
-                                        <option value="15" onclick="startDay();">15</option>
-                                        <option value="16" onclick="startDay();">16</option>
-                                        <option value="17" onclick="startDay();">17</option>
-                                        <option value="18" onclick="startDay();">18</option>
-                                        <option value="19" onclick="startDay();">19</option>
-                                        <option value="20" onclick="startDay();">20</option>
-                                        <option value="21" onclick="startDay();">21</option>
-                                        <option value="22" onclick="startDay();">22</option>
-                                        <option value="23" onclick="startDay();">23</option>
-                                        <option value="24" onclick="startDay();">24</option>
-                                        <option value="25" onclick="startDay();">25</option>
-                                        <option value="26" onclick="startDay();">26</option>
-                                        <option value="27" onclick="startDay();">27</option>
-                                        <option value="28" onclick="startDay();">28</option>
-                                        <option value="29" onclick="startDay();">29</option>
-                                        <option value="30" onclick="startDay();">30</option>
-                                        <option value="31" onclick="startDay();">31</option>
+                                    <select id="start_request_day"  name="start_request_day" onChange="startDay();">
+                                        
                                     </select>
                                 </td>
                             </tr>
@@ -110,7 +81,7 @@ if(isset($_SESSION['no_product']))
                                 <td>End Date:</td>
                             
                                 <td>Month:
-                                <select id="end_request_month" name="end_request_month">
+                                <select id="end_request_month" name="end_request_month" onChange="endDate();">
                                        
                                     </select>
                                 </td>
@@ -125,25 +96,25 @@ if(isset($_SESSION['no_product']))
                             </tr>
                             <tr>
                                 <td>Start Time</td>
-                                <td><select id="start_request" name="start_request">
-                                        <option value="entire_day" onclick="startTime('start_request');">Entire Day</option>
-                                        <option value="0600" onclick="startTime('start_request');">06:00</option>
-                                        <option value="0700" onclick ="startTime('start_request');">07:00</option>
-                                        <option value="0800" onclick="startTime('start_request');">08:00</option>
-                                        <option value="0900" onclick="startTime('start_request');">09:00</option>
-                                        <option value="1000" onclick="startTime('start_request');">10:00</option>
-                                        <option value="1100" onclick="startTime('start_request');">11:00</option>
-                                        <option value="1200" onclick="startTime('start_request');">12:00</option>
-                                        <option value="1300" onclick="startTime('start_request');">01:00</option>
-                                        <option value="1400" onclick="startTime('start_request');">02:00</option>
-                                        <option value="1500" onclick="startTime('start_request');">03:00</option>
-                                        <option value="1600" onclick="startTime('start_request');">04:00</option>
-                                        <option value="1700" onclick="startTime('start_request');">05:00</option>
-                                        <option value="1800" onclick="startTime('start_request');">06:00</option>
-                                        <option value="1900" onclick="startTime('start_request');">07:00</option>
-                                        <option value="2000" onclick="startTime('start_request');">08:00</option>
-                                        <option value="2100" onclick="startTime('start_request');">09:00</option>
-                                        <option value="2200" onclick="startTime('start_request');">10:00</option>
+                                <td><select id="start_request" name="start_request" onChange ="startTime('start_request')">
+                                        <option value="entire_day">Entire Day</option>
+                                        <option value="0600">06:00</option>
+                                        <option value="0700">07:00</option>
+                                        <option value="0800">08:00</option>
+                                        <option value="0900">09:00</option>
+                                        <option value="1000">10:00</option>
+                                        <option value="1100">11:00</option>
+                                        <option value="1200">12:00</option>
+                                        <option value="1300">01:00</option>
+                                        <option value="1400">02:00</option>
+                                        <option value="1500">03:00</option>
+                                        <option value="1600">04:00</option>
+                                        <option value="1700">05:00</option>
+                                        <option value="1800">06:00</option>
+                                        <option value="1900">07:00</option>
+                                        <option value="2000">08:00</option>
+                                        <option value="2100">09:00</option>
+                                        <option value="2200">10:00</option>
                                     </select>        
                                 </td>
                             </tr>
@@ -247,11 +218,13 @@ if(isset($_SESSION['no_product']))
        
             day_list.options.length = 0; 
             
+            var option = document.createElement("Option");
+            
             for(var x = 0; x < days_to_add; x++){
                 
                 var option = document.createElement("Option");
-                option.text = start_day_list[index].text;
-                option.value = start_day_list[index].value;
+                option.text = start_day_list[index+1].text;
+                option.value = start_day_list[index+1].value;
                 day_list.options[x] = option;
                 index++;  
             }
@@ -259,6 +232,7 @@ if(isset($_SESSION['no_product']))
     }
     
     function startDate(){
+        
         //Variable the value of the month selected by the user
         var month_selected = document.getElementById("start_request_month").value;
         
@@ -269,8 +243,8 @@ if(isset($_SESSION['no_product']))
        
         //Variable to determine how many months need to be added to the end request 
         //date month drop down list. 
-        var months_to_add = 12 - month_selected + 1;
-        var index = month_selected -1;
+        var months_to_add = 12 - month_selected +1;
+        var index = month_selected;
        
         end_month_list.options.length = 0; 
        
@@ -278,58 +252,50 @@ if(isset($_SESSION['no_product']))
             var option = document.createElement("Option");
             option.text = total_months.options[index].text;
             option.value = total_months.options[index].value;
-            option.onclick = function(){endDate();};
             end_month_list.options[i] = option;         
             index++;  
         }
         
+        day_list.options.length = 0;
+        
+        var option = document.createElement("Option");
+        option.text = "---";
+        day_list.options[0]=option;
         
         if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||
             month_selected == "5" || month_selected == "7" || month_selected == "8" || month_selected == "10"){
              
-            day_list.options.length = 0; 
-            
-            for(var i = 0; i < 31; i++){
+            for(var i = 1; i < 32; i++){
                 var option = document.createElement("Option");
-                option.text = i+1;
-                option.value = i+1;
-                option.onclick = function(){startDay();};
+                option.text = i;
+                option.value = i;
                 day_list.options[i] = option;   
             }
         }
         if(month_selected == "2"){
-            
-            day_list.options.length = 0; 
-            
-            for(var i = 0; i < 28; i++){
+             
+            for(var i = 1; i < 29; i++){
                 var option = document.createElement("Option");
-                option.text = i+1;
-                option.value = i+1;
-                option.onclick= function(){startDay();};
+                option.text = i;
+                option.value = i;
                 day_list.options[i] = option;
             }
         }
         if(month_selected == "4" || month_selected == "6" || month_selected == "11"){
-            
-            day_list.options.length = 0; 
            
-            for(var i = 0; i < 30; i++){
+            for(var i = 1; i < 31; i++){
                 var option = document.createElement("Option");
-                option.text = i+1;
-                option.value = i+1;
-                option.onclick = function(){startDay();};
+                option.text = i;
+                option.value = i;
                 day_list.options[i] = option;
             }
         }
         if(month_selected == "9"){
             
-            day_list.options.length = 0; 
-            
-            for(var i = 0; i < 29; i++){
+            for(var i = 1; i < 30; i++){
                 var option = document.createElement("Option");
-                option.text = i+1;
-                option.value = i+1;
-                option.onclick = function(){startDay();};
+                option.text = i;
+                option.value = i;
                 day_list.options[i] = option;    
             }
         }
@@ -341,65 +307,57 @@ if(isset($_SESSION['no_product']))
         var end_day_list = document.getElementById("end_request_day");
         
         if(start_month == end_month){
-            
             startDay();
         }
         else{
             
-            end_day_list.options.length=0;
-           
             var month_selected = document.getElementById("end_request_month").value;
             var day_list = document.getElementById("start_request_day");
-           
+            
+            end_day_list.options.length = 0;
+            day_list.options.length = 0; 
+            
+            var option = document.createElement("Option");
+            option.text = "---";
+            day_list.options[0] = option;
+            
             document.getElementById("start_request_month").value = month_selected;
    
             if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||
                 month_selected == "5" || month_selected == "7" || month_selected == "8" || month_selected == "10"){
    
-                day_list.options.length = 0;
-            
-                for(var i = 0; i < 31; i++){
+                for(var i = 1; i < 32; i++){
                 
                     var option = document.createElement("Option");
-                    option.text = i+1;
-                    option.value = i+1;
-                    option.onclick=function(){endDate();};
+                    option.text = i;
+                    option.value = i;
                     day_list.options[i] =option;    
                 }
             }
             if(month_selected == "2"){
-            
-                day_list.options.length = 0; 
                 
-                for(var i = 0; i < 28; i++){
+                for(var i = 1; i < 29; i++){
                     var option = document.createElement("Option");
-                    option.text = i+1;
-                    option.value = i+1;
-                    option.onclick=function(){endDate();};
+                    option.text = i;
+                    option.value = i;
                     day_list.options[i] = option; 
                 }
             }
             if(month_selected == "4" || month_selected == "6" || month_selected == "11"){
-            
-                day_list.options.length = 0; 
-            
-                for(var i = 0; i < 30; i++){
+             
+                for(var i = 1; i < 31; i++){
                     var option = document.createElement("Option");
-                    option.text = i+1;
-                    option.value = i+1;
-                    option.onclick=function(){endDate();};
+                    option.text = i;
+                    option.value = i;
                     day_list.options[i] = option;
                 }
             }
             if(month_selected == "9"){
-            
-                day_list.options.length = 0; 
-            
-                for(var i = 0; i < 29; i++){
+           
+                for(var i = 1; i < 30; i++){
                     var option = document.createElement("Option");
-                    option.text = i+1;
-                    option.value = i+1;
-                    option.onclick=function(){endDate();};
+                    option.text = i;
+                    option.value = i;
                     day_list.options[i] = option;
                 }
             }
