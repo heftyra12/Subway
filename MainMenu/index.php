@@ -51,7 +51,7 @@ while ($row = mysqli_fetch_array($result)) {
 
     $employee = new employeeClass;
 
-    $employee->setEmployeeID($row["idemp"]);
+    $employee->setEmployeeID($row["employee_id"]);
     $employee->setEmployeeFirstName($row["first_name"]);
     $employee->setEmployeeLastName($row["last_name"]);
     array_push($schedule_array, $employee);
@@ -125,7 +125,7 @@ $_SESSION['schedule_array'] = $schedule_array;
                                     unset($_SESSION['new_password_error']);
                             }
                     ?>
-                    
+                    <div id="home_sched">
                         <table>
                             <tr><th id="table_title" colspan="15">This Week's Schedule</th></tr>
                             <tr><th>Employee:</th><th>Wednesday:</th><th>Thursday:</th><th>Friday:</th><th>Saturday:</th>
@@ -149,11 +149,10 @@ $_SESSION['schedule_array'] = $schedule_array;
                             }
                             ?>
                         </table>
+                    </div>
                     </div>    
                 </div>
             </div>
         </div>
     </body>
 </html>
-
-
