@@ -10,6 +10,39 @@ if(isset($_SESSION['no_product']))
 if(isset($_SESSION['no_day_selected']))
     unset($_SESSION['no_day_selected']);
 
+
+/*BEGIN Check for productivity for current week*/
+$prodSQLCommand = 'SELECT store_id, week_no, units FROM subway.productivity';
+$result = mysqli_query($db_connect,$prodSQLCommand);
+
+$prod_array = array();
+$day_array = array();
+$_SESSION['current_week'] = date("W");
+$_SESSION['current_prod'] = false;
+$day = 0;
+$new_prod = new productivityClass;
+while($row = mysqli_fetch_array($result)){
+                
+    $new_prod->setStoreNumber($row['store_id']);
+    $new_prod->setWeekNumber($row['week_no']);
+    array_push($day_array,$row['units']);
+         
+    if($new_prod->getWeekNumber() == $_SESSION['current_week'])
+        $_SESSION['current_prod'] = true;
+    
+    if($day ==6){
+        $new_prod->setAllProd($day_array);
+        array_push($prod_array,$new_prod);
+        $new_prod = new productivityClass;
+        $day =0;    
+    }
+    else{
+        $day++;
+    }
+}
+/*END Productivity Check*/
+
+
 $sqlCommand = "SELECT employee_id, first_name, last_name from subway.employee";
 $result = mysqli_query($db_connect, $sqlCommand);
 $schedule_array = array();
@@ -42,7 +75,14 @@ $_SESSION['schedule_array'] = $schedule_array;
 
             <ul class="subway_tabs">
                 <li class="current_position">Home</li>
-                <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
+                <?php
+                    
+                    if(empty($prod_array) || $_SESSION['current_prod'] != true)
+                        echo "<li><a href='/ManageSchedule/productivity.php'>Create Schedule</a></li>";
+                    else
+                        echo "<li><a href='/ManageSchedule/index.php'>Create Schedule</a></li>";   
+                ?>
+                
                 <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees</a></li>
                 <li><a href="/EditRequests/index.php" >Requests</a></li>
