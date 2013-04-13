@@ -6,6 +6,7 @@ class shiftsClass{
     private $shift_id;
     private $start_time;
     private $end_time;
+    private $shift_day;
     
     /*Constructor*/
     public function __construct(){
@@ -13,10 +14,12 @@ class shiftsClass{
     }
     
     /*GET METHODS*/
+    public function getShiftDay(){
+        return $this->shift_day;
+    }
     public function getShiftID(){
         return $this->shift_id;
     }
-
     public function getStartTime(){
         return $this->start_time;
     }
@@ -24,8 +27,10 @@ class shiftsClass{
         return $this->end_time;
     }
     
-    
     /*SET METHODS*/
+    public function setShiftDay($shift_day){
+        $this->shift_day = $shift_day;
+    }
     public function setShiftID($shift_id){
         $this->shift_id = $shift_id;
     }
@@ -34,7 +39,6 @@ class shiftsClass{
     }
     public function setEndTime($end_time){
         $this->end_time = $end_time;
-    }
-    
+    }   
 }
 ?>
