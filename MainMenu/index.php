@@ -10,7 +10,6 @@ if(isset($_SESSION['no_product']))
 if(isset($_SESSION['no_day_selected']))
     unset($_SESSION['no_day_selected']);
 
-
 /*BEGIN Check for productivity for current week*/
 $prodSQLCommand = 'SELECT store_id, week_no, units FROM subway.productivity';
 $result = mysqli_query($db_connect,$prodSQLCommand);
@@ -41,7 +40,6 @@ while($row = mysqli_fetch_array($result)){
     }
 }
 /*END Productivity Check*/
-
 
 $sqlCommand = "SELECT employee_id, first_name, last_name from subway.employee";
 $result = mysqli_query($db_connect, $sqlCommand);

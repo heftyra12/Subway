@@ -94,14 +94,14 @@ while($row = mysqli_fetch_array($result)){
                                 <th>Tuesday</th>
                             </tr>
                             <tr>
-                                
                                         <?php
                                            echo "<td><select name='week_list' id='week_list' onChange='updateChoice();'>";  
                                            echo "<option>---</option>";
+                                           
+                                           $newest_week = $_SESSION['current_week'];
+                                           
                                            if($_SESSION['current_prod']==true){
-                                               
-                                               $newest_week = $_SESSION['current_week'];
-                                               
+                                            
                                                for($x=0;$x<count($prod_array);$x++){
                                                    
                                                    if($prod_array[$x]->getWeekNumber() > $newest_week){
@@ -116,6 +116,10 @@ while($row = mysqli_fetch_array($result)){
                                                    echo $week_values;
                                                    echo "</option>";
                                                }
+                                           }
+                                           else{
+                                               echo "<option value='$newest_week'>$newest_week</option>";
+                                               $_SESSION['current_prod']=true;
                                            }
      
                                         echo"</select>";
