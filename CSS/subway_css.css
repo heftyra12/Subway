@@ -132,6 +132,7 @@ td{
 #normal_left{
     height:100%;
     overflow-x:auto;
+    overflow-y:auto;
     width:15%;
     background:#FEF200;
     float:left;
@@ -158,6 +159,7 @@ td{
     background:#FEF200;
     border-bottom-left-radius:15px;
     overflow-x:auto;
+    text-align:center;
 }
 #small_left_buttons{
     margin-left:10%;
@@ -173,6 +175,27 @@ td{
     overflow-y:auto;
 }
 /*END OF SMALL BODY CSS*/
+
+/*SHFIT CSS*/
+
+#shift_current{
+    float:left;
+    overflow-x:auto;
+    overflow-y:auto;
+    margin-left:5%;
+    margin-top:3%;
+}
+#shift_edit{
+    float:left;
+    overflow-x:auto;
+    overflow-y:auto;
+    margin-left:12%;
+    margin-top:3%;
+}
+
+
+/*END SHIFT CSS*/
+
 
 /*PRODUCTIVITY CSS*/
 #prod_table{
@@ -272,7 +295,9 @@ input{
     border-radius: 5px;
     border:solid 1px black;
 }
-
+#left_buttons{
+    margin-top:40%;
+}
 #rule_description{
     width:220px;
 }
