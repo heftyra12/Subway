@@ -4,6 +4,7 @@ session_start();
 include_once'../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
+include_once'../../Subway/HelperFiles/productivityClass.php';
 
 if(isset($_SESSION['no_product']))
     unset($_SESSION['no_product']);
@@ -16,6 +17,7 @@ $result = mysqli_query($db_connect,$prodSQLCommand);
 
 $prod_array = array();
 $day_array = array();
+date_default_timezone_set('America/Chicago');
 $_SESSION['current_week'] = date("W");
 $_SESSION['current_prod'] = false;
 $day = 0;
