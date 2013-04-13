@@ -3,11 +3,7 @@ session_start();
 
 include_once '../../Subway/HelperFiles/config.php';
 include_once '../../Subway/HelperFiles/employeeClass.php';
-
-if(isset($_SESSION['no_day_selected']))
-    unset($_SESSION['no_day_selected']);
-if(!isset($_SESSION['no_product']))
-    $_SESSION['no_product'] = "false";
+include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 
 $sqlCommand = "SELECT employee_id, first_name, last_name from subway.employee";
 
@@ -42,8 +38,8 @@ $_SESSION['schedule_array']=$schedule_array;
     <body>
 
         <div id="page_top">
-            
             <div id="top_image">
+
                 <img src="/Images/temp_top_logo_3.png" id="image" align="center">
             </div>
         
@@ -60,48 +56,180 @@ $_SESSION['schedule_array']=$schedule_array;
             
             </div>
    
-    <div id="normal_bddy">
-
+    <div id="normal_body">
+        
         <div id="normal_left">
-            <form action="productivity.php" method="POST">
-                <input type="submit" value="Enter Productivity" class="subway_buttons"/>
-            </form>
-            <form action="index.php" method="POST">
-                <input type="submit" value="Generate Schedule" class="subway_buttons"/>
-            </form>
-            <form action="edit.php" method="POST">
-                <input type="submit" value="Edit Schedule" class="subway_buttons"/>
-            </form>
+            <div id="left_buttons">
+                <form action="productivity.php" method="POST">
+                    <input type="submit" value="Enter Productivity" class="subway_buttons"/>
+                </form>
+                
+                    <br/>
+                    <br/>
+            
+                <form action="edit.php" method="POST">
+                    <input type="submit" value="Edit Schedule" class="subway_buttons"/>
+                </form>
+            </div>
         </div>
 
         <div id="normal_right">
-            
-                <table>
+           
+            <div id="home_sched">   
+                
+                <form action="/HelperFiles/getSchedule.php" method="POST">
+                
+                    <table>
                  
-                <form action="" method="POST">
-                    <tr><th id="table_title" colspan="15">Create New Schedule:</th></tr>
-                <tr><th>Employee:</th><th>Wednesday:</th><th>Thursday:</th><th>Friday:</th><th>Saturday:</th>
-                    <th>Sunday:</th><th>Monday:</th><th>Tuesday:</th><th>Total Hours:</th></tr> 
-                    
+                        <tr>
+                            <th id="table_title" colspan="15">Create New Schedule:</th>
+                        </tr>
+               
+                        <tr>
+                            <th>Employee:</th>
+                            <th>Wednesday:</th>
+                            <th>Thursday:</th>
+                            <th>Friday:</th>
+                            <th>Saturday:</th>
+                            <th>Sunday:</th>
+                            <th>Monday:</th>
+                            <th>Tuesday:</th>
+                        </tr>             
                 <?php
                 
+                    $array = array(1,2,3,4,5,6,7);
+                
                     for($x=0;$x<count($_SESSION['schedule_array']);$x++){
-                        
+                        echo "<input type='hidden' id='test' value=\"$array\">";
                         echo "<tr><td class='sched_emp'>";
                         echo $_SESSION['schedule_array'][$x]->getEmployeeFirstName()." ";
-                        echo $_SESSION['schedule_array'][$x]->getEmployeeLastName()." </td>";
-                        echo "<td><p class='generate_text_field'></p></td>";
-                        echo "<td><p class='generate_text_field'></p></td>";    
-                        echo "<td><p class='generate_text_field'></p></td>";
-                        echo "<td><p class='generate_text_field'></p></td>";
-                        echo "<td><p class='generate_text_field'></p></td>";
-                        echo "<td><p class='generate_text_field'></p></td>";
-                        echo "<td><p class='generate_text_field'></p></td>";
-                        echo "<td><p class='generate_text_field'></p></td>";
+                        echo $_SESSION['schedule_array'][$x]->getEmployeeLastName()."</td>";
+                        
+                        echo "<td><select id='wed_start' name='wed_start' onChange='selectTime();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='600'>6:00</option>";
+                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='700'>7:00</option>";
+                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='800'>8:00</option>";
+                        echo "</select>";
+                        
+                        echo "<select id='wed_end' name='wed_end'>";
+                        echo "</select>";
+                      
+                        echo "<select id='wed_shift' name='wed_shift' onChange='selectShift();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='1'>1st</option>";
+                        echo "<option value='2'>2nd</option>";
+                        echo "<option value='3'>3rd</option>";
+                        echo "</select></td>";
+                        
+                        echo "<td><select id='wed_start' name='wed_start' onChange='selectTime();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='600'>6:00</option>";
+                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='700'>7:00</option>";
+                        echo "</select>";
+                        
+                        echo "<select id='wed_end' name='wed_end'>";
+                        echo "</select>";
+                      
+                        echo "<select id='wed_shift' name='wed_shift' onChange='selectShift();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='1'>1st</option>";
+                        echo "<option value='2'>2nd</option>";
+                        echo "<option value='3'>3rd</option>";
+                        echo "</select></td>";
+                        
+                        echo "<td><select id='wed_start' name='wed_start' onChange='selectTime();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='600'>6:00</option>";
+                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='700'>7:00</option>";
+                        echo "</select>";
+                        
+                        echo "<select id='wed_end' name='wed_end'>";
+                        echo "</select>";
+                      
+                        echo "<select id='wed_shift' name='wed_shift' onChange='selectShift();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='1'>1st</option>";
+                        echo "<option value='2'>2nd</option>";
+                        echo "<option value='3'>3rd</option>";
+                        echo "</select></td>";
+                        
+                        echo "<td><select id='wed_start' name='wed_start' onChange='selectTime();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='600'>6:00</option>";
+                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='700'>7:00</option>";
+                        echo "</select>";
+                        
+                        echo "<select id='wed_end' name='wed_end'>";
+                        echo "</select>";
+                      
+                        echo "<select id='wed_shift' name='wed_shift' onChange='selectShift();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='1'>1st</option>";
+                        echo "<option value='2'>2nd</option>";
+                        echo "<option value='3'>3rd</option>";
+                        echo "</select></td>";
+                        
+                        echo "<td><select id='wed_start' name='wed_start' onChange='selectTime();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='600'>6:00</option>";
+                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='700'>7:00</option>";
+                        echo "</select>";
+                        
+                        echo "<select id='wed_end' name='wed_end'>";
+                        echo "</select>";
+                      
+                        echo "<select id='wed_shift' name='wed_shift' onChange='selectShift();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='1'>1st</option>";
+                        echo "<option value='2'>2nd</option>";
+                        echo "<option value='3'>3rd</option>";
+                        echo "</select></td>";
+                        
+                        echo "<td><select id='wed_start' name='wed_start' onChange='selectTime();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='600'>6:00</option>";
+                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='700'>7:00</option>";
+                        echo "</select>";
+                        
+                        echo "<select id='wed_end' name='wed_end'>";
+                        echo "</select>";
+                      
+                        echo "<select id='wed_shift' name='wed_shift' onChange='selectShift();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='1'>1st</option>";
+                        echo "<option value='2'>2nd</option>";
+                        echo "<option value='3'>3rd</option>";
+                        echo "</select></td>";
+                        
+                        echo "<td><select id='wed_start' name='wed_start' onChange='selectTime();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='600'>6:00</option>";
+                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='700'>7:00</option>";
+                        echo "</select>";
+                        
+                        echo "<select id='wed_end' name='wed_end'>";
+                        echo "</select>";
+                      
+                        echo "<select id='wed_shift' name='wed_shift' onChange='selectShift();'>";
+                        echo "<option value='default'>---</option>";
+                        echo "<option value='1'>1st</option>";
+                        echo "<option value='2'>2nd</option>";
+                        echo "<option value='3'>3rd</option>";
+                        echo "</select></td>";
+                        
                         echo "</tr>";
                     }
                 ?>
-                <tr><td colspan="9"><input type="submit" value="Generate Schedule:"/></td></tr>  
+                <tr><td colspan="9"><input type="submit" value="Create Schedule:"/></td></tr>  
                 </form>
                 </table>
             </div>
@@ -110,3 +238,30 @@ $_SESSION['schedule_array']=$schedule_array;
     </div>
 </body>
 </html>
+
+<script languate="Javascript">
+
+    function selectTime(){
+        
+        
+       var blah = document.getElementById('test');
+       
+       for(var x = 0; x < blah.length;x++){
+           
+        alert(blah[x]);
+        
+       }
+        
+       document.getElementById('wed_shift').value="default";
+    }
+
+    function selectShift(){
+        
+        
+        document.getElementById('wed_start').value="default";
+        
+    }
+
+    
+</script>
+    

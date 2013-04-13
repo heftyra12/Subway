@@ -93,7 +93,7 @@ $_SESSION['schedule_array'] = $schedule_array;
 
             <div id="normal_body">
                 <div id="normal_left">
-
+                    
                     <form action="changePassword.php" >
                         <input type="submit" value ="Change Password"> 
                     </form>
