@@ -41,15 +41,13 @@ if($update_choice === "Add"){
 }
 if($update_choice === "Update"){
     
-    for($i=0;$i<count($prod_array);$i++){
+    for($x=0;$x<count($prod_array);$x++){
         
-        $day = $i+1;
-        $store = 1;
-        $blahCommand = "UPDATE subway.productivity
-                             SET units ='$prod_array[$i]'
-                             WHERE week_no ='$week_number'";
-    
-        mysqli_query($db_connect,$blahCommand);   
+        $day = $x+1;
+        
+        $updateSQLCommand = "UPDATE subway.productivity SET units ='$prod_array[$x]' WHERE week_no ='$week_number' AND day ='$day' AND store_id ='1'";
+        
+        mysqli_query($db_connect,$updateSQLCommand); 
     }  
 }
 header("Location: /ManageSchedule/productivity.php");
