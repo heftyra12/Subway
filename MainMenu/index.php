@@ -6,11 +6,6 @@ include_once'../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 include_once'../../Subway/HelperFiles/productivityClass.php';
 
-if(isset($_SESSION['no_product']))
-    unset($_SESSION['no_product']);
-if(isset($_SESSION['no_day_selected']))
-    unset($_SESSION['no_day_selected']);
-
 /*BEGIN Check for productivity for current week*/
 $prodSQLCommand = 'SELECT store_id, week_no, units FROM subway.productivity';
 $result = mysqli_query($db_connect,$prodSQLCommand);
@@ -75,20 +70,13 @@ $_SESSION['schedule_array'] = $schedule_array;
 
             <ul class="subway_tabs">
                 <li class="current_position">Home</li>
-                <?php
-                    
-                    if(empty($prod_array) || $_SESSION['current_prod'] != true)
-                        echo "<li><a href='/ManageSchedule/productivity.php'>Create Schedule</a></li>";
-                    else
-                        echo "<li><a href='/ManageSchedule/index.php'>Create Schedule</a></li>";   
-                ?>
-                
+                <li><a href='/ManageSchedule/index.php'>Create Schedule</a></li>
                 <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees</a></li>
                 <li><a href="/EditRequests/index.php" >Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
             </ul>       
-
+            
             <div id="tab_bar"></div>
 
             <div id="normal_body">

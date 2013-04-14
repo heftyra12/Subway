@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if($_SESSION['current_prod'] != true){
+    header("Location: productivity.php");
+}
+
 include_once '../../Subway/HelperFiles/config.php';
 include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';

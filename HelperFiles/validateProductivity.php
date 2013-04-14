@@ -1,11 +1,10 @@
 <?php
 include_once'productivityClass.php';
-session_start();
-
 include_once'config.php';
 
-$week_number = $_POST['week_list'];
+session_start();
 
+$week_number = $_POST['week_list'];
 $wed_prod = $_POST['wed_prod'];
 $thurs_prod = $_POST['thurs_prod'];
 $fri_prod = $_POST['fri_prod'];
@@ -13,6 +12,7 @@ $sat_prod = $_POST['sat_prod'];
 $sun_prod = $_POST['sun_prod'];
 $mon_prod = $_POST['mon_prod'];
 $tues_prod = $_POST['tues_prod'];
+$update_choice = $_POST['update_choice'];
 
 $new_prod = new productivityClass;
 
@@ -28,14 +28,29 @@ $new_prod->setTuesProd($tues_prod);
 
 $prod_array = $new_prod->getAllProd();
 
-
-for($x=0;$x<count($prod_array);$x++){
+if($update_choice === "Add"){
     
-    $day = $x+1;
-    $addSQLCommand = "INSERT INTO subway.productivity(store_id,week_no,day,units)
-        VALUES('1','$week_number','$day','$prod_array[$x]')";
+    for($x=0;$x<count($prod_array);$x++){
     
-    mysqli_query($db_connect,$addSQLCommand);   
+        $day = $x+1;
+        $addSQLCommand = "INSERT INTO subway.productivity(store_id,week_no,day,units)
+            VALUES('1','$week_number','$day','$prod_array[$x]')";
+    
+        mysqli_query($db_connect,$addSQLCommand);   
+    }
+}
+if($update_choice === "Update"){
+    
+    for($i=0;$i<count($prod_array);$i++){
+        
+        $day = $i+1;
+        $store = 1;
+        $blahCommand = "UPDATE subway.productivity
+                             SET units ='$prod_array[$i]'
+                             WHERE week_no ='$week_number'";
+    
+        mysqli_query($db_connect,$blahCommand);   
+    }  
 }
 header("Location: /ManageSchedule/productivity.php");
 ?>
