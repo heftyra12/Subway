@@ -152,11 +152,6 @@ $_SESSION['employee_array'] = $employee_array;
                                                  <option value="N">No</option>
                                                  <option value="Y">Yes</option>
                                             </select></td></tr>
-                    <tr><td colspan="3">Action:<select id="update_option" name="update_option" value="<?php echo $_SESSION['update_option'];?>"/>
-                                                <option value="Add">Add</option>
-                                                <option value="Update">Update</option>
-                                                <option value="Delete">Delete</option>
-                                            </select></td></tr>
                     <tr><td>Availability:</td><td>Start:</td><td>End:</td></tr>
                                     
                     <tr><td>Monday:</td><td>
@@ -446,6 +441,13 @@ $_SESSION['employee_array'] = $employee_array;
                                
                            </select>
                     </td></tr>
+                    <tr><td colspan="3">Action:<select id="update_option" name="update_option" value=""/>
+                                                <option value="Add">Add</option>
+                                                <option value="Update">Update</option>
+                                                <option value="Delete">Delete</option>
+                                            </select></td>
+                    </tr>
+                    <tr><td colspan="3"><input type="button" value="Reset" onclick="resetForm();"></td></tr>
                     <tr><td colspan="3"><input type="submit" value="Submit"/></td></tr>
                     <input type="hidden" id="employee_id" name="employee_id" value=""/>
                     <input type="hidden" id="array_index" name="array_index" value=""/>
@@ -484,7 +486,7 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     echo"<tr><td class='employee_table'><input type='radio' id='employee' name='employee' onclick = 'insertEmployee($x,\"$id\",
         \"$first\",\"$last\",\"$email\",\"$emp_minor\",\"$emp_type\",\"$mon_start\",\"$mon_end\",\"$tues_start\",
         \"$tues_end\",\"$wed_start\",\"$wed_end\",\"$thurs_start\",\"$thurs_end\",\"$fri_start\",\"$fri_end\",
-        \"$sat_start\",\"$sat_end\",\"$sun_start\",\"$sun_end\");' value=''></td>";
+        \"$sat_start\",\"$sat_end\",\"$sun_start\",\"$sun_end\"); update();' value=''></td>";
                                     
     echo "<td class='employee_table'>";
     echo $first;
@@ -506,4 +508,67 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     </div>
 </body>
 </html>
+<script language="Javascript">
 
+    function update(){
+        
+        var update_options = document.getElementById("update_option");
+        
+        update_options.options.length = 0; 
+        
+        var option = document.createElement("Option");
+        option.text = "Update";
+        option.value = "Update";
+        update_options.options[0] = option;
+        
+        var option_one = document.createElement("Option");
+        option_one.text = "Delete";
+        option_one.value = "Delete";
+        update_options.options[1] = option_one;
+        
+    }
+    
+    function resetForm(){
+        
+        document.getElementById("first_name").value="";
+        document.getElementById("last_name").value="";
+        document.getElementById("email").value="";
+        document.getElementById("emp_type").value="F";
+        document.getElementById("emp_minor").value="N";
+        document.getElementById("wednesday_start").value="default";
+        document.getElementById("thursday_start").value="default";
+        document.getElementById("friday_start").value="default";
+        document.getElementById("saturday_start").value="default";
+        document.getElementById("sunday_start").value="default";
+        document.getElementById("monday_start").value="default";
+        document.getElementById("tuesday_start").value="default";
+        
+        document.getElementById("monday_end").options.length=0;
+        document.getElementById("tuesday_end").options.length=0;
+        document.getElementById("wednesday_end").options.length=0;
+        document.getElementById("thursday_end").options.length=0;
+        document.getElementById("friday_end").options.length=0;
+        document.getElementById("saturday_end").options.length=0;
+        document.getElementById("sunday_end").options.length=0;
+        
+          var update_options = document.getElementById("update_option");
+        
+        update_options.options.length = 0; 
+        
+        var option_two = document.createElement("Option");
+        option_two.text = "Add";
+        option_two.value="Add";
+        update_options.options[0] = option_two;
+        
+        var option = document.createElement("Option");
+        option.text = "Update";
+        option.value = "Update";
+        update_options.options[1] = option;
+        
+        var option_one = document.createElement("Option");
+        option_one.text = "Delete";
+        option_one.value = "Delete";
+        update_options.options[2] = option_one;
+        
+    }
+</script>
