@@ -1,8 +1,9 @@
 
 function insertEmployeeRequest(first, last, id){
+     
     document.getElementById("first_name").value = first; 
     document.getElementById("last_name").value =last;
-    document.getElementById("employee_id").value = id;
+    document.getElementById("employee_id").value = id; 
 } 
 
 function insertEmployee(index,id,first,last,email,emp_minor,emp_type,
@@ -132,60 +133,76 @@ function loadTime(table,end){
 
 function insertRequests(request_id, employee_id, first_name,last_name, start_month, start_day,end_month,end_day,start_time,end_time){
     
-    var start_month_list = document.getElementById("start_request_month");
-    var end_month_list = document.getElementById("end_request_month");
-    var end_month_value = end_month;
-    var update_choice = document.getElementById("update_choice");
     document.getElementById("first_name").value = first_name;
     document.getElementById("last_name").value = last_name;
     document.getElementById("start_request").value = start_time;
     document.getElementById("start_request_month").value = start_month;
+    document.getElementById("employee_id").value = employee_id;
+    document.getElementById("request_id").value = request_id;
     
-    startDate();
-    end_month_list.options.length=0;
-    document.getElementById("start_request_day").value = parseInt(start_day);
-    
-    for(var x = 0; x < start_month_list.length;x++){
-        
-        if(start_month_list[x].value == end_month_value){
-            var index; 
-            index = x;
-        }
-    }
-    
-    var months_to_add = start_month_list.options.length - index;
-    
-    for(var x =0; x < months_to_add;x++){
-        
-        var option = document.createElement("Option");
-        option.value = start_month_list[index].value;
-        option.text = start_month_list[index].text;
-        end_month_list.options[x] = option;
-        index++;
-    }
-    endDate();
-    document.getElementById("end_request_day").value = end_day;
-    startTime("end_request",end_time);
-    
+    var update_choice = document.getElementById('update_choice');
     update_choice.options.length = 0; 
    
-    var option = document.createElement("Option");
-    option.text = "Update";
-    option.value = "update";
-    update_choice.options[0] = option;
-    var option = document.createElement("Option");
-    option.text = "Delete";
-    option.value = "delete";
-    update_choice.options[1] = option;
-    update_choice.options.value = "update";
+    var option1 = document.createElement("Option");
+    option1.text = "Update";
+    option1.value = "update";
+    update_choice.options[0] = option1;
+    var option2 = document.createElement("Option");
+    option2.text = "Delete";
+    option2.value = "delete";
+    update_choice.options[1] = option2;
+   
+    startTime("end_request",end_time);
+    
+    if(start_month == end_month){
+         startDate();    
+         document.getElementById("start_request_day").value = parseInt(start_day);
+         startDay();
+         document.getElementById("end_request_day").value = parseInt(end_day);
+    }
+    else{
+        
+        startDate();    
+         
+        document.getElementById("start_request_day").value = parseInt(start_day);
+        
+        var start_month_list = document.getElementById("start_request_month");
+        var end_month_list = document.getElementById("end_request_month");
+        var end_month_value = end_month;
+      
+        for(var x = 0; x < start_month_list.length;x++){
+            if(start_month_list[x].value == end_month_value){
+                var index; 
+                index = x;
+            }
+        }
+        
+        var months_to_add = start_month_list.options.length - index;
+    
+        end_month_list.options.length=0;
+        
+        for(x =0; x < months_to_add;x++){
+            var option = document.createElement("Option");
+            option.value = start_month_list[index].value;
+            option.text = start_month_list[index].text;
+            end_month_list.options[x] = option;
+            index++;
+        }
+        
+        endDate();
+        
+        document.getElementById("start_request_day").value = parseInt(start_day);
+        document.getElementById("end_request_day").value = parseInt(end_day);
+    }
 }
 
 function startTime(select_name,end_value){
-     
+    
      var start_time_selected;
      var start_time_list;
      var end_time_list;
-     
+     var end_request = end_value;
+    
     if(select_name == "start_request"){
         start_time_selected = document.getElementById("start_request").value;
         start_time_list = document.getElementById("start_request");
@@ -193,7 +210,7 @@ function startTime(select_name,end_value){
     }
     
     if(select_name == "end_request"){
-        start_time_selected = end_value;
+        start_time_selected = end_request;
         start_time_list = document.getElementById("start_request");
         end_time_list = document.getElementById("end_request");   
     }

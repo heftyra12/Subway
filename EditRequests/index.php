@@ -146,7 +146,7 @@ $_SESSION['request_array']=$request_array;
                             <tr>
                                 <td>Start Time</td>
                                 <td><select id="start_request" name="start_request" onChange ="startTime('start_request')">
-                                        <option>---</option>
+                                        <option value="first">---</option>
                                         <option value="entire_day">Entire Day</option>
                                         <option value="600">6:00</option>
                                         <option value="700">7:00</option>
@@ -183,13 +183,12 @@ $_SESSION['request_array']=$request_array;
                                         <option value="delete">Delete</option>
                                     </select>
                                 </td></tr>
-                                        
-                            <tr><td colspan="4"><input type="submit" value="Enter Request"></td><tr>
+                            <tr><td colspan="4"><input type="button" value="Reset" onclick="resetForm();"></td></tr>            
+                            <tr><td colspan="4"><input type="submit" value="Enter Request"></td></tr>
                                 <input type="hidden" id="employee_id" name="employee_id">
                                 <input type="hidden" id="request_id" name="request_id">
                             
                         </form>
-                         
                     </table>
                 </div>
                 
@@ -222,8 +221,10 @@ $_SESSION['request_array']=$request_array;
                                 $end_time = $request_array[$x]->getEndTime();
                                 
                                 echo "<tr><td>";
-                                echo "<input type='radio' name='current_request' onclick='insertRequests(\"$req_id\",\"$emp_id\",\"$first_name\",\"$last_name\"
-                                    ,\"$start_month\",\"$start_day\",\"$end_month\",\"$end_day\",\"$start_time\",\"$end_time\");'>";
+                                echo "<input type='radio' id='current' name='current' 
+                                    onclick ='insertRequests(\"$req_id\",\"$emp_id\",\"$first_name\",\"$last_name\"
+                                                              ,\"$start_month\",\"$start_day\",\"$end_month\",
+                                                             \"$end_day\",\"$start_time\",\"$end_time\");'>";
                                 echo "</td><td>";
                                 echo $first_name;
                                 echo  " ";
@@ -246,7 +247,7 @@ $_SESSION['request_array']=$request_array;
                 <div id="request_far_right">
                     
                     <table> 
-                        <tr><th id="table_title" colspan="3">Employee List:</th></tr>
+                        <tr><th id="table_title" colspan="3">Employee List </th></tr>
                         <?php
                             
                             for($x=0;$x<count($_SESSION['employee_array']);$x++){
@@ -256,10 +257,10 @@ $_SESSION['request_array']=$request_array;
                                 $id = $_SESSION['employee_array'][$x]->getEmployeeID();
                                 
                                 echo "<tr><td>";
-                                echo "<input type= 'radio' id='employee' name='employee' onclick='insertEmployeeRequest(\"$first\",\"$last\",\"$id\");'>";
+                                echo "<input type= 'radio' id='employee' name='employee' onclick='insertEmployeeRequest(\"$first\",\"$last\",\"$id\"); clearList();'>";
                                 echo "</td><td>";
                                 echo $first;
-                                echo "</td><td>";
+                                echo " ";
                                 echo $last;
                                 echo "</td></tr>";
                             }
@@ -267,6 +268,46 @@ $_SESSION['request_array']=$request_array;
                     </table>
                 </div>
             </div>
-</div>
+    </div>
 </body>
 </html>
+
+<script language ="Javascript">
+    
+    function resetForm(){
+        
+        document.getElementById("first_name").value = "";
+        document.getElementById("last_name").value = "";
+        document.getElementById("end_request").options.length=0;
+        document.getElementById("end_request_month").options.length=0;
+        document.getElementById("end_request_day").options.length=0;
+        document.getElementById("start_request_day").options.length=0;
+        document.getElementById("start_request_month").value = "default";
+        document.getElementById("start_request").value = document.getElementById("start_request").options[0].value;
+    }
+   
+    function clearList(){
+        
+        var request_list = document.getElementsByName("current");
+        var update_choice = document.getElementById("update_choice");
+        for(var x =0; x < request_list.length; x++){
+            request_list[x].checked = false; 
+        }    
+        
+        update_choice.options.length = 0; 
+        var option = document.createElement("Option");
+        option.text = "Add";
+        option.value = "add";
+        update_choice.options[0]=option;
+    }
+    
+    function clearTable(){
+            var emp_list = document.getElementsByName("employee");
+ 
+            for(var x = 0; x < emp_list.length; x++){
+                emp_list[x].checked = false; 
+            }
+            
+            
+    }
+</script>
