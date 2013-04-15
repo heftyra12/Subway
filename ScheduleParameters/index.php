@@ -8,11 +8,6 @@ include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 include_once'../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/businessRuleClass.php';
 
-if(isset($_SESSION['no_product']))
-    unset($_SESSION['no_product']);
-if(isset($_SESSION['no_day_selected']))
-    unset($_SESSION['no_day_selected']);
-
 /*query command*/
 $sqlCommand = 'SELECT busn_rule_id,store_id,descr,value0,value1 FROM subway.parameters';
 
@@ -75,7 +70,8 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
                 <tr><th id="table_title" colspan="2">Edit Scheduling Parameters</th></tr>
                 <tr><td>Description:</td><td><input type="text" id="rule_description" name="rule_descripton" value="" readonly></td></tr>
                 <tr><td>Value:</td><td><input type="text" id="rule_value_one" name="rule_value_one"></td></tr>
-                <tr><td></td><td><input type="submit" value="Update"></td></tr>
+                <tr><td colspan="2"><input type="button" value="Reset" onclick="resetList();"></td></tr>
+                <tr><td colspan="2"><input type="submit" value="Update"></td></tr>
             </table>
             </div>
             
@@ -97,7 +93,7 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
                         $description = $business_rule_array[$x]->getRuleDescription();
                         $value_one = $business_rule_array[$x]->getRuleValueOne();
                        
-                        echo "<tr><td><input type='radio' id='business_rule' name='business_rule' value='' 
+                        echo "<tr><td><input type='radio' id='business_rule' name='business_rule' 
                             onclick='displayRuleValues($x,\"$rule_id\",\"$store_id\",\"$description\",\"$value_one\");'>";
                         echo "</td><td>";
                         echo $business_rule_array[$x]->getRuleDescription();
@@ -117,18 +113,25 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
 
 <script language="Javascript">
 
+    function resetList(){
+        
+        var list = document.getElementsByName('business_rule');
+        
+        for(var x = 0; x < list.length; x++){
+            
+            if(list[x].checked == true)
+                list[x].checked = false;
+        }
+        
+        document.getElementById('rule_description').value ="";
+        document.getElementById('rule_value_one').value = ""; 
+    }
+
     function displayRuleValues(index,rule_id,store_id,description,value_one){
-        
-        var array_index = index;
-        var rule_id = rule_id;
-        var store_id = store_id;
-        var rule_description = description;
-        var value_one = value_one;
-       
-        
-        document.getElementById('rule_description').value = rule_description;
+          
+        document.getElementById('rule_description').value = description;
         document.getElementById('rule_value_one').value = value_one;
         document.getElementById('store_id').value = store_id;
-        document.getElementById('rule_id').value = rule_id;   
+        document.getElementById('rule_id').value = rule_id;
     }
 </script>
