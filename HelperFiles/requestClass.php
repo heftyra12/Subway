@@ -2,20 +2,42 @@
 
 class requestClass{
     
+    private $employee_id;
+    private $request_id;
+    private $first_name;
+    private $last_name;
+    private $start_date;
+    private $end_date;
+    private $start_time;
+    private $end_time;
+    
     private $start_month;
     private $start_day;
     private $end_month;
     private $end_day;
-    private $start_time;
-    private $end_time;
-    private $first_name;
-    private $last_name;
-    private $employee_id;
     
     public function __construct(){
         
     }
     
+    public function getRequestID(){
+        return $this->request_id;
+    }
+     public function getEmployeeID(){
+        return $this->employee_id;
+    }
+    public function getFirstName(){
+        return $this->first_name;
+    }
+    public function getLastName(){
+        return $this->last_name;
+    }
+    public function getStartDate(){
+        return $this->start_date;
+    }
+    public function getEndDate(){
+        return $this->end_date;
+    }
     public function getStartMonth(){
         return $this->start_month;
     }
@@ -26,24 +48,25 @@ class requestClass{
         return $this->end_month;
     }
     public function getEndDay(){
-        return $this->end_day();
+        return $this->end_day;
     }
     public function getStartTime(){
         return $this->start_time;
     }
     public function getEndTime(){
-        return $this->start_time;
+        return $this->end_time;
     }
-    public function getEmployeeID(){
-        return $this->employee_id;
-    }
-    public function getFirstName(){
-        return $this->first_name;
-    }
-    public function getLastName(){
-        return $this->last_name;
-    }
+   
     
+    public function setRequestID($request_id){
+        $this->request_id = $request_id;
+    }
+    public function setStartDate($start_date){
+        $this->start_date = $start_date;
+    }
+    public function setEndDate($end_date){
+        $this->end_date = $end_date;
+    }
     public function setStartMonth($start_month){
         $this->start_month = $start_month;
     }

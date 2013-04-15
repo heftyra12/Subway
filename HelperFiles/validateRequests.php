@@ -1,104 +1,65 @@
 <?php
+
+include_once'requestClass.php';
 //Session Start
 session_start();
 //Include the db connection file.
 include_once'config.php';
 
-if(!isset($_SESSION['no_day_selected']))
-    $_SESSION['no_day_selected'] = "false";
-
-
 //Form Values
-$first_name = $_POST['first_name'];
-$last_name = $_POST['last_name'];
+$emp_id = $_POST['employee_id'];
 $update_choice = $_POST['update_choice'];
+$start_request_month = $_POST['start_request_month'];
+$start_request_day = $_POST['start_request_day'];
+$end_request_month = $_POST['end_request_month'];
+$end_request_day = $_POST['end_request_day'];
 $start_request = $_POST['start_request'];
 $end_request = $_POST['end_request'];
 
-$request_day_array = array();
 
-if(isset($_POST['wed_check'])){
-    $day = $_POST['wed_check'];
-    array_push($request_day_array,$day);
-}
-if(isset($_POST['thur_check'])){
-    $day = $_POST['thur_check'];
-    array_push($request_day_array,$day);
-}
-if(isset($_POST['fri_check'])){
-    $day = $_POST['fri_check'];
-    array_push($request_day_array,$day);
-}
-if(isset($_POST['sat_check'])){
-    $day = $_POST['sat_check'];
-    array_push($request_day_array,$day);
-}
-if(isset($_POST['sun_check'])){
-    $day = $_POST['sun_check'];
-    array_push($request_day_array,$day);
-}
-if(isset($_POST['mon_check'])){
-    $day = $_POST['mon_check'];
-    array_push($request_day_array,$day);
-}        
-if(isset($_POST['tues_check'])){
-    $day = $_POST['tues_check'];
-    array_push($request_day_array,$day);
-}
 
-//User must select a day for the request. If no day is selected
-//they are sent back to the form. 
-if(empty($request_day_array)){
+$final_start = new DateTime();
+$final_start->setDate(2013,$start_request_month,$start_request_day);
+$fs =$final_start->format('Y-m-d');
+ 
+$final_end = new DateTime();
+$final_end->setDate(2013,$end_request_month,$end_request_day);
+$fe = $final_end->format('Y-m-d');
+
+
+if($update_choice === "add"){
+
+    $request_id = 0; 
     
-    $_SESSION['no_day_selected'] = "true";
-    header("Location: /EditRequests/index.php");
-}
-
-for($x = 0; $x < count($request_day_array);$x++){
-    echo $request_day_array[$x];
-    echo "<br/>";
-}
-
-echo $first_name;
-echo $last_name;
-echo $update_choice;
-echo $start_request;
-echo $end_request;
-
-$result = mysqli_query($db_connect, "select max(request_id)+1 as count from subway.request");        
-while($row = mysqli_fetch_array($result)){
-    $nextRequestId = $row["count"];
-}
-
-// got side-tracked and started working on this
-// feel free to throw it away if you don't need it
-$employee_id=2;
-$start_date = '2013-05-18';
-$end_date = '2013-05-20';
-$start_time=600;
-$end_time=2200;
-$addRequestSQL = "INSERT INTO `subway`.`request` (`request_id`, `employee_id`,
-    `start_date`, `end_date`, `start_time`, `end_time`) VALUES 
-    ($nextRequestId, $employee_id, $start_date, $end_date, '$start_time, $end_time)";
-
-
-if($update_choice ==="add"){
-    //Here's an example of the query to insert:
-    //INSERT INTO `subway`.`request` (`request_id`, `employee_id`, `start_date`,
-    // `end_date`, `start_time`, `end_time`) VALUES ('1', '1', '2013-05-18',
-    //  '2013-05-20', '600', '2200');
-    mysqli_query($db_connect, $addRequestSQL);
-    header("Location:/ManageEmployee/index.php");
+    for($x=0; $x < count($_SESSION['request_array']);$x++){
+        
+        if($request_id < $_SESSION['request_array'][$x]->getRequestID()){
+            
+            $request_id = $_SESSION['request_array'][$x]->getRequestID();
+        }
+    }
     
+    $request_id++;
     
+    $addSQLCommand = "INSERT INTO subway.request(request_id, employee_id, start_date, end_date, start_time, end_time)
+                      VALUES('$request_id','$emp_id', '$fs', '$fe', '$start_request', '$end_request')";
+    mysqli_query($db_connect,$addSQLCommand);  
+}
+if($update_choice === "update"){
+    
+    $request_id = $_POST['request_id'];
+    
+    $updateSQLCommand = "UPDATE subway.request
+                         SET start_date ='$fs', end_date ='$fe', start_time = '$start_request', end_time ='$end_request'
+                         WHERE request_id ='$request_id' AND employee_id ='$emp_id'";
+    
+    mysqli_query($db_connect,$updateSQLCommand);
+}
+if($update_choice === "delete"){
+    
+    $deleteSQLCommand = "DELETE FROM subway.request WHERE request_id ='$request_id'";
+    mysqli_query($db_connect,$deleteSQLCommand);
 }
 
-if($update_choice ==="update"){
-    
-}
-else{
-    
-    
-}
-
+header("Location:/EditRequests/index.php");
 ?>

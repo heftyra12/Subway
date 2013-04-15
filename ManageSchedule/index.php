@@ -15,8 +15,6 @@ $result = mysqli_query($db_connect, $sqlCommand);
 
 $schedule_array = array();
 
-$x = 0;
-
 while ($row = mysqli_fetch_array($result)) {
 
     $employee = new employeeClass;

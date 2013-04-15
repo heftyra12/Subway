@@ -1,11 +1,62 @@
 <?php
 include_once'../../Subway/HelperFiles/employeeClass.php';
+include_once'../../Subway/HelperFiles/requestClass.php';
 
 session_start();
+
+include_once'../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 
-if(isset($_SESSION['no_product']))
-    unset($_SESSION['no_product']);
+$request_array = array();
+$emp_array = array();
+
+$sqlCommand = "SELECT employee_id, first_name, last_name FROM subway.employee";
+$result = mysqli_query($db_connect,$sqlCommand);
+
+while($row = mysqli_fetch_array($result)){
+    
+    $employee = new employeeClass;
+    $employee->setEmployeeID($row["employee_id"]);
+    $employee->setEmployeeFirstName($row["first_name"]);
+    $employee->setEmployeeLastName($row["last_name"]);
+    array_push($emp_array,$employee);
+}
+
+$sqlCommand = "SELECT request_id, employee_id, start_date, end_date, start_time, end_time FROM subway.request";
+$result = mysqli_query($db_connect, $sqlCommand);
+
+while ($row = mysqli_fetch_array($result)){
+
+    $request = new requestClass;
+    
+    $request->setRequestID($row["request_id"]);
+    $request->setEmployeeID($row["employee_id"]);
+    $request->setStartDate($row["start_date"]);
+    $request->setEndDate($row["end_date"]);
+    $request->setStartTime($row["start_time"]);
+    $request->setEndTime($row["end_time"]);
+    
+    $start_explode = explode("-",$request->getStartDate());
+    $end_explode = explode("-",$request->getEndDate());
+    
+    $request->setStartMonth($start_explode[1]);
+    $request->setStartDay($start_explode[2]);
+    $request->setEndMonth($end_explode[1]);
+    $request->setEndDay($end_explode[2]);
+    
+    for($x=0;$x<count($emp_array);$x++){
+        
+        if($emp_array[$x]->getEmployeeID() == $request->getEmployeeID()){
+            
+            $request->setFirstName($emp_array[$x]->getEmployeeFirstName());
+            $request->setLastName($emp_array[$x]->getEmployeeLastName());
+        }
+    }
+    array_push($request_array,$request);
+}
+
+$_SESSION['request_array']=$request_array;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,16 +103,16 @@ if(isset($_SESSION['no_product']))
                                 <td>Start Date:</td>
                                 <td>Month:
                                 <select id="start_request_month" name="start_request_month" onChange ="startDate();">
-                                        <option>-----</option>
-                                        <option value="1">January</option>
-                                        <option value="2">February</option>
-                                        <option value="3">March</option>
-                                        <option value="4">April</option>
-                                        <option value="5">May</option>
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
-                                        <option value="8">August</option>
-                                        <option value="9">September</option>
+                                        <option value="default">-----</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
                                         <option value="10">October</option>
                                         <option value="11">November</option>
                                         <option value="12">December</option>
@@ -95,23 +146,24 @@ if(isset($_SESSION['no_product']))
                             <tr>
                                 <td>Start Time</td>
                                 <td><select id="start_request" name="start_request" onChange ="startTime('start_request')">
+                                        <option>---</option>
                                         <option value="entire_day">Entire Day</option>
-                                        <option value="0600">06:00</option>
-                                        <option value="0700">07:00</option>
-                                        <option value="0800">08:00</option>
-                                        <option value="0900">09:00</option>
+                                        <option value="600">6:00</option>
+                                        <option value="700">7:00</option>
+                                        <option value="800">8:00</option>
+                                        <option value="900">9:00</option>
                                         <option value="1000">10:00</option>
                                         <option value="1100">11:00</option>
                                         <option value="1200">12:00</option>
-                                        <option value="1300">01:00</option>
-                                        <option value="1400">02:00</option>
-                                        <option value="1500">03:00</option>
-                                        <option value="1600">04:00</option>
-                                        <option value="1700">05:00</option>
-                                        <option value="1800">06:00</option>
-                                        <option value="1900">07:00</option>
-                                        <option value="2000">08:00</option>
-                                        <option value="2100">09:00</option>
+                                        <option value="1300">1:00</option>
+                                        <option value="1400">2:00</option>
+                                        <option value="1500">3:00</option>
+                                        <option value="1600">4:00</option>
+                                        <option value="1700">5:00</option>
+                                        <option value="1800">6:00</option>
+                                        <option value="1900">7:00</option>
+                                        <option value="2000">8:00</option>
+                                        <option value="2100">9:00</option>
                                         <option value="2200">10:00</option>
                                     </select>        
                                 </td>
@@ -133,6 +185,8 @@ if(isset($_SESSION['no_product']))
                                 </td></tr>
                                         
                             <tr><td colspan="4"><input type="submit" value="Enter Request"></td><tr>
+                                <input type="hidden" id="employee_id" name="employee_id">
+                                <input type="hidden" id="request_id" name="request_id">
                             
                         </form>
                          
@@ -143,12 +197,47 @@ if(isset($_SESSION['no_product']))
                     
                     <table>
                         
-                        <tr><th id="table_title">Current Requests</th></tr>
+                        <tr><th id="table_title" colspan="7">Current Requests</th></tr>
+                        <tr><th></th>
+                            <th>Employee</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                        </tr>
                         
                         <?php
-                            echo "<tr><td>";
-                            echo "<input type='radio' onclick='insertRequests();'>";
-                            echo "</td></tr>";
+                        
+                            for($x=0;$x<count($request_array);$x++){
+                                
+                                $first_name = $request_array[$x]->getFirstName();
+                                $last_name = $request_array[$x]->getLastName();
+                                $req_id = $request_array[$x]->getRequestID();
+                                $emp_id = $request_array[$x]->getEmployeeID();
+                                $start_month = $request_array[$x]->getStartMonth();
+                                $start_day = $request_array[$x]->getStartDay();
+                                $end_month = $request_array[$x]->getEndMonth();
+                                $end_day = $request_array[$x]->getEndDay();
+                                $start_time = $request_array[$x]->getStartTime();
+                                $end_time = $request_array[$x]->getEndTime();
+                                
+                                echo "<tr><td>";
+                                echo "<input type='radio' name='current_request' onclick='insertRequests(\"$req_id\",\"$emp_id\",\"$first_name\",\"$last_name\"
+                                    ,\"$start_month\",\"$start_day\",\"$end_month\",\"$end_day\",\"$start_time\",\"$end_time\");'>";
+                                echo "</td><td>";
+                                echo $first_name;
+                                echo  " ";
+                                echo $last_name;
+                                echo "</td><td>";
+                                echo $request_array[$x]->getStartDate();
+                                echo "</td><td>";
+                                echo $request_array[$x]->getEndDate();
+                                echo "</td><td>";
+                                echo $request_array[$x]->getStartTime();
+                                echo "</td><td>";
+                                echo $request_array[$x]->getEndTime();
+                                echo "</td></tr>";
+                            }
                         ?>
                         
                     </table>
@@ -160,13 +249,14 @@ if(isset($_SESSION['no_product']))
                         <tr><th id="table_title" colspan="3">Employee List:</th></tr>
                         <?php
                             
-                            for($x=0;$x<count($_SESSION['schedule_array']);$x++){
+                            for($x=0;$x<count($_SESSION['employee_array']);$x++){
                    
-                                $first = $_SESSION['schedule_array'][$x]->getEmployeeFirstName();
-                                $last = $_SESSION['schedule_array'][$x]->getEmployeeLastName();
+                                $first = $_SESSION['employee_array'][$x]->getEmployeeFirstName();
+                                $last = $_SESSION['employee_array'][$x]->getEmployeeLastName();
+                                $id = $_SESSION['employee_array'][$x]->getEmployeeID();
                                 
                                 echo "<tr><td>";
-                                echo "<input type = 'radio' id='employee' name='employee' onclick='insertEmployee(\"$first\",\"$last\");'>";
+                                echo "<input type= 'radio' id='employee' name='employee' onclick='insertEmployeeRequest(\"$first\",\"$last\",\"$id\");'>";
                                 echo "</td><td>";
                                 echo $first;
                                 echo "</td><td>";
@@ -180,189 +270,3 @@ if(isset($_SESSION['no_product']))
 </div>
 </body>
 </html>
-<script language="Javascript">
-
-    //Holder for function that will enter in values of a 
-    //current request. 
-    function insertRequests(){
-        
-      alert("in js function");  
-    }
-    
-    //Inserts employee name into the edit request table. 
-    //The text fields in that table are read only, so only 
-    //current employees can have a request entered/edited/deleted
-    function insertEmployee(first, last){
-        $first = first; 
-        $last = last;
-        document.getElementById("first_name").value = first; 
-        document.getElementById("last_name").value =last;
-    } 
-    
-    function startDay(){
-        
-        var start_month_selected = document.getElementById("start_request_month").value;
-        var end_month_selected = document.getElementById("end_request_month").value;
-        var start_day_selected = document.getElementById("start_request_day").value;
-        
-        var start_day_list = document.getElementById("start_request_day");
-        
-        var day_list = document.getElementById("end_request_day");
-     
-        var days_to_add = start_day_list.options.length - start_month_selected +1;
-        var index = start_day_selected -1;
-        
-        if(start_month_selected == end_month_selected){
-       
-            day_list.options.length = 0; 
-            
-            var option = document.createElement("Option");
-            
-            for(var x = 0; x < days_to_add; x++){
-                
-                var option = document.createElement("Option");
-                option.text = start_day_list[index+1].text;
-                option.value = start_day_list[index+1].value;
-                day_list.options[x] = option;
-                index++;  
-            }
-        }
-    }
-    
-    function startDate(){
-        
-        //Variable the value of the month selected by the user
-        var month_selected = document.getElementById("start_request_month").value;
-        
-        //These variables will hold the entire select object instead of the selected option.
-        var end_month_list = document.getElementById("end_request_month");
-        var end_day_list = document.getElementById("end_request_day");
-        var total_months = document.getElementById("start_request_month");
-        var day_list = document.getElementById("start_request_day");
-        
-        //Variable to determine how many months need to be added to the end request 
-        //date month drop down list. 
-        var months_to_add = 12 - month_selected +1;
-        var index = month_selected;
-       
-        end_day_list.options.length=0;
-        end_month_list.options.length = 0; 
-       
-        for(var i = 0; i < months_to_add;i++){
-            var option = document.createElement("Option");
-            option.text = total_months.options[index].text;
-            option.value = total_months.options[index].value;
-            end_month_list.options[i] = option;         
-            index++;  
-        }
-        
-        day_list.options.length = 0;
-        
-        var option = document.createElement("Option");
-        option.text = "---";
-        day_list.options[0]=option;
-        
-        if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||
-            month_selected == "5" || month_selected == "7" || month_selected == "8" || month_selected == "10"){
-             
-            for(var i = 1; i < 32; i++){
-                var option = document.createElement("Option");
-                option.text = i;
-                option.value = i;
-                day_list.options[i] = option;   
-            }
-        }
-        if(month_selected == "2"){
-             
-            for(var i = 1; i < 29; i++){
-                var option = document.createElement("Option");
-                option.text = i;
-                option.value = i;
-                day_list.options[i] = option;
-            }
-        }
-        if(month_selected == "4" || month_selected == "6" || month_selected == "11"){
-           
-            for(var i = 1; i < 31; i++){
-                var option = document.createElement("Option");
-                option.text = i;
-                option.value = i;
-                day_list.options[i] = option;
-            }
-        }
-        if(month_selected == "9"){
-            
-            for(var i = 1; i < 30; i++){
-                var option = document.createElement("Option");
-                option.text = i;
-                option.value = i;
-                day_list.options[i] = option;    
-            }
-        }
-    }
-    function endDate(){
-        
-        var start_month = document.getElementById("start_request_month").value;
-        var end_month = document.getElementById("end_request_month").value;
-        var end_day_list = document.getElementById("end_request_day");
-        
-        if(start_month == end_month){
-            startDay();
-        }
-        else{
-            
-            var month_selected = document.getElementById("end_request_month").value;
-            var day_list = document.getElementById("start_request_day");
-            
-            end_day_list.options.length = 0;
-            day_list.options.length = 0; 
-            
-            var option = document.createElement("Option");
-            option.text = "---";
-            day_list.options[0] = option;
-            
-           
-            document.getElementById("start_request_month").value = month_selected;
-   
-            if(month_selected == "1" || month_selected == "12" || month_selected == "3" ||
-                month_selected == "5" || month_selected == "7" || month_selected == "8" || month_selected == "10"){
-   
-                for(var i = 1; i < 32; i++){
-                
-                    var option = document.createElement("Option");
-                    option.text = i;
-                    option.value = i;
-                    day_list.options[i] =option;    
-                }
-            }
-            if(month_selected == "2"){
-                
-                for(var i = 1; i < 29; i++){
-                    var option = document.createElement("Option");
-                    option.text = i;
-                    option.value = i;
-                    day_list.options[i] = option; 
-                }
-            }
-            if(month_selected == "4" || month_selected == "6" || month_selected == "11"){
-             
-                for(var i = 1; i < 31; i++){
-                    var option = document.createElement("Option");
-                    option.text = i;
-                    option.value = i;
-                    day_list.options[i] = option;
-                }
-            }
-            if(month_selected == "9"){
-           
-                for(var i = 1; i < 30; i++){
-                    var option = document.createElement("Option");
-                    option.text = i;
-                    option.value = i;
-                    day_list.options[i] = option;
-                }
-            }
-        }
-    }
-</script>
-    

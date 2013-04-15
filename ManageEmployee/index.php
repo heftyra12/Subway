@@ -5,11 +5,6 @@ include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once '../../Subway/HelperFiles/Availability.php';
 include_once '../../Subway/HelperFiles/config.php';
 
-if(isset($_SESSION['no_product']))
-    unset($_SESSION['no_product']);
-if(isset($_SESSION['no_day_selected']))
-    unset($_SESSION['no_day_selected']);
-
 //Variables to hold textfield data / input errors
 
 if(!isset($_SESSION['first_name']))
@@ -31,14 +26,32 @@ if (!isset($_SESSION['duplicate_employee']))
     $_SESSION['duplicate_employee'] = "false";
 if(!isset($_SESSION['fulltime_minor']))
     $_SESSION['fulltime_minor'] = "false";
-$sqlCommand = 'SELECT employee_id,first_name,last_name,email,emp_type,emp_minor
-    FROM subway.employee';
+
+$sqlCommand = 'SELECT employee_id,
+                      first_name,
+                      last_name,
+                      email,
+                      emp_type,
+                      emp_minor,
+                      monday_start,
+                      monday_end,
+                      tuesday_start,
+                      tuesday_end,
+                      wednesday_start,
+                      wednesday_end,
+                      thursday_start,
+                      thursday_end,
+                      friday_start,
+                      friday_end,
+                      saturday_start,
+                      saturday_end,
+                      sunday_start,
+                      sunday_end
+                      FROM subway.employee';
 
 $result = mysqli_query($db_connect, $sqlCommand);
 
 $employee_array = array();
-
-$x = 0;
 
 while ($row = mysqli_fetch_array($result)) {
 
@@ -50,51 +63,23 @@ while ($row = mysqli_fetch_array($result)) {
     $employee->setEmployeeEmail($row["email"]);
     $employee->setEmployeeType($row["emp_type"]);
     $employee->setEmployeeMinor($row["emp_minor"]);
+    $employee->setMondayStart($row["monday_start"]);
+    $employee->setMondayEnd($row["monday_end"]);
+    $employee->setTuesdayStart($row["tuesday_start"]);
+    $employee->setTuesdayEnd($row["tuesday_end"]);
+    $employee->setWednesdayStart($row["wednesday_start"]);
+    $employee->setWednesdayEnd($row["wednesday_end"]);
+    $employee->setThursdayStart($row["thursday_start"]);
+    $employee->setThursdayEnd($row["thursday_end"]);
+    $employee->setFridayStart($row["friday_start"]);
+    $employee->setFridayEnd($row["friday_end"]);
+    $employee->setSaturdayStart($row["saturday_start"]);
+    $employee->setSaturdayEnd($row["saturday_end"]);
+    $employee->setSundayStart($row["sunday_start"]);
+    $employee->setSundayEnd($row["sunday_end"]);
 
     array_push($employee_array, $employee);
 }
-
-$sqlCommand = 'SELECT employee_id,monday_start,monday_end,tuesday_start,tuesday_end,
-    wednesday_start,wednesday_end,thursday_start,thursday_end,friday_start,friday_end,
-    saturday_start,saturday_end,sunday_start,sunday_end FROM subway.employee';
-
-$new_result = mysqli_query($db_connect, $sqlCommand);
-
-$availability_array = array();
-
-while($row = mysqli_fetch_array($new_result)){
-    
-    $availability = new Availability;
-    
-    $availability->setEmployeeID($row["employee_id"]);
-    $availability->setMondayStart($row["monday_start"]);
-    $availability->setMondayEnd($row["monday_end"]);
-    $availability->setTuesdayStart($row["tuesday_start"]);
-    $availability->setTuesdayEnd($row["tuesday_end"]);
-    $availability->setWednesdayStart($row["wednesday_start"]);
-    $availability->setWednesdayEnd($row["wednesday_end"]);
-    $availability->setThursdayStart($row["thursday_start"]);
-    $availability->setThursdayEnd($row["thursday_end"]);
-    $availability->setFridayStart($row["friday_start"]);
-    $availability->setFridayEnd($row["friday_end"]);
-    $availability->setSaturdayStart($row["saturday_start"]);
-    $availability->setSaturdayEnd($row["saturday_end"]);
-    $availability->setSundayStart($row["sunday_start"]);
-    $availability->setSundayEnd($row["sunday_end"]);
-    
-    array_push($availability_array,$availability);
-}
-// echo "employee: " + count($employee_array) + "<br />";
-// echo "availability:  count($availability_array)<br />";
-for($x=0;$x< count($availability_array);$x++){
-    
-    if($availability_array[$x]->getEmployeeID() === $employee_array[$x]->getEmployeeID()){
-        
-        $employee_array[$x]->setEmployeeAvailability($availability_array[$x]);
-    }
-}
-
-$_SESSION['availability_array'] = $availability_array;
 $_SESSION['employee_array'] = $employee_array;
 ?>
 
@@ -111,6 +96,7 @@ $_SESSION['employee_array'] = $employee_array;
         <div id="page_top"/>
         
             <div id="top_image">
+
                 <img src="/Images/temp_top_logo_3.png" id="image" align="center">
             </div>
 
@@ -175,7 +161,7 @@ $_SESSION['employee_array'] = $employee_array;
                                     
                     <tr><td>Monday:</td><td>
                            <select id="monday_start" name="monday_start" onChange="startTime('monday_start');">
-                               <option>---</option>
+                               <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
                                <option value="700">07:00</option>
@@ -216,7 +202,7 @@ $_SESSION['employee_array'] = $employee_array;
                     </td></tr>
                     <tr><td>
                            Tuesday:</td><td><select id="tuesday_start" name="tuesday_start" onChange="startTime('tuesday_start');">
-                                <option>---</option>
+                               <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
                                <option value="700">07:00</option>
@@ -257,7 +243,7 @@ $_SESSION['employee_array'] = $employee_array;
                     </td></tr>
                     <tr><td>
                            Wednesday:</td><td><select id="wednesday_start" name="wednesday_start" onChange="startTime('wednesday_start');">
-                                <option>---</option> 
+                               <option value="default">---</option> 
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
                                <option value="700">07:00</option>
@@ -298,7 +284,7 @@ $_SESSION['employee_array'] = $employee_array;
                     </td></tr>
                     <tr><td>
                            Thursday:</td><td><select id="thursday_start" name="thursday_start" onChange="startTime('thursday_start');">
-                                <option>---</option>
+                                <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
                                <option value="700">07:00</option>
@@ -339,7 +325,7 @@ $_SESSION['employee_array'] = $employee_array;
                     </td></tr>
                     <tr><td>
                            Friday:</td><td><select id="friday_start" name="friday_start" onChange="startTime('friday_start');">
-                                <option>---</option>
+                               <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
                                <option value="700">07:00</option>
@@ -380,7 +366,7 @@ $_SESSION['employee_array'] = $employee_array;
                     </td></tr>
                     <tr><td>
                            Saturday:</td><td><select id="saturday_start" name="saturday_start" onChange="startTime('saturday_start');">
-                                <option>---</option> 
+                               <option value="default">---</option> 
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
                                <option value="700">07:00</option>
@@ -421,7 +407,7 @@ $_SESSION['employee_array'] = $employee_array;
                     </td></tr>
                     <tr><td>
                            Sunday:</td><td><select id="sunday_start" name="sunday_start" onChange="startTime('sunday_start');">
-                               <option>---</option>
+                               <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
                                <option value="700">07:00</option>
@@ -480,20 +466,20 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     $email = $_SESSION['employee_array'][$x]->getEmployeeEmail();
     $emp_type = $_SESSION['employee_array'][$x]->getEmployeeType();
     $emp_minor = $_SESSION['employee_array'][$x]->getEmployeeMinor();
-    $mon_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getMondayStart();
-    $mon_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getMondayEnd();
-    $tues_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getTuesdayStart();
-    $tues_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getTuesdayEnd();
-    $wed_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getWednesdayStart();
-    $wed_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getWednesdayEnd();
-    $thurs_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getThursdayStart();
-    $thurs_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getThursdayEnd();
-    $fri_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getFridayStart();
-    $fri_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getFridayEnd();
-    $sat_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getSaturdayStart();
-    $sat_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getSaturdayEnd();
-    $sun_start = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getSundayStart();
-    $sun_end = $_SESSION['employee_array'][$x]->getEmployeeAvailability()->getSundayEnd();
+    $mon_start = $_SESSION['employee_array'][$x]->getMondayStart();
+    $mon_end = $_SESSION['employee_array'][$x]->getMondayEnd();
+    $tues_start = $_SESSION['employee_array'][$x]->getTuesdayStart();
+    $tues_end = $_SESSION['employee_array'][$x]->getTuesdayEnd();
+    $wed_start = $_SESSION['employee_array'][$x]->getWednesdayStart();
+    $wed_end = $_SESSION['employee_array'][$x]->getWednesdayEnd();
+    $thurs_start = $_SESSION['employee_array'][$x]->getThursdayStart();
+    $thurs_end = $_SESSION['employee_array'][$x]->getThursdayEnd();
+    $fri_start = $_SESSION['employee_array'][$x]->getFridayStart();
+    $fri_end = $_SESSION['employee_array'][$x]->getFridayEnd();
+    $sat_start = $_SESSION['employee_array'][$x]->getSaturdayStart();
+    $sat_end = $_SESSION['employee_array'][$x]->getSaturdayEnd();
+    $sun_start = $_SESSION['employee_array'][$x]->getSundayStart();
+    $sun_end = $_SESSION['employee_array'][$x]->getSundayEnd();
 
     echo"<tr><td class='employee_table'><input type='radio' id='employee' name='employee' onclick = 'insertEmployee($x,\"$id\",
         \"$first\",\"$last\",\"$email\",\"$emp_minor\",\"$emp_type\",\"$mon_start\",\"$mon_end\",\"$tues_start\",

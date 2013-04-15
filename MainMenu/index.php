@@ -38,21 +38,60 @@ while($row = mysqli_fetch_array($result)){
 }
 /*END Productivity Check*/
 
-$sqlCommand = "SELECT employee_id, first_name, last_name from subway.employee";
+$sqlCommand = 'SELECT employee_id,
+                      first_name,
+                      last_name,
+                      email,
+                      emp_type,
+                      emp_minor,
+                      monday_start,
+                      monday_end,
+                      tuesday_start,
+                      tuesday_end,
+                      wednesday_start,
+                      wednesday_end,
+                      thursday_start,
+                      thursday_end,
+                      friday_start,
+                      friday_end,
+                      saturday_start,
+                      saturday_end,
+                      sunday_start,
+                      sunday_end
+                      FROM subway.employee';
+
 $result = mysqli_query($db_connect, $sqlCommand);
-$schedule_array = array();
+
+$employee_array = array();
 
 while ($row = mysqli_fetch_array($result)) {
 
     $employee = new employeeClass;
-
+    
     $employee->setEmployeeID($row["employee_id"]);
     $employee->setEmployeeFirstName($row["first_name"]);
     $employee->setEmployeeLastName($row["last_name"]);
-    array_push($schedule_array, $employee);
-}
+    $employee->setEmployeeEmail($row["email"]);
+    $employee->setEmployeeType($row["emp_type"]);
+    $employee->setEmployeeMinor($row["emp_minor"]);
+    $employee->setMondayStart($row["monday_start"]);
+    $employee->setMondayEnd($row["monday_end"]);
+    $employee->setTuesdayStart($row["tuesday_start"]);
+    $employee->setTuesdayEnd($row["tuesday_end"]);
+    $employee->setWednesdayStart($row["wednesday_start"]);
+    $employee->setWednesdayEnd($row["wednesday_end"]);
+    $employee->setThursdayStart($row["thursday_start"]);
+    $employee->setThursdayEnd($row["thursday_end"]);
+    $employee->setFridayStart($row["friday_start"]);
+    $employee->setFridayEnd($row["friday_end"]);
+    $employee->setSaturdayStart($row["saturday_start"]);
+    $employee->setSaturdayEnd($row["saturday_end"]);
+    $employee->setSundayStart($row["sunday_start"]);
+    $employee->setSundayEnd($row["sunday_end"]);
 
-$_SESSION['schedule_array'] = $schedule_array;
+    array_push($employee_array, $employee);
+}
+$_SESSION['employee_array'] = $employee_array;
 ?>
 <!DOCTYPE html>
 <html>
@@ -76,12 +115,12 @@ $_SESSION['schedule_array'] = $schedule_array;
                 <li><a href="/EditRequests/index.php" >Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
             </ul>       
-            
+
             <div id="tab_bar"></div>
 
             <div id="normal_body">
                 <div id="normal_left">
-                    
+                    <div id="left_buttons">
                     <form action="changePassword.php" >
                         <input type="submit" value ="Change Password"> 
                     </form>
@@ -91,7 +130,7 @@ $_SESSION['schedule_array'] = $schedule_array;
                         <input type="hidden" id="exit" name="exit" value="destroy">
                         <input type="submit" value="Exit">
                     </form>
-
+                    </div>
                 </div>
 
                 <div id="normal_right">
@@ -120,11 +159,11 @@ $_SESSION['schedule_array'] = $schedule_array;
                                 <th>Sunday:</th><th>Monday:</th><th>Tuesday:</th><th>Total Hours:</th></tr> 
 
                             <?php
-                            for ($x = 0; $x < count($_SESSION['schedule_array']); $x++) {
+                            for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
 
                                 echo "<tr><td class='sched_emp'>";
-                                echo $_SESSION['schedule_array'][$x]->getEmployeeFirstName() . " ";
-                                echo $_SESSION['schedule_array'][$x]->getEmployeeLastName() . " </td>";
+                                echo $_SESSION['employee_array'][$x]->getEmployeeFirstName() . " ";
+                                echo $_SESSION['employee_array'][$x]->getEmployeeLastName() . " </td>";
                                 echo "<td><p class='generate_text_field'></p></td>";
                                 echo "<td><p class='generate_text_field'></p></td>";
                                 echo "<td><p class='generate_text_field'></p></td>";
