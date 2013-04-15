@@ -135,6 +135,7 @@ function insertRequests(request_id, employee_id, first_name,last_name, start_mon
     var start_month_list = document.getElementById("start_request_month");
     var end_month_list = document.getElementById("end_request_month");
     var end_month_value = end_month;
+    var update_choice = document.getElementById("update_choice");
     document.getElementById("first_name").value = first_name;
     document.getElementById("last_name").value = last_name;
     document.getElementById("start_request").value = start_time;
@@ -165,6 +166,18 @@ function insertRequests(request_id, employee_id, first_name,last_name, start_mon
     endDate();
     document.getElementById("end_request_day").value = end_day;
     startTime("end_request",end_time);
+    
+    update_choice.options.length = 0; 
+   
+    var option = document.createElement("Option");
+    option.text = "Update";
+    option.value = "update";
+    update_choice.options[0] = option;
+    var option = document.createElement("Option");
+    option.text = "Delete";
+    option.value = "delete";
+    update_choice.options[1] = option;
+    update_choice.options.value = "update";
 }
 
 function startTime(select_name,end_value){
