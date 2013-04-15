@@ -276,14 +276,34 @@ $_SESSION['request_array']=$request_array;
     
     function resetForm(){
         
+        document.getElementById("start_request_month").value = "default";
+        document.getElementById("start_request").value = "first";
+        
         document.getElementById("first_name").value = "";
         document.getElementById("last_name").value = "";
         document.getElementById("end_request").options.length=0;
         document.getElementById("end_request_month").options.length=0;
         document.getElementById("end_request_day").options.length=0;
         document.getElementById("start_request_day").options.length=0;
-        document.getElementById("start_request_month").value = "default";
-        document.getElementById("start_request").value = document.getElementById("start_request").options[0].value;
+        
+        var update = document.getElementById("update_choice");
+        
+        update.options.length = 0; 
+        
+        var option = document.createElement("Option");
+        option.text = "Add";
+        option.value = "add";
+        update.options[0] = option;
+        
+        var option1 = document.createElement("Option");
+        option1.text = "Update";
+        option1.value = "update";
+        update.options[1] = option1;
+        
+        var option2 = document.createElement("Option");
+        option2.text = "Delete";
+        option2.value = "delete";
+        update.options[2]=option2;
     }
    
     function clearList(){
