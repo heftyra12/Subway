@@ -8,6 +8,7 @@ include_once'config.php';
 
 //Form Values
 $emp_id = $_POST['employee_id'];
+$request_id = $_POST['request_id'];
 $update_choice = $_POST['update_choice'];
 $start_request_month = $_POST['start_request_month'];
 $start_request_day = $_POST['start_request_day'];
@@ -15,8 +16,6 @@ $end_request_month = $_POST['end_request_month'];
 $end_request_day = $_POST['end_request_day'];
 $start_request = $_POST['start_request'];
 $end_request = $_POST['end_request'];
-
-
 
 $final_start = new DateTime();
 $final_start->setDate(2013,$start_request_month,$start_request_day);
@@ -56,10 +55,11 @@ if($update_choice === "update"){
     mysqli_query($db_connect,$updateSQLCommand);
 }
 if($update_choice === "delete"){
-    
-    $deleteSQLCommand = "DELETE FROM subway.request WHERE request_id ='$request_id'";
+    echo $emp_id;
+    $deleteSQLCommand = "DELETE FROM subway.request WHERE request_id ='$request_id' AND employee_id ='$emp_id'";
     mysqli_query($db_connect,$deleteSQLCommand);
 }
 
-header("Location:/EditRequests/index.php");
+header("Location: /EditRequests/index.php");
+
 ?>
