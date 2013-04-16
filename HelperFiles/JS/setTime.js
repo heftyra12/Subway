@@ -203,6 +203,12 @@ function startTime(select_name,end_value){
      var end_time_list;
      var end_request = end_value;
     
+    if(select_name == "shift_start"){
+        start_time_selected = document.getElementById("shift_start").value;
+        start_time_list = document.getElementById("shift_start");
+        end_time_list = document.getElementById("shift_end");
+    }
+    
     if(select_name == "start_request"){
         start_time_selected = document.getElementById("start_request").value;
         start_time_list = document.getElementById("start_request");
@@ -302,27 +308,32 @@ function startDay(){
         }
     }
 }
-    
+ 
+function daysInMonth(month,year) {
+    return new Date(year, month, 0).getDate();
+} 
+ 
 function startDate(){
         
-    //Variable the value of the month selected by the user
-    var month_selected = document.getElementById("start_request_month").value;
-        
+    //Variables for current month and year. 
+    var month_selected = document.getElementById("start_request_month").value;   
+    var current_year = document.getElementById("current_year").value;
+    
     //These variables will hold the entire select object instead of the selected option.
     var end_month_list = document.getElementById("end_request_month");
     var end_day_list = document.getElementById("end_request_day");
     var total_months = document.getElementById("start_request_month");
     var day_list = document.getElementById("start_request_day");
         
-    //Variable to determine how many months need to be added to the end request 
-    //date month drop down list. 
+    //Variable that holds number of months for end request drop down. 
     var months_to_add = 12 - month_selected +1;
     
     var index = parseInt(month_selected);
      
     end_day_list.options.length=0;
     end_month_list.options.length = 0; 
-       
+    
+    //Loop that will populate the end request month drop down box. 
     for(var i = 0; i < months_to_add;i++){
         var option = document.createElement("Option");
         option.text = total_months.options[index].text;
@@ -336,49 +347,21 @@ function startDate(){
     var option = document.createElement("Option");
     option.text = "---";
     day_list.options[0]=option;
-        
-    if(month_selected == "01" || month_selected == "12" || month_selected == "03" ||
-        month_selected == "05" || month_selected == "07" || month_selected == "08" || month_selected == "10"){
-             
-        for(var i = 1; i < 32; i++){
-            var option = document.createElement("Option");
-            option.text = i;
-            option.value = i;
-            day_list.options[i] = option;   
-        }
-    }
-    if(month_selected == "02"){
-             
-        for(var i = 1; i < 29; i++){
-            var option = document.createElement("Option");
-            option.text = i;
-            option.value = i;
-            day_list.options[i] = option;
-        }
-    }
-    if(month_selected == "04" || month_selected == "06" || month_selected == "11"){
-           
-        for(var i = 1; i < 31; i++){
-            var option = document.createElement("Option");
-            option.text = i;
-            option.value = i;
-            day_list.options[i] = option;
-        }
-    }
-    if(month_selected == "09"){
-            
-        for(var i = 1; i < 30; i++){
-            var option = document.createElement("Option");
-            option.text = i;
-            option.value = i;
-            day_list.options[i] = option;    
-        }
+    
+    var days_for_month = daysInMonth(parseInt(month_selected),current_year);
+     
+    for(var x = 1; x < days_for_month+1; x++){
+        var option = document.createElement("Option");
+        option.text = x;
+        option.value = x;
+        day_list.options[x] = option;   
     }
 }
 function endDate(){
         
     var start_month = document.getElementById("start_request_month").value;
     var end_month = document.getElementById("end_request_month").value;
+    var current_year = document.getElementById("current_year").value;
     var end_day_list = document.getElementById("end_request_day");
         
     if(start_month == end_month){
@@ -394,44 +377,14 @@ function endDate(){
         var option = document.createElement("Option");
         option.text = "---";
         end_day_list.options[0] = option;
-            
-        if(month_selected == "01" || month_selected == "12" || month_selected == "03" ||
-            month_selected == "05" || month_selected == "07" || month_selected == "08" || month_selected == "10"){
-   
-            for(var i = 1; i < 32; i++){
-                
-                var option = document.createElement("Option");
-                option.text = i;
-                option.value = i;
-                end_day_list.options[i] =option;    
-            }
-        }
-        if(month_selected == "02"){
-                
-            for(var i = 1; i < 29; i++){
-                var option = document.createElement("Option");
-                option.text = i;
-                option.value = i;
-                end_day_list.options[i] = option; 
-            }
-        }
-        if(month_selected == "04" || month_selected == "06" || month_selected == "11"){
-             
-            for(var i = 1; i < 31; i++){
-                var option = document.createElement("Option");
-                option.text = i;
-                option.value = i;
-                end_day_list.options[i] = option;
-            }
-        }
-        if(month_selected == "09"){
-           
-            for(var i = 1; i < 30; i++){
-                var option = document.createElement("Option");
-                option.text = i;
-                option.value = i;
-                end_day_list.options[i] = option;
-            }
+        
+        var days_for_month = daysInMonth(parseInt(month_selected),current_year);
+     
+        for(var x = 1; x < days_for_month+1; x++){
+            var option = document.createElement("Option");
+            option.text = x;
+            option.value = x;
+            end_day_list.options[x] = option;   
         }
     }
 }

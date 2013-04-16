@@ -9,7 +9,8 @@ include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 
 $request_array = array();
 $emp_array = array();
-
+$year = date("Y");
+$SESSION['current_year'] = $year;
 $sqlCommand = "SELECT employee_id, first_name, last_name FROM subway.employee";
 $result = mysqli_query($db_connect,$sqlCommand);
 
@@ -200,6 +201,7 @@ $_SESSION['request_array']=$request_array;
                                 </td></tr>
                             <tr><td colspan="4"><input type="button" value="Reset" onclick="resetForm();"></td></tr>            
                             <tr><td colspan="4"><input type="submit" value="Enter Request"></td></tr>
+                                <input type="hidden" id="current_year" name="current_year" value="<?php echo $year;?>">
                                 <input type="hidden" id="employee_id" name="employee_id">
                                 <input type="hidden" id="request_id" name="request_id">
                             
