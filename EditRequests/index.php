@@ -222,7 +222,7 @@ $_SESSION['request_array']=$request_array;
                                 
                                 echo "<tr><td>";
                                 echo "<input type='radio' id='current' name='current' 
-                                    onclick ='insertRequests(\"$req_id\",\"$emp_id\",\"$first_name\",\"$last_name\"
+                                    onclick ='clearTable();insertRequests(\"$req_id\",\"$emp_id\",\"$first_name\",\"$last_name\"
                                                               ,\"$start_month\",\"$start_day\",\"$end_month\",
                                                              \"$end_day\",\"$start_time\",\"$end_time\");'>";
                                 echo "</td><td>";
@@ -257,7 +257,7 @@ $_SESSION['request_array']=$request_array;
                                 $id = $_SESSION['employee_array'][$x]->getEmployeeID();
                                 
                                 echo "<tr><td>";
-                                echo "<input type= 'radio' id='employee' name='employee' onclick='insertEmployeeRequest(\"$first\",\"$last\",\"$id\"); clearList();'>";
+                                echo "<input type= 'radio' id='employee' name='employee' onclick='clearList(); insertEmployeeRequest(\"$first\",\"$last\",\"$id\");'>";
                                 echo "</td><td>";
                                 echo $first;
                                 echo " ";
@@ -308,6 +308,7 @@ $_SESSION['request_array']=$request_array;
    
     function clearList(){
         
+       
         var request_list = document.getElementsByName("current");
         var update_choice = document.getElementById("update_choice");
         for(var x =0; x < request_list.length; x++){
@@ -319,6 +320,8 @@ $_SESSION['request_array']=$request_array;
         option.text = "Add";
         option.value = "add";
         update_choice.options[0]=option;
+        
+        resetForm();
     }
     
     function clearTable(){
