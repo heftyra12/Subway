@@ -8,6 +8,7 @@ if($_SESSION['current_prod'] != true){
 include_once '../../Subway/HelperFiles/config.php';
 include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
+include_once '../../Subway/HelperFiles/shiftClass.php';
 
 $sqlCommand = "SELECT employee_id, first_name, last_name from subway.employee";
 
@@ -107,33 +108,102 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo $_SESSION['schedule_array'][$x]->getEmployeeFirstName()." ";
                         echo $_SESSION['schedule_array'][$x]->getEmployeeLastName()."</td>";
                         
-                        echo "<td><select id='wed_start' name='wed_start' onChange='selectTime();'>";
-                        echo "<option value='default'>---</option>";
+                        echo "<td><select id='wed_start' name='wed_start' onChange='resetTime(name);'>";
+                        echo "<option value='default'>start</option>";
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
+                        echo "<option value='830'>8:30</option>";
+                        echo "<option value='900'>9:00</option>";
+                        echo "<option value='930'>9:30</option>";
+                        echo "<option value='1000'>10:00</option>";
+                        echo "<option value='1030'>10:30</option>";
+                        echo "<option value='1100'>11:00</option>";
+                        echo "<option value='1130'>11:30</option>";
+                        echo "<option value='1200'>12:00</option>";
+                        echo "<option value='1230'>12:30</option>";
+                        echo "<option value='1300'>1:00</option>";
+                        echo "<option value='1330'>1:30</option>";
+                        echo "<option value='1400'>2:00</option>";
+                        echo "<option value='1430'>2:30</option>";
+                        echo "<option value='1500'>3:00</option>";
+                        echo "<option value='1530'>3:30</option>";
+                        echo "<option value='1600'>4:00</option>";
+                        echo "<option value='1630'>4:30</option>";
+                        echo "<option value='1700'>5:00</option>";
+                        echo "<option value='1730'>5:30</option>";
+                        echo "<option value='1800'>6:00</option>";
+                        echo "<option value='1830'>6:30</option>";
+                        echo "<option value='1900'>7:00</option>";
+                        echo "<option value='1930'>7:30</option>";
+                        echo "<option value='2000'>8:00</option>";
+                        echo "<option value='2030'>8:30</option>";
+                        echo "<option value='2100'>9:00</option>";
+                        echo "<option value='2130'>9:30</option>";
+                        echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='wed_end' name='wed_end'>";
+                        echo "<select id='wed_end' name='wed_end' onChange='resetTime(name);'>";
+                        echo "<option value='default'>end</option>";
+                        echo "<option value='600'>6:00</option>";
+                        echo "<option value='630'>6:30</option>";
+                        echo "<option value='700'>7:00</option>";
+                        echo "<option value='730'>7:30</option>";
+                        echo "<option value='800'>8:00</option>";
+                        echo "<option value='830'>8:30</option>";
+                        echo "<option value='900'>9:00</option>";
+                        echo "<option value='930'>9:30</option>";
+                        echo "<option value='1000'>10:00</option>";
+                        echo "<option value='1030'>10:30</option>";
+                        echo "<option value='1100'>11:00</option>";
+                        echo "<option value='1130'>11:30</option>";
+                        echo "<option value='1200'>12:00</option>";
+                        echo "<option value='1230'>12:30</option>";
+                        echo "<option value='1300'>1:00</option>";
+                        echo "<option value='1330'>1:30</option>";
+                        echo "<option value='1400'>2:00</option>";
+                        echo "<option value='1430'>2:30</option>";
+                        echo "<option value='1500'>3:00</option>";
+                        echo "<option value='1530'>3:30</option>";
+                        echo "<option value='1600'>4:00</option>";
+                        echo "<option value='1630'>4:30</option>";
+                        echo "<option value='1700'>5:00</option>";
+                        echo "<option value='1730'>5:30</option>";
+                        echo "<option value='1800'>6:00</option>";
+                        echo "<option value='1830'>6:30</option>";
+                        echo "<option value='1900'>7:00</option>";
+                        echo "<option value='1930'>7:30</option>";
+                        echo "<option value='2000'>8:00</option>";
+                        echo "<option value='2030'>8:30</option>";
+                        echo "<option value='2100'>9:00</option>";
+                        echo "<option value='2130'>9:30</option>";
+                        echo "<option value='2200'>10:00</option>";
                         echo "</select>";
-                      
-                        echo "<select id='wed_shift' name='wed_shift' onChange='selectShift();'>";
-                        echo "<option value='default'>---</option>";
-                        echo "<option value='1'>1st</option>";
-                        echo "<option value='2'>2nd</option>";
-                        echo "<option value='3'>3rd</option>";
+                        
+                        $dayNo=1;
+                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
+                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
+                            From subway.shifts
+                            where day='.$dayNo.'';
+                        $result = mysqli_query($db_connect, $sqlShiftSelect);
+            
+                        echo "<select id='wed_shift' name='wed_shift' onChange='resetTime(name);'>";
+                        echo "<option value='default'>shift</option>";
+                        while ($row = mysqli_fetch_array($result)) {
+                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
+                        }
                         echo "</select></td>";
                         
-                        echo "<td><select id='wed_start' name='wed_start' onChange='selectTime();'>";
+                        echo "<td><select id='thur_start' name='thur_start' onChange='selectTime();'>";
                         echo "<option value='default'>---</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='wed_end' name='wed_end'>";
+                        echo "<select id='_end' name='wed_end'>";
                         echo "</select>";
                       
                         echo "<select id='wed_shift' name='wed_shift' onChange='selectShift();'>";
@@ -241,7 +311,7 @@ $_SESSION['schedule_array']=$schedule_array;
 </body>
 </html>
 
-<script languate="Javascript">
+<script language="Javascript">
 
     function selectTime(){
         
@@ -263,7 +333,18 @@ $_SESSION['schedule_array']=$schedule_array;
         document.getElementById('wed_start').value="default";
         
     }
-
     
+   function resetTime(table){
+       // Resets the shift field if the start or end times are selected and 
+       // vise versa if shift is selected:
+        if(table.substring(table.length-5,table.length) == "shift"){
+            document.getElementById(table.substring(0,3) + '_start').value="default";
+            document.getElementById(table.substring(0,3) + '_end').value="default";
+        }
+        else
+        {
+            document.getElementById(table.substring(0,3) + '_shift').value="default";
+        }
+   }
 </script>
     
