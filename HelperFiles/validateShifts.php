@@ -4,8 +4,8 @@ include_once'shiftsClass.php';
 session_start();
 
 $day = $_POST['shift_day'];
-$start_time = $_POST['start_time'];
-$end_time = $_POST['end_time'];
+$start_time = $_POST['shift_start'];
+$end_time = $_POST['shift_end'];
 $id = $_POST['current_id'];
 $update_choice = $_POST['update_choice'];
     
@@ -30,14 +30,12 @@ if($update_choice === "add"){
 }
 
 if($update_choice === "update"){
-    
     $updateSQLCommand = "UPDATE subway.shifts SET day ='$day', start_time ='$start_time', end_time ='$end_time'
         WHERE shift_id ='$id'";
     mysqli_query($db_connect,$updateSQLCommand);
 }
 
 if($update_choice === "delete"){
-    
     $deleteSQLCommand = "DELETE FROM subway.shifts WHERE shift_id ='$id'";
     mysqli_query($db_connect,$deleteSQLCommand);
 }
