@@ -70,8 +70,8 @@ $_SESSION['schedule_array']=$schedule_array;
                     <br/>
                     <br/>
             
-                <form action="edit.php" method="POST">
-                    <input type="submit" value="Edit Schedule" class="subway_buttons"/>
+                <form action="shifts.php" method="POST">
+                    <input type="submit" value="Schedule Shifts" class="subway_buttons"/>
                 </form>
             </div>
         </div>
@@ -99,7 +99,7 @@ $_SESSION['schedule_array']=$schedule_array;
                             <th>Tuesday:</th>
                         </tr>             
                 <?php
-                
+                    
                     $array = array(1,2,3,4,5,6,7);
                 
                     for($x=0;$x<count($_SESSION['schedule_array']);$x++){
