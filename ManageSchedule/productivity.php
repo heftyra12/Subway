@@ -61,15 +61,15 @@ while($row = mysqli_fetch_array($result)){
             <div id="small_body">
 
                 <div id="small_left">
-                    <br/>
-                    <br/>
-                    <div id="small_left_buttons">
+                    
+                    <div id="left_buttons">
                         <form action="index.php" method="POST">
                             <input type="submit" value="Generate Schedule" class="subway_buttons"/>
                         </form>
                         <br/>
-                        <form action="edit.php" method="POST">
-                            <input type="submit" value="Edit Schedule" class="subway_buttons"/>
+                        <br/>
+                        <form action="shifts.php" method="POST">
+                            <input type="submit" value="Schedule Shifts" class="subway_buttons"/>
                         </form>
                     </div>
                 </div>

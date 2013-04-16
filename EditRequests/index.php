@@ -146,24 +146,39 @@ $_SESSION['request_array']=$request_array;
                             <tr>
                                 <td>Start Time</td>
                                 <td><select id="start_request" name="start_request" onChange ="startTime('start_request')">
-                                        <option value="first">---</option>
-                                        <option value="entire_day">Entire Day</option>
-                                        <option value="600">6:00</option>
-                                        <option value="700">7:00</option>
-                                        <option value="800">8:00</option>
-                                        <option value="900">9:00</option>
+                                        <option value="default">---</option>
+                                        <option value="600">06:00</option>
+                                        <option value="630">06:30</option>
+                                        <option value="700">07:00</option>
+                                        <option value="730">07:30</option>
+                                        <option value="800">08:00</option>
+                                        <option value="830">08:30</option>
+                                        <option value="900">09:00</option>
+                                        <option value="930">09:30</option>
                                         <option value="1000">10:00</option>
+                                        <option value="1030">10:30</option>
                                         <option value="1100">11:00</option>
+                                        <option value="1130">11:30</option>
                                         <option value="1200">12:00</option>
-                                        <option value="1300">1:00</option>
-                                        <option value="1400">2:00</option>
-                                        <option value="1500">3:00</option>
-                                        <option value="1600">4:00</option>
-                                        <option value="1700">5:00</option>
-                                        <option value="1800">6:00</option>
-                                        <option value="1900">7:00</option>
-                                        <option value="2000">8:00</option>
-                                        <option value="2100">9:00</option>
+                                        <option value="1230">12:30</option>
+                                        <option value="1300">01:00</option>
+                                        <option value="1330">01:30</option>
+                                        <option value="1400">02:00</option>
+                                        <option value="1450">02:30</option>
+                                        <option value="1500">03:00</option>
+                                        <option value="1530">03:30</option>
+                                        <option value="1600">04:00</option>
+                                        <option value="1630">04:30</option>
+                                        <option value="1700">05:00</option>
+                                        <option value="1730">05:30</option>
+                                        <option value="1800">06:00</option>
+                                        <option value="1830">06:30</option>
+                                        <option value="1900">07:00</option>
+                                        <option value="1930">07:30</option>
+                                        <option value="2000">08:00</option>
+                                        <option value="2030">08:30</option>
+                                        <option value="2100">09:00</option>
+                                        <option value="2130">09:30</option>
                                         <option value="2200">10:00</option>
                                     </select>        
                                 </td>
@@ -277,7 +292,7 @@ $_SESSION['request_array']=$request_array;
     function resetForm(){
         
         document.getElementById("start_request_month").value = "default";
-        document.getElementById("start_request").value = "first";
+        document.getElementById("start_request").value = "default";
         
         document.getElementById("first_name").value = "";
         document.getElementById("last_name").value = "";
@@ -308,7 +323,6 @@ $_SESSION['request_array']=$request_array;
    
     function clearList(){
         
-       
         var request_list = document.getElementsByName("current");
         var update_choice = document.getElementById("update_choice");
         for(var x =0; x < request_list.length; x++){
