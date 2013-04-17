@@ -103,7 +103,7 @@ $_SESSION['request_array']=$request_array;
                             <tr>
                                 <td>Start Date:</td>
                                 <td>Month:
-                                <select id="start_request_month" name="start_request_month" onChange ="startDate();">
+                                <select id="start_request_month" name="start_request_month" onChange ="startDate();" class="default_month_drop_down">
                                         <option value="default">-----</option>
                                         <option value="01">January</option>
                                         <option value="02">February</option>
@@ -122,7 +122,7 @@ $_SESSION['request_array']=$request_array;
                             </tr>
                             <tr><td></td>
                                 <td>Day:
-                                    <select id="start_request_day"  name="start_request_day" onChange="startDay();" title="Select Start Month First:">
+                                    <select id="start_request_day"  name="start_request_day" onChange="startDay();" title="Select Start Month First:" class="default_day_drop_down">
                                         
                                     </select>
                                 </td>
@@ -131,14 +131,14 @@ $_SESSION['request_array']=$request_array;
                                 <td>End Date:</td>
                             
                                 <td>Month:
-                                <select id="end_request_month" name="end_request_month" onChange="endDate();" title="Select Start Month First:">
+                                <select id="end_request_month" name="end_request_month" onChange="endDate();" title="Select Start Month First:" class="default_month_drop_down">
                                        
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td><td>Day:
-                                    <select id="end_request_day"  name="end_request_day" title="Select Start Day First:">
+                                    <select id="end_request_day"  name="end_request_day" title="Select Start Day First:" class="default_day_drop_down">
                                        
                                     </select>
                                 </td>
@@ -146,7 +146,7 @@ $_SESSION['request_array']=$request_array;
                             </tr>
                             <tr>
                                 <td>Start Time</td>
-                                <td><select id="start_request" name="start_request" onChange ="startTime('start_request')">
+                                <td><select id="start_request" name="start_request" onChange ="startTime('start_request')" class="default_time_drop_down">
                                         <option value="default">---</option>
                                         <option value="600">06:00</option>
                                         <option value="630">06:30</option>
@@ -186,7 +186,7 @@ $_SESSION['request_array']=$request_array;
                             </tr>
                             <tr>
                                 <td>End Time</td>
-                                <td><select id="end_request" name="end_request" title="Select Start Time First:">
+                                <td><select id="end_request" name="end_request" title="Select Start Time First:" class="default_time_drop_down">
                                         
                                     </select>
                                 </td>

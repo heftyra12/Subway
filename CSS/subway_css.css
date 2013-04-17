@@ -349,18 +349,34 @@ input{
 
 #request_far_right{
     margin-top:3%;
-    margin-left:8%;
     float:left;
+    width:22%;
+    overflow-x:auto;
 }
 #request_left{
     margin-top:3%;
-    margin-left:12%;
+    margin-left:6%;
+    margin-right:2%;
     float:left;
+    width:25%;
+    overflow-x:auto;
 }
+.default_month_drop_down{
+    width:90px;
+}
+.default_day_drop_down{
+    width:37px;
+}
+.default_time_drop_down{
+    width:55px;
+}
+
+
 #request_right{
     margin-top:3%;
-    margin-left:8%;
     float:left;
+    width:45%;
+    overflow-x:auto;
 }
 /*END REQUEST CSS*/
 
