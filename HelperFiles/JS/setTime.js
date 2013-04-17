@@ -4,6 +4,12 @@ function insertEmployeeRequest(first, last, id){
     document.getElementById("first_name").value = first; 
     document.getElementById("last_name").value =last;
     document.getElementById("employee_id").value = id; 
+    var update_choice = document.getElementById("update_choice");
+        update_choice.options.length = 0; 
+        var option = document.createElement("Option");
+        option.text = "Add";
+        option.value = "add";
+        update_choice.options[0]=option;
 } 
 
 function insertEmployee(index,id,first,last,email,emp_minor,emp_type,
@@ -213,18 +219,21 @@ function startTime(select_name,end_value){
         start_time_selected = document.getElementById("start_request").value;
         start_time_list = document.getElementById("start_request");
         end_time_list = document.getElementById("end_request");
+        
     }
     
     if(select_name == "end_request"){
         start_time_selected = end_request;
         start_time_list = document.getElementById("start_request");
         end_time_list = document.getElementById("end_request");   
+      
     }
         
     if(select_name == "monday_start"){
         start_time_selected = document.getElementById("monday_start").value;
         start_time_list = document.getElementById("monday_start");
         end_time_list = document.getElementById("monday_end");
+       
     }
         
     if(select_name == "tuesday_start"){
@@ -258,6 +267,8 @@ function startTime(select_name,end_value){
         end_time_list = document.getElementById("sunday_end");
     }
      
+    end_time_list.title=""; 
+     
     //Get index location of the selected start time.
     for(var x =0; x < start_time_list.options.length;x++){
         if(start_time_list.options[x].value == start_time_selected){
@@ -288,6 +299,10 @@ function startDay(){
         
     var start_day_list = document.getElementById("start_request_day");        
     var day_list = document.getElementById("end_request_day");
+     
+    day_list.title=""; 
+     
+    start_day_list.title=""; 
      
     var days_to_add = start_day_list.options.length - start_month_selected +1;
     var index = start_day_selected -1;
@@ -325,6 +340,9 @@ function startDate(){
     var total_months = document.getElementById("start_request_month");
     var day_list = document.getElementById("start_request_day");
         
+    day_list.title="";
+    end_month_list.title="";
+    
     //Variable that holds number of months for end request drop down. 
     var months_to_add = 12 - month_selected +1;
     
@@ -363,7 +381,9 @@ function endDate(){
     var end_month = document.getElementById("end_request_month").value;
     var current_year = document.getElementById("current_year").value;
     var end_day_list = document.getElementById("end_request_day");
-        
+    
+    end_day_list.title="";
+
     if(start_month == end_month){
         startDay();
             

@@ -122,7 +122,7 @@ $_SESSION['request_array']=$request_array;
                             </tr>
                             <tr><td></td>
                                 <td>Day:
-                                    <select id="start_request_day"  name="start_request_day" onChange="startDay();">
+                                    <select id="start_request_day"  name="start_request_day" onChange="startDay();" title="Select Start Month First:">
                                         
                                     </select>
                                 </td>
@@ -131,14 +131,14 @@ $_SESSION['request_array']=$request_array;
                                 <td>End Date:</td>
                             
                                 <td>Month:
-                                <select id="end_request_month" name="end_request_month" onChange="endDate();">
+                                <select id="end_request_month" name="end_request_month" onChange="endDate();" title="Select Start Month First:">
                                        
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td><td>Day:
-                                    <select id="end_request_day"  name="end_request_day">
+                                    <select id="end_request_day"  name="end_request_day" title="Select Start Day First:">
                                        
                                     </select>
                                 </td>
@@ -186,7 +186,7 @@ $_SESSION['request_array']=$request_array;
                             </tr>
                             <tr>
                                 <td>End Time</td>
-                                <td><select id="end_request" name="end_request">
+                                <td><select id="end_request" name="end_request" title="Select Start Time First:">
                                         
                                     </select>
                                 </td>
@@ -298,9 +298,18 @@ $_SESSION['request_array']=$request_array;
         
         document.getElementById("first_name").value = "";
         document.getElementById("last_name").value = "";
+        
+        document.getElementById("end_request").title="Select Start Time First:";
         document.getElementById("end_request").options.length=0;
+        
+        document.getElementById("end_request_month").title="Select Start Month First:";
         document.getElementById("end_request_month").options.length=0;
+        
+        
+        document.getElementById("end_request_day").title="Select Start Month First:";
         document.getElementById("end_request_day").options.length=0;
+        
+        document.getElementById("start_request_day").title="Select Start Month First:";
         document.getElementById("start_request_day").options.length=0;
         
         var update = document.getElementById("update_choice");
@@ -321,23 +330,48 @@ $_SESSION['request_array']=$request_array;
         option2.text = "Delete";
         option2.value = "delete";
         update.options[2]=option2;
-    }
-   
-    function clearList(){
         
         var request_list = document.getElementsByName("current");
-        var update_choice = document.getElementById("update_choice");
+       
         for(var x =0; x < request_list.length; x++){
             request_list[x].checked = false; 
         }    
+       
+        var emp_list = document.getElementsByName("employee");
+ 
+            for(var x = 0; x < emp_list.length; x++){
+                emp_list[x].checked = false; 
+            }
+    }
+    
+    
+   
+    function clearList(){
         
-        update_choice.options.length = 0; 
-        var option = document.createElement("Option");
-        option.text = "Add";
-        option.value = "add";
-        update_choice.options[0]=option;
+        document.getElementById("start_request_month").value = "default";
+        document.getElementById("start_request").value = "default";
         
-        resetForm();
+        document.getElementById("first_name").value = "";
+        document.getElementById("last_name").value = "";
+        
+        document.getElementById("end_request").title="Select Start Time First:";
+        document.getElementById("end_request").options.length=0;
+        
+        document.getElementById("end_request_month").title="Select Start Month First:";
+        document.getElementById("end_request_month").options.length=0;
+        
+        
+        document.getElementById("end_request_day").title="Select Start Month First:";
+        document.getElementById("end_request_day").options.length=0;
+        
+        document.getElementById("start_request_day").title="Select Start Month First:";
+        document.getElementById("start_request_day").options.length=0;
+        
+        var request_list = document.getElementsByName("current");
+       
+        for(var x =0; x < request_list.length; x++){
+            request_list[x].checked = false; 
+        }    
     }
     
     function clearTable(){
@@ -346,7 +380,5 @@ $_SESSION['request_array']=$request_array;
             for(var x = 0; x < emp_list.length; x++){
                 emp_list[x].checked = false; 
             }
-            
-            
     }
 </script>
