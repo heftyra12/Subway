@@ -1,8 +1,9 @@
 <?php
+session_start();
+date_default_timezone_set('America/Chicago');
+
 include_once'../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/requestClass.php';
-
-session_start();
 
 include_once'../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
