@@ -120,11 +120,9 @@ td{
 }
 #normal_right{
     float:left;
-    width:85%;
+    width:88%;
     height:100%;
     background:#FFFFB2;
-    margin-right:auto;
-    margin-left:auto;
     overflow-x:auto;
     overflow-y:auto;
     border-bottom-right-radius:15px;
@@ -133,7 +131,7 @@ td{
     height:100%;
     overflow-x:auto;
     overflow-y:auto;
-    width:15%;
+    width:12%;
     background:#FEF200;
     float:left;
     border-bottom-left-radius:15px;
@@ -154,7 +152,7 @@ td{
 }
 #small_left{
     float:left;
-    width:15%;
+    width:13%;
     height:100%;
     background:#FEF200;
     border-bottom-left-radius:15px;
@@ -168,7 +166,7 @@ td{
 #small_right{
     float:left;  
     border-bottom-right-radius:15px;
-    width:85%; 
+    width:87%; 
     margin-right:auto;
     margin-left:auto;
     overflow-x:auto;
@@ -361,6 +359,7 @@ input{
     width:25%;
     overflow-x:auto;
 }
+/*DROP DOWN BOX CSS*/
 .default_month_drop_down{
     width:90px;
 }
@@ -370,6 +369,21 @@ input{
 .default_time_drop_down{
     width:55px;
 }
+/*END DROP DOWN BOX CSS*/
+
+/*SCHEDULE TABLE CSS*/
+.schedule_table{
+    
+}
+.schedule_table select{
+    width:70px;
+    font-size:70%;
+}
+.schedule_table table,th,td{
+    padding:0;
+}
+
+/*END SCHEDULE TABLE CSS*/
 
 
 #request_right{

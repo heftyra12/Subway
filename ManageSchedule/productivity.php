@@ -67,7 +67,7 @@ while($row = mysqli_fetch_array($result)){
                     
                     <div id="left_buttons">
                         <form action="index.php" method="POST">
-                            <input type="submit" value="Generate Schedule" class="subway_buttons"/>
+                            <input type="submit" value="Create Schedule" class="subway_buttons"/>
                         </form>
                         <br/>
                         <br/>
@@ -133,7 +133,7 @@ while($row = mysqli_fetch_array($result)){
                                 <td><input type="text" name="tues_prod" id="tues_prod" class ="product_field" required></td>
                             </tr>
                              
-                                <input type='hidden' name='newest_week' id='newest_week' value='<?php echo $newest_week;?>'>;
+                                <input type='hidden' name='newest_week' id='newest_week' value='<?php echo $newest_week;?>'>
                                 <input type="hidden" id="productivity" name="productivity" value=""/>
                                 <input type="hidden" id="generate" name="generate" value=""/>
                                 <input type="hidden" id="edit" name="edit" value=""/>
