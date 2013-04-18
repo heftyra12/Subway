@@ -29,7 +29,7 @@ session_start();
 
             <div id="normal_body">
                 <div id="normal_left">
-
+                    <div id="left_buttons">
                     <form action="/MainMenu/index.php" method="POST">
                         <input type="submit" value ="Home"> 
                     </form>
@@ -41,7 +41,7 @@ session_start();
                         <input type="hidden" name="exit" id="exit" value="destroy">
                         <input type="submit" value="Exit">
                     </form>
-
+                    </div>
                 </div>
 
                 <div id="normal_right">
@@ -68,7 +68,7 @@ session_start();
                     ?>
                     <div id="password_table">
                         <table>
-                            <th class="emp_title">Change <?php echo $_SESSION['user_name']; ?>'s Password:</th>
+                            <th id="table_title">Change <?php echo $_SESSION['user_name']; ?>'s Password:</th>
                             <form action="/HelperFiles/validatePassword.php" method ="POST">
                             <tr><td>Enter Current Password: <input type="password" name="current_password" id="current_password"/></td></tr>
                             <tr><td>Enter New Password: <input type="password" name="new_password" id="new_password"/></td></tr>

@@ -68,7 +68,7 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
                 <form action ="/HelperFiles/validateParameterChanges.php" method="POST">
             <table>
                 <tr><th id="table_title" colspan="2">Edit Scheduling Parameters</th></tr>
-                <tr><td>Description:</td><td><input type="text" id="rule_description" name="rule_descripton" value="" readonly></td></tr>
+                <tr><td>Description:</td><td><input type="text" id="rule_description" name="rule_descripton" value="" readonly title="Read Only!"></td></tr>
                 <tr><td>Value:</td><td><input type="text" id="rule_value_one" name="rule_value_one"></td></tr>
                 <tr><td colspan="2"><input type="button" value="Reset" onclick="resetList();"></td></tr>
                 <tr><td colspan="2"><input type="submit" value="Update"></td></tr>
@@ -82,7 +82,11 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
             
             <div id="employee_right">
             <table>
-                <tr><th colspan="4" id="table_title">Subway Scheduling Parameters</th></tr>
+                <tr><th colspan="3" id="table_title">Subway Scheduling Parameters</th></tr>
+                <tr><th id="row_title"></th>
+                    <th id="row_title">Description:</th>
+                    <th id="row_title">Value:</th>
+                </tr>
                 <?php
                 
                     /*For loop to put all existing rules into a drop down box*/
@@ -99,8 +103,6 @@ $_SESSION['schedule_parameters'] = $business_rule_array;
                         echo $business_rule_array[$x]->getRuleDescription();
                         echo "</td><td>";
                         echo $business_rule_array[$x]->getRuleValueOne();
-                        echo "</td><td>";
-                        echo $business_rule_array[$x]->getRuleValueTwo();
                         echo "</td></tr>";
                     }
                 ?>

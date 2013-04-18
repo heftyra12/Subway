@@ -25,7 +25,7 @@ th{
     border:0;
     margin:0;
     font-weight:bold;
-    text-align:center;
+    text-align:right;
     background:lightgreen;
 }
 td{
@@ -33,7 +33,7 @@ td{
     text-align:right;
     border:0;
     margin:0; 
-    background: lightgreen;
+    background:lightgreen;
 }
 
 /*CSS FOR ALL TABLE TITLES*/
@@ -371,6 +371,10 @@ input{
 }
 /*END DROP DOWN BOX CSS*/
 
+
+
+
+
 /*SCHEDULE TABLE CSS*/
 
 
@@ -544,4 +548,13 @@ a:active {
     background:white;
     color:black;
     height:30px;
+}
+
+#row_title{
+    text-align:center;
+    background:lightgreen;
+}
+
+#rule_description{
+    background:lavenderblush;
 }
