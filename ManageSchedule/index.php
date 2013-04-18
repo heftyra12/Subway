@@ -98,16 +98,16 @@ $_SESSION['schedule_array']=$schedule_array;
                             <th>Monday:</th>
                             <th>Tuesday:</th>
                         </tr>             
-                <?php               
+                <?php
+                    
                     $array = array(1,2,3,4,5,6,7);
-
+                
                     for($x=0;$x<count($_SESSION['schedule_array']);$x++){
                         echo "<input type='hidden' id='test'>";
                         echo "<tr><td class='sched_emp'>";
                         echo $_SESSION['schedule_array'][$x]->getEmployeeFirstName()." ";
                         echo $_SESSION['schedule_array'][$x]->getEmployeeLastName()."</td>";
                         
-<<<<<<< HEAD
                         $wed_start_name = "wed_start_".$x;
                         $wed_end_name = "wed_end_".$x;
                         
@@ -130,18 +130,18 @@ $_SESSION['schedule_array']=$schedule_array;
                         $tues_end_name = "tue_end_".$x;
                         
                         echo "<td><select id=\"$wed_start_name\" name='wed_start' onChange='resetTime(\"$wed_start_name\");'>";
-=======
-                        echo "<td><select id='wed_start' name='wed_start' onChange='enableSelect(name);'>";
->>>>>>> More updates to schedule
                         echo "<option value='default'>start</option>";
-                        // echo the shifts:
+                        
+                        $dayNo=1;
                         $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(1).'';
+                            From subway.shifts
+                            where day='.$dayNo.'';
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
                            echo "<option value='" . $row['shift'] . "' id='shift' name='shift'>" . $row['shift'] . "</option>";
                         }
+                        
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
@@ -177,21 +177,9 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-<<<<<<< HEAD
                         echo "<select id=\"$wed_end_name\" name='wed_end' onChange='resetTime(\"$wed_end_name\");'>";
                         
-=======
-                        echo "<select disabled id='wed_end' name='wed_end'>";
->>>>>>> More updates to schedule
                         echo "<option value='default'>end</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(1).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
@@ -226,7 +214,6 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2150'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
-<<<<<<< HEAD
                         
 //                        $dayNo=1;
 //                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
@@ -249,21 +236,10 @@ $_SESSION['schedule_array']=$schedule_array;
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts
                             where day='.$dayNo.'';
-=======
-                        echo "</select></td>";
-                        
-                        echo "<td><select id='thu_start' name='thu_start'>";
-                        echo "<option value='default'>start</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(2).'';
->>>>>>> More updates to schedule
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
                            echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
                         }
-<<<<<<< HEAD
                         
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
@@ -521,8 +497,6 @@ $_SESSION['schedule_array']=$schedule_array;
                            echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
                         }
                         
-=======
->>>>>>> More updates to schedule
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
@@ -558,66 +532,8 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-<<<<<<< HEAD
                         echo "<select id=\"$sun_end_name\" name='sun_end' onChange='resetTime(\"$sun_end_name\");'>";
                         echo "<option value='default'>end</option>";
-=======
-                        echo "<select id='thu_end' name='thu_end'>";
-                        echo "<option value='default'>end</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(2).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }
-                        echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
-                        echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
-                        echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
-                        echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
-                        echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
-                        echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
-                        echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
-                        echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
-                        echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
-                        echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
-                        echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
-                        echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
-                        echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
-                        echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
-                        echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
-                        echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
-                        echo "<option value='2200'>10:00</option>";
-                        echo "</select></td>";
-                        
-                        echo "<td><select id='fri_start' name='fri_start'>";
-                        echo "<option value='default'>start</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(3).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }
->>>>>>> More updates to schedule
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
@@ -653,7 +569,6 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-<<<<<<< HEAD
                         echo "<td><select id=\"$mon_start_name\" name='mon_start' onChange='resetTime(\"$mon_start_name\");'>";
                         echo "<option value='default'>start</option>";
                         
@@ -662,67 +577,11 @@ $_SESSION['schedule_array']=$schedule_array;
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts
                             where day='.$dayNo.'';
-=======
-                        echo "<select id='fri_end' name='fri_end'>";
-                        echo "<option value='default'>end</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(3).'';
->>>>>>> More updates to schedule
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
                            echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
                         }
-<<<<<<< HEAD
                         
-=======
-                        echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
-                        echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
-                        echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
-                        echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
-                        echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
-                        echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
-                        echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
-                        echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
-                        echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
-                        echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
-                        echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
-                        echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
-                        echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
-                        echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
-                        echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
-                        echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
-                        echo "<option value='2200'>10:00</option>";
-                        echo "</select></td>";
-                        
-                        echo "<td><select id='sat_start' name='sat_start'>";
-                        echo "<option value='default'>start</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(4).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }
->>>>>>> More updates to schedule
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
@@ -758,66 +617,8 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-<<<<<<< HEAD
                         echo "<select id=\"$mon_end_name\" name='mon_end' onChange='resetTime(\"$mon_end_name\");'>";
                         echo "<option value='default'>end</option>";
-=======
-                        echo "<select id='sat_end' name='sat_end'>";
-                        echo "<option value='default'>end</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(4).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }                        
-                        echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
-                        echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
-                        echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
-                        echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
-                        echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
-                        echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
-                        echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
-                        echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
-                        echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
-                        echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
-                        echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
-                        echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
-                        echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
-                        echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
-                        echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
-                        echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
-                        echo "<option value='2200'>10:00</option>";
-                        echo "</select></td>";
-                        
-                        echo "<td><select id='sun_start' name='sun_start'>";
-                        echo "<option value='default'>start</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(5).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }
->>>>>>> More updates to schedule
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
@@ -853,7 +654,6 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-<<<<<<< HEAD
                        
                         echo "<td><select id=\"$tues_start_name\" name='tue_start' onChange='resetTime(\"$tues_start_name\");'>";
                         echo "<option value='default'>start</option>";
@@ -863,67 +663,11 @@ $_SESSION['schedule_array']=$schedule_array;
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts
                             where day='.$dayNo.'';
-=======
-                        echo "<select id='sun_end' name='sun_end'>";
-                        echo "<option value='default'>end</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(5).'';
->>>>>>> More updates to schedule
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
                            echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
                         }
-<<<<<<< HEAD
                         
-=======
-                        echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
-                        echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
-                        echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
-                        echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
-                        echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
-                        echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
-                        echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
-                        echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
-                        echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
-                        echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
-                        echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
-                        echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
-                        echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
-                        echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
-                        echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
-                        echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
-                        echo "<option value='2200'>10:00</option>";
-                        echo "</select></td>";
-                        
-                        echo "<td><select id='mon_start' name='mon_start'>";
-                        echo "<option value='default'>start</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(6).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }
->>>>>>> More updates to schedule
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
@@ -959,67 +703,8 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-<<<<<<< HEAD
                         echo "<select id=\"$tues_end_name\" name='tue_end' onChange='resetTime(\"$tues_end_name\");'>";
                         echo "<option value='default'>end</option>";
-=======
-                        echo "<select id='mon_end' name='mon_end'>";
-                        echo "<option value='default'>end</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(6).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }
-                        echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
-                        echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
-                        echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
-                        echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
-                        echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
-                        echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
-                        echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
-                        echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
-                        echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
-                        echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
-                        echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
-                        echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
-                        echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
-                        echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
-                        echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
-                        echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
-                        echo "<option value='2200'>10:00</option>";
-                        echo "</select></td>";
-                        
-                        echo "<td><select id='tue_start' name='tue_start'>";
-                        echo "<option value='default'>start</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(7).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }
-                        echo "<option value='600'>6:00</option>";
->>>>>>> More updates to schedule
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
@@ -1055,58 +740,11 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-<<<<<<< HEAD
                         
                         
                         
                         
                         
-=======
-                        echo "<select id='tue_end' name='tue_end'>";
-                        echo "<option value='default'>end</option>";
-                        // echo the shifts:
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.(7).'';
-                        $result = mysqli_query($db_connect, $sqlShiftSelect);
-                        while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
-                        }
-                        echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
-                        echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
-                        echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
-                        echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
-                        echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
-                        echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
-                        echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
-                        echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
-                        echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
-                        echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
-                        echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
-                        echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
-                        echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
-                        echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
-                        echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
-                        echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
-                        echo "<option value='2200'>10:00</option>";
-                        echo "</select></td>";
->>>>>>> More updates to schedule
                         
                         echo "</tr>";
                     }
@@ -1159,21 +797,6 @@ $_SESSION['schedule_array']=$schedule_array;
         {
             document.getElementById(table.substring(0,3) + '_shift').value="default";
         }
-   }
-   
-   function enableSelect(table){
-       //document.write(document.getElementById(table.substring(0,3) + '_start').value);
-       var startFieldValue=document.getElementById(table.substring(0,3) + '_start').value;
-        if(startFieldValue.indexOf('-') === -1){
-            document.getElementById(table.substring(0,3) + '_end').disabled = false;
-       }
-       var endFieldValue=document.getElementById(table.substring(0,3) + '_end');
-       for(i=0;i<endFieldValue.length;i++){
-          if(endFieldValue[i].value.indexOf('-') !== -1){
-              alert(endFieldValue[i].value);
-            endFieldValue.remove(i);
-          }
-       }
    }
 </script>
     
