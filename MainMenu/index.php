@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include_once'../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';

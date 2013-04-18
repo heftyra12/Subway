@@ -10,7 +10,6 @@ class requestClass{
     private $end_date;
     private $start_time;
     private $end_time;
-    
     private $start_month;
     private $start_day;
     private $end_month;

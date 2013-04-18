@@ -31,9 +31,23 @@
             $this->employee_last_name = "";
             $this->employee_email = "";
             $this->employee_type ="";
-            $this->employee_id ="";
             $this->employee_minor ="No";
+            $this->employee_id ="";
             $this->employee_availability="";
+            $this->mon_start="";
+            $this->mon_end="";
+            $this->tues_start="";
+            $this->tues_end="";
+            $this->wed_start="";
+            $this->wed_end="";
+            $this->thurs_start="";
+            $this->thurs_end="";
+            $this->fri_start="";
+            $this->fri_end="";
+            $this->sat_start="";
+            $this->sat_end="";
+            $this->sun_start="";
+            $this->sun_end="";
         }
          
         //Class get methods.
