@@ -754,20 +754,6 @@ $_SESSION['schedule_array']=$schedule_array;
         }
         else
         {
-            for(var x = 0; x < table_one.length; x++){
-                
-                if(table_one.value == table_two[x].value){
-                    
-                    if(x < table_two.length -4){
-                        table_two.value = table_two[x+4].value;
-                    }
-                    else{
-                        table_one.value="default";
-                        table_two.value="default";
-                        alert("Minimum Shift Time Is Two Hours");
-                    }   
-                }
-            }
             //document.getElementById(table.substring(0,3) + '_shift').value="default";
         }
    }
