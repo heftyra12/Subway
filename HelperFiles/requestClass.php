@@ -17,7 +17,18 @@ class requestClass{
     private $end_day;
     
     public function __construct(){
-        
+        $this->employee_id="";
+        $this->request_id="";
+        $this->first_name="";
+        $this->last_name="";
+        $this->start_date = "";
+        $this->end_date="";
+        $this->start_time="";
+        $this->end_time="";
+        $this->start_month="";
+        $this->end_month="";
+        $this->start_day="";
+        $this->end_day="";
     }
     
     public function getRequestID(){
