@@ -85,7 +85,7 @@ $_SESSION['shift_array']=$shift_array;
                 </tr>
                 <tr>
                     <td>Start Time:</td>
-                    <td><select id="shift_start" name="shift_start" onChange="startTime('shift_start');">
+                    <td><select id="shift_start" name="shift_start" onChange="startTime('shift_start');" class="default_time_drop_down">
                                <option value="default">Start</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
@@ -124,7 +124,7 @@ $_SESSION['shift_array']=$shift_array;
                 </tr>
                 <tr>
                     <td>End Time:</td>
-                    <td><select name="shift_end" id="shift_end"><select></td>
+                    <td><select name="shift_end" id="shift_end" class="default_time_drop_down" title="Select Start Time First:"><select></td>
                 </tr>
                 <tr>
                     <td>Action:</td>
@@ -161,23 +161,27 @@ $_SESSION['shift_array']=$shift_array;
                 <?php
               
                 for($x=0;$x<count($shift_array);$x++){
-     
-                    $day = $shift_array[$x]->getShiftDay();
+                    $day_array = array("Wednesday","Thursday","Friday","Saturday","Sunday","Monday","Tuesday");
+                    $day = $_SESSION['shift_array'][$x]->getShiftDay();
+                    
                     $start_time = $shift_array[$x]->getStartTime();
                     $end_time = $shift_array[$x]->getEndTime();
                     $id = $shift_array[$x]->getShiftID();
                     
-                    $day_array = array("Wednesday","Thursday","Friday","Saturday","Sunday","Monday","Tuesday");
-                    
                     echo "<tr><td>";
                     echo "<input type='radio' id='shifts' name='shifts' onclick='insertShift(\"$day\",\"$start_time\",\"$end_time\",\"$id\");'></td>";
                     echo "<td>";
+                    
+                    
                     echo $day_array[$day - 1];
                     echo "<td>";
                     echo $shift_array[$x]->getStartTime();
                     echo "</td><td>";
                     echo $shift_array[$x]->getEndTime();
                     echo "</td></tr>";
+                    
+                    
+                    
                 }
      
                 ?>
@@ -202,6 +206,7 @@ $_SESSION['shift_array']=$shift_array;
      
         document.getElementById("shift_day").value = "1";
         document.getElementById("shift_start").value = "default";
+        document.getElementById("shift_end").title="Select Start Time First:";
         document.getElementById("shift_end").options.length=0;
             
        var update_options = document.getElementById("update_choice");
@@ -230,6 +235,8 @@ $_SESSION['shift_array']=$shift_array;
         document.getElementById("shift_day").value = day;
         document.getElementById("shift_start").value = start_time;
         document.getElementById("current_id").value = id;
+        document.getElementById("shift_end").title="";
+        
         
         var end_shift = end_time;   
         var time_list = document.getElementById("shift_start");

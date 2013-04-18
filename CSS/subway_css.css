@@ -152,7 +152,7 @@ td{
 }
 #small_left{
     float:left;
-    width:13%;
+    width:12%;
     height:100%;
     background:#FEF200;
     border-bottom-left-radius:15px;
@@ -166,7 +166,7 @@ td{
 #small_right{
     float:left;  
     border-bottom-right-radius:15px;
-    width:87%; 
+    width:88%; 
     margin-right:auto;
     margin-left:auto;
     overflow-x:auto;

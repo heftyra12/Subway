@@ -9,10 +9,12 @@ class shiftsClass{
     private $shift_day;
     
     /*Constructor*/
-    public function __construct(){
-        
+    public function __construct($shift_id,$shift_day,$start_time,$end_time){   
+        $this->shift_day = $shift_day;
+        $this->shift_id = $shift_id;
+        $this->start_time = $start_time;
+        $this->end_time = $end_time; 
     }
-    
     /*GET METHODS*/
     public function getShiftDay(){
         return $this->shift_day;
