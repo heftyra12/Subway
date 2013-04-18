@@ -108,7 +108,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo $_SESSION['schedule_array'][$x]->getEmployeeFirstName()." ";
                         echo $_SESSION['schedule_array'][$x]->getEmployeeLastName()."</td>";
                             
-                        echo "<td><select id='wed_start_.$x' name='wed_start_.$x' onChange='resetTime(name);' class='schedule_table'>";
+                        echo "<td><select id='wed_start_$x' name='wed_start_$x' onChange='resetTime(name);' class='schedule_table'>";
                         echo "<option value='default'>start</option>";
                         
                         $dayNo=1;
@@ -155,7 +155,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='wed_end_.$x' name='wed_end_.$x' onChange='resetTime(name);' class='schedule_table_end'>";
+                        echo "<select id='wed_end_$x' name='wed_end_$x' onChange='resetTime(name);' class='schedule_table_end'>";
                         
                         echo "<option value='default'>end</option>";
                         echo "<option value='600'>6:00</option>";
@@ -194,7 +194,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "</select>";
                         
                         
-                        echo "<td><select id='thu_start_.$x' name='thu_start_.$x' onChange='resetTime(name);' class='schedule_table'>";
+                        echo "<td><select id='thu_start_$x' name='thu_start_$x' onChange='resetTime(name);' class='schedule_table'>";
                         echo "<option value='default'>start</option>";
                         
                         $dayNo=1;
@@ -241,7 +241,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='thu_end_.$x' name='thu_end_.$x' onChange='resetTime(name);'class='schedule_table_end'>";
+                        echo "<select id='thu_end_$x' name='thu_end_$x' onChange='resetTime(name);'class='schedule_table_end'>";
                         echo "<option value='default'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
@@ -278,7 +278,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<td><select id='fri_start_.$x' name='fri_start_.$x' onChange='resetTime(name);' class='schedule_table'>";
+                        echo "<td><select id='fri_start_$x' name='fri_start_$x' onChange='resetTime(name);' class='schedule_table'>";
                         echo "<option value='default'>start</option>";
                         
                         $dayNo=1;
@@ -325,7 +325,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='fri_end_.$x' name='fri_end_.$x' onChange='resetTime(name);' class='schedule_table_end'>";
+                        echo "<select id='fri_end_$x' name='fri_end_$x' onChange='resetTime(name);' class='schedule_table_end'>";
                         echo "<option value='default'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
@@ -362,7 +362,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<td><select id='sat_start_.$x' name='sat_start_.$x' onChange='resetTime(name);' class='schedule_table'>";
+                        echo "<td><select id='sat_start_$x' name='sat_start_$x' onChange='resetTime(name);' class='schedule_table'>";
                         echo "<option value='default'>start</option>";
                         
                         $dayNo=1;
@@ -409,7 +409,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='sat_end_.$x' name='sat_end_.$x' onChange='resetTime(name);' class='schedule_table_end'>";
+                        echo "<select id='sat_end_$x' name='sat_end_$x' onChange='resetTime(name);' class='schedule_table_end'>";
                         echo "<option value='default'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
@@ -447,7 +447,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "</select>";
                         
                         
-                        echo "<td><select id='sun_start_.$x' name='sun_start_.$x' onChange='resetTime(name);' class='schedule_table'>";
+                        echo "<td><select id='sun_start_$x' name='sun_start_$x' onChange='resetTime(name);' class='schedule_table'>";
                         echo "<option value='default'>start</option>";
                         
                         $dayNo=1;
@@ -494,7 +494,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='sun_end_.$x' name='sun_end_.$x' onChange='resetTime(name);' class='schedule_table_end'>";
+                        echo "<select id='sun_end_$x' name='sun_end_$x' onChange='resetTime(name);' class='schedule_table_end'>";
                         echo "<option value='default'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
@@ -531,7 +531,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<td><select id='mon_start_.$x' name='mon_start_.$x' onChange='resetTime(name);' class='schedule_table'>";
+                        echo "<td><select id='mon_start_$x' name='mon_start_$x' onChange='resetTime(name);' class='schedule_table'>";
                         echo "<option value='default'>start</option>";
                         
                         $dayNo=1;
@@ -578,7 +578,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='mon_end_.$x' name='mon_end_.$x' onChange='resetTime(name);' class='schedule_table_end'>";
+                        echo "<select id='mon_end_$x' name='mon_end_$x' onChange='resetTime(name);' class='schedule_table_end'>";
                         echo "<option value='default'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
@@ -616,7 +616,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "</select>";
                         
                        
-                        echo "<td><select id='tue_start_.$x' name='tue_start_.$x' onChange='resetTime(name);' class='schedule_table'>";
+                        echo "<td><select id='tue_start_$x' name='tue_start_$x' onChange='resetTime(name);' class='schedule_table'>";
                         echo "<option value='default'>start</option>";
                         
                         $dayNo=1;
@@ -663,7 +663,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='tue_end_.$x' name='tue_end_.$x' onChange='resetTime(name);' class='schedule_table_end'>";
+                        echo "<select id='tue_end_$x' name='tue_end_$x' onChange='resetTime(name);' class='schedule_table_end'>";
                         echo "<option value='default'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='650'>6:30</option>";
@@ -736,20 +736,39 @@ $_SESSION['schedule_array']=$schedule_array;
    function resetTime(table){
        
        var table_name = table.split("_");
-       var alt_name = table_name[0]+"_end_"+table_name[2];
        
-       var selection = document.getElementById(table).value;
-       
+       var start_name = table_name[0]+"_start_"+table_name[2];
+       var end_name = table_name[0]+"_end_"+table_name[2];
+      
+        var table_one = document.getElementById(start_name);
+        var table_two = document.getElementById(end_name);
+        
+        
        // Resets the shift field if the start or end times are selected and 
        // vise versa if shift is selected:
         //if(table.substring(table.length-5,table.length) === "shift"){
-        if(selection.length > 5){
-            //document.getElementById(table.substring(0,3) + '_start').value="default";
-            document.getElementById(alt_name).value="default";
+        //document.getElementById(table.substring(0,3) + '_start').value="default";
+        
+        if(table_one.value.length > 8 || table_two.value.lengh > 8){
+            document.getElementById(end_name).value="default";
         }
         else
         {
-            document.getElementById(table.substring(0,3) + '_shift').value="default";
+            for(var x = 0; x < table_one.length; x++){
+                
+                if(table_one.value == table_two[x].value){
+                    
+                    if(x < table_two.length -4){
+                        table_two.value = table_two[x+4].value;
+                    }
+                    else{
+                        table_one.value="default";
+                        table_two.value="default";
+                        alert("Minimum Shift Time Is Two Hours");
+                    }   
+                }
+            }
+            //document.getElementById(table.substring(0,3) + '_shift').value="default";
         }
    }
 </script>
