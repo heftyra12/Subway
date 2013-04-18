@@ -372,17 +372,31 @@ input{
 /*END DROP DOWN BOX CSS*/
 
 /*SCHEDULE TABLE CSS*/
-.schedule_table{
-    
-}
-.schedule_table select{
-    width:70px;
-    font-size:70%;
-}
-.schedule_table table,th,td{
-    padding:0;
-}
 
+
+select.schedule_table_end{
+    width:50px;
+    font-size:55%;
+}
+select.schedule_table{
+    width:71px;
+    font-size:55%;
+}
+.schedule_table option{
+
+}
+table.schedule_table{
+    padding:0px;
+}
+td.schedule_table{
+    padding:0px;
+}
+tr.schedule_table{
+    padding:0px;
+}
+th.schedule_table{
+    padding:0px;
+}
 /*END SCHEDULE TABLE CSS*/
 
 
@@ -513,6 +527,7 @@ a:active {
     color:black;
 }
 .sched_emp{
+    font-size:85%;
     text-align:left;
 }
 .emp_table{
