@@ -10,7 +10,7 @@ include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 include_once '../../Subway/HelperFiles/shiftClass.php';
 
-$sqlCommand = "SELECT employee_id, first_name, last_name from subway.employee";
+$sqlCommand = "SELECT employee_id, first_name, last_name, emp_type, emp_minor from subway.employee";
 
 $result = mysqli_query($db_connect, $sqlCommand);
 
@@ -23,6 +23,8 @@ while ($row = mysqli_fetch_array($result)) {
     $employee->setEmployeeID($row["employee_id"]);
     $employee->setEmployeeFirstName($row["first_name"]);
     $employee->setEmployeeLastName($row["last_name"]);
+    $employee->setEmployeeType($row["emp_type"]);
+    $employee->setEmployeeMinor($row["emp_minor"]);
     array_push($schedule_array, $employee);
 }
 
@@ -103,12 +105,16 @@ $_SESSION['schedule_array']=$schedule_array;
                     $array = array(1,2,3,4,5,6,7);
                 
                     for($x=0;$x<count($_SESSION['schedule_array']);$x++){
+                        
+                        $isMinor = $_SESSION['schedule_array'][$x]->getEmployeeMinor();
+                        $emp_type = $_SESSION['schedule_array'][$x]->getEmployeeType();
+                        
                         echo "<input type='hidden' id='test'>";
                         echo "<tr class='schedule_table'><td class='sched_emp'>";
                         echo $_SESSION['schedule_array'][$x]->getEmployeeFirstName()." ";
                         echo $_SESSION['schedule_array'][$x]->getEmployeeLastName()."</td>";
                             
-                        echo "<td><select id='wed_start_$x' name='wed_start_$x' onChange='resetTime(name); checkTime(name);' class='schedule_table'>";
+                        echo "<td><select id='wed_start_$x' name='wed_start_$x' onChange='mainCall(name);' class='schedule_table'>";
                         echo "<option value='default'>start</option>";
                         
                         $dayNo=1;
@@ -697,8 +703,10 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2150'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
-                        
                         echo "</tr>";
+                        
+                        echo "<input type='hidden' id='type_$x' name='type_$x' value=\"$emp_type\">";
+                        echo"<input type='hidden' id='minor_$x' name='minor_$x' value=\"$isMinor\">";
                     }
                 ?>
                 <tr><td colspan="9"><input type="submit" value="Create Schedule:"/></td></tr>  
@@ -712,74 +720,80 @@ $_SESSION['schedule_array']=$schedule_array;
 </html>
 
 <script language="Javascript">
-
-    function selectTime(){
+    
+    function mainCall(table){
         
-       for(var x = 0; x < blah.length;x++){
-           
-        alert(blah[x]);
+        var name = table;
+        resetTime(name);
+        if(checkTime(name))
+            timeCheck(name);
         
-       }
         
-       document.getElementById('wed_shift').value="default";
     }
     
-    function selectShift(){
+    function resetTime(table){
         
-        document.getElementById('wed_start').value="default";
-    }
-    
-   function resetTime(table){
-
-       var table_name = table.split("_");
+        var table_name = table.split("_");
+        
+        var start_name = table_name[0]+"_start_"+table_name[2];
+        var end_name = table_name[0]+"_end_"+table_name[2];
+        
+        var table_one = document.getElementById(start_name);
+        var table_two = document.getElementById(end_name);
        
-       var start_name = table_name[0]+"_start_"+table_name[2];
-       var end_name = table_name[0]+"_end_"+table_name[2];
-      
-       var table_one = document.getElementById(start_name);
-       var table_two = document.getElementById(end_name);
-        
-       // Resets the shift field if the start or end times are selected and 
-       // vise versa if shift is selected:
-        //if(table.substring(table.length-5,table.length) === "shift"){
-        //document.getElementById(table.substring(0,3) + '_start').value="default";
-        
         if(table_one.value.length > 8 || table_two.value.lengh > 8){
             document.getElementById(end_name).value="default";
         }
-        else
-        {
-            //document.getElementById(table.substring(0,3) + '_shift').value="default";
-        }
-   }
-   
-   function checkTime(table){
-       
-       var table_name = table.split("_");
-       
-       var start_name = table_name[0]+"_start_"+table_name[2];
-       var end_name = table_name[0]+"_end_"+table_name[2];
-      
-       var table_one = document.getElementById(start_name);
-       var table_two = document.getElementById(end_name);
-
-       var min_shift_hours = document.getElementById('min_shift_hours').value; 
-
-       for(var x = 0; x < table_one.length; x++){
-       
+    }
+    
+    function checkTime(table){
+        
+        var table_name = table.split("_");
+        
+        var start_name = table_name[0]+"_start_"+table_name[2];
+        var end_name = table_name[0]+"_end_"+table_name[2];
+        
+        var table_one = document.getElementById(start_name);
+        var table_two = document.getElementById(end_name);
+        
+        var min_shift_hours = document.getElementById('min_shift_hours').value; 
+        
+        for(var x = 0; x < table_one.length; x++){
+            
             if(table_one.value == table_two[x].value){
-                    
+                
                 if(x < table_two.length - (min_shift_hours * 2)){
-                        
-                        table_two.value = table_two[x+ (min_shift_hours * 2)].value;
+                    
+                    table_two.value = table_two[x+ (min_shift_hours * 2)].value;
+                    return true;
                 }
                 else{
                     table_one.value="default";
                     table_two.value="default";
                     alert("Minimum Shift Time Is " + min_shift_hours);
+                    return true;
                 }   
             }
-       }
-   }
+        }
+        return true;
+        
+    }
+    
+    function timeCheck(table){
+        
+        var table_name = table.split("_");
+        var index = table_name[2];
+        
+        emp_type = "type_"+index;
+      
+        var isMinor = document.getElementById(emp_type).value;
+        
+        alert(isMinor);
+        
+        
+        
+        var max_day_part = document.getElementById('max_day_part').value;
+        var emp_type = document.getElementById('emp_type').value;
+    }
 </script>
     
