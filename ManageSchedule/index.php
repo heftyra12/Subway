@@ -4,8 +4,8 @@ session_start();
 if($_SESSION['current_prod'] != true){
     header("Location: productivity.php");
 }
-
 include_once '../../Subway/HelperFiles/config.php';
+include_once'../../Subway/HelperFiles/getBusinessRules.php';
 include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 include_once '../../Subway/HelperFiles/shiftClass.php';
@@ -730,7 +730,11 @@ $_SESSION['schedule_array']=$schedule_array;
     }
     
    function resetTime(table){
-       
+
+        var test_bus = document.getElementById('min_shift_hours').value; 
+        
+        alert(test_bus);
+
        var table_name = table.split("_");
        
        var start_name = table_name[0]+"_start_"+table_name[2];
