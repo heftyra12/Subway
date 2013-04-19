@@ -731,10 +731,6 @@ $_SESSION['schedule_array']=$schedule_array;
     
    function resetTime(table){
 
-        var test_bus = document.getElementById('min_shift_hours').value; 
-        
-        alert(test_bus);
-
        var table_name = table.split("_");
        
        var start_name = table_name[0]+"_start_"+table_name[2];
@@ -766,22 +762,24 @@ $_SESSION['schedule_array']=$schedule_array;
       
        var table_one = document.getElementById(start_name);
        var table_two = document.getElementById(end_name);
-       
+
+       var min_shift_hours = document.getElementById('min_shift_hours').value; 
+
        for(var x = 0; x < table_one.length; x++){
-                
-        if(table_one.value == table_two[x].value){
-                    
-                    if(x < table_two.length -4){
-                        table_two.value = table_two[x+4].value;
-                    }
-                    else{
-                        table_one.value="default";
-                        table_two.value="default";
-                        alert("Minimum Shift Time Is Two Hours");
-                    }   
-                }
-            }
        
+            if(table_one.value == table_two[x].value){
+                    
+                if(x < table_two.length - (min_shift_hours * 2)){
+                        
+                        table_two.value = table_two[x+ (min_shift_hours * 2)].value;
+                }
+                else{
+                    table_one.value="default";
+                    table_two.value="default";
+                    alert("Minimum Shift Time Is " + min_shift_hours);
+                }   
+            }
+       }
    }
 </script>
     
