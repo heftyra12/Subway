@@ -6,6 +6,7 @@ if($_SESSION['current_prod'] != true){
 }
 include_once '../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/getBusinessRules.php';
+include_once'../../Subway/HelperFiles/scheduleClass.php';
 include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 include_once '../../Subway/HelperFiles/shiftClass.php';
@@ -15,16 +16,25 @@ $sqlCommand = "SELECT employee_id, first_name, last_name, emp_type, emp_minor fr
 $result = mysqli_query($db_connect, $sqlCommand);
 
 $schedule_array = array();
+$full_sched_array = array();
 
 while ($row = mysqli_fetch_array($result)) {
 
     $employee = new employeeClass;
-
+    $schedule = new scheduleClass;
+    
     $employee->setEmployeeID($row["employee_id"]);
     $employee->setEmployeeFirstName($row["first_name"]);
+    
+    $schedule->setEmployeeID($row["employee_id"]);
+    $schedule->setFirstName($row["first_name"]);
+    $schedule->setLastName($row["last_name"]);
+    
     $employee->setEmployeeLastName($row["last_name"]);
     $employee->setEmployeeType($row["emp_type"]);
     $employee->setEmployeeMinor($row["emp_minor"]);
+    
+    array_push($full_sched_array,$schedule);
     array_push($schedule_array, $employee);
 }
 
@@ -41,8 +51,15 @@ $_SESSION['schedule_array']=$schedule_array;
         <title></title>
     </head>
     <body>
-
+        
         <div id="page_top">
+            
+            <div id="log_out">
+            User: <?php echo $_SESSION['user_name'];
+                        echo " | <a href=../index.php>Logout</a>";
+                     ?>
+            </div>
+            
             <div id="top_image">
 
                 <img src="/Images/temp_top_logo_3.png" id="image" align="center">
@@ -161,7 +178,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='wed_end_$x' name='wed_end_$x' onChange='resetTime(name);' class='schedule_table_end'>";
+                        echo "<select id='wed_end_$x' name='wed_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
                         
                         echo "<option value='default'>end</option>";
                         echo "<option value='600'>6:00</option>";
@@ -726,10 +743,15 @@ $_SESSION['schedule_array']=$schedule_array;
         var name = table;
         resetTime(name);
         if(checkTime(name))
-            timeCheck(name);
-        
-        
+            timeCheck(name);   
     }
+    
+    function endMainCall(table){
+        var name = table; 
+        resetTime(name);
+        timeCheck(name);
+    }
+ 
     
     function resetTime(table){
         
@@ -776,24 +798,43 @@ $_SESSION['schedule_array']=$schedule_array;
             }
         }
         return true;
-        
     }
     
     function timeCheck(table){
+   
+        var max_day_part = document.getElementById('max_day_part').value;
+        var max_day_full = document.getElementById('max_day_full').value;
         
         var table_name = table.split("_");
+        var start_name = table_name[0]+"_start_"+table_name[2];
+        var end_name = table_name[0]+"_end_"+table_name[2];
+        
+        var start_time = document.getElementById(start_name).value;
+        var end_time = document.getElementById(end_name).value;
+        
         var index = table_name[2];
         
-        emp_type = "type_"+index;
-      
-        var isMinor = document.getElementById(emp_type).value;
+        var type = "type_"+index;
         
-        alert(isMinor);
+        var emp_type = document.getElementById(type).value;
         
+        if(emp_type == "F"){
         
+            if(end_time != "default"){
+                
+                if((end_time - start_time) > (max_day_full * 100)){
+                    alert("over on hours");
+                }   
+            }
+        }
+        if(emp_type =="P"){
         
-        var max_day_part = document.getElementById('max_day_part').value;
-        var emp_type = document.getElementById('emp_type').value;
+            if(end_time != "default"){
+                if((end_time - start_time) > (max_day_part *100)){
+                    alert("Part-Time Over Hours:");
+                }
+            }
+        }   
     }
 </script>
     

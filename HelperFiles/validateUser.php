@@ -2,10 +2,7 @@
   session_start();
 
     include_once'config.php';
-//Start session
-  
-    
-    
+ 
     $user_name = $_POST['user_name'];
     $password = $_POST['password'];
     

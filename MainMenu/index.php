@@ -102,6 +102,12 @@ $_SESSION['employee_array'] = $employee_array;
     <body>
         <div id="page_top">
             
+            <div id="log_out">
+            User: <?php echo $_SESSION['user_name'];
+                        echo " | <a href=../index.php>Logout</a>";
+                     ?>
+            </div>
+            
             <div id="top_image">
                 <img src="/Images/temp_top_logo_3.png" id="image" align="center">
             </div>
@@ -122,12 +128,6 @@ $_SESSION['employee_array'] = $employee_array;
                     <div id="left_buttons">
                     <form action="changePassword.php" >
                         <input type="submit" value ="Change Password"> 
-                    </form>
-                    </br>
-                    </br>
-                    <form action="/index.php" method="POST">
-                        <input type="hidden" id="exit" name="exit" value="destroy">
-                        <input type="submit" value="Exit">
                     </form>
                     </div>
                 </div>

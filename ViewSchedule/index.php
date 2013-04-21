@@ -21,6 +21,12 @@ if(isset($_SESSION['no_product']))
 
         <div id="page_top"/>
         
+            <div id="log_out">
+            User: <?php echo $_SESSION['user_name'];
+                        echo " | <a href=../index.php>Logout</a>";
+                     ?>
+            </div>
+        
             <div id="top_image">
 
                 <img src="/Images/temp_top_logo_3.png" align="center">
