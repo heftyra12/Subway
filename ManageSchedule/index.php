@@ -99,7 +99,7 @@ $_SESSION['schedule_array']=$schedule_array;
            
             <div id="home_sched">   
                 
-                <form action="/HelperFiles/getSchedule.php" method="POST">
+                <form action="/HelperFiles/validateSchedule.php" method="POST">
                 
                     <table class="schedule_table">
                  
@@ -721,11 +721,38 @@ $_SESSION['schedule_array']=$schedule_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         echo "</tr>";
-                        
+                         
                         echo "<input type='hidden' id='type_$x' name='type_$x' value=\"$emp_type\">";
-                        echo"<input type='hidden' id='minor_$x' name='minor_$x' value=\"$isMinor\">";
+                        echo "<input type='hidden' id='minor_$x' name='minor_$x' value=\"$isMinor\">";
+                        
+                        echo "<input type='hidden' id='mon_time_start_$x' name='mon_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='mon_time_end_$x' name='mon_time_end_$x' value=''>";
+                        
+                        echo "<input type='hidden' id='tue_time_start_$x' name='tue_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='tue_time_end_$x' name='tue_time_end_$x' value=''>";
+                        
+                        echo "<input type='hidden' id='wed_time_start_$x' name='wed_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='wed_time_end_$x' name='wed_time_end_$x' value=''>";
+                        
+                        echo "<input type='hidden' id='thr_time_start_$x' name='thu_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='thr_time_end_$x' name='thu_time_end_$x' value=''>";
+                        
+                        echo "<input type='hidden' id='fri_time_start_$x' name='fri_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='fri_time_end_$x' name='fri_time_end_$x' value=''>";
+                        
+                        echo "<input type='hidden' id='sat_time_start_$x' name='sat_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='sat_time_end_$x' name='sat_time_end_$x' value=''>";
+                        
+                        echo "<input type='hidden' id='sun_time_start_$x' name='sun_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='sun_time_end_$x' name='sun_time_end_$x' value=''>";
+                     
+                        echo "<input type='hidden' id='total_$x' name='total_$x' value=''>";
                     }
+                    
+                    echo "<input type='hidden' id='index' name='index' value='$x'>";
+                   
                 ?>
+                        
                 <tr><td colspan="9"><input type="submit" value="Create Schedule:"/></td></tr>  
                 </form>
                 </table>
@@ -806,6 +833,7 @@ $_SESSION['schedule_array']=$schedule_array;
         var max_day_full = document.getElementById('max_day_full').value;
         
         var table_name = table.split("_");
+        
         var start_name = table_name[0]+"_start_"+table_name[2];
         var end_name = table_name[0]+"_end_"+table_name[2];
         
@@ -813,6 +841,9 @@ $_SESSION['schedule_array']=$schedule_array;
         var end_time = document.getElementById(end_name).value;
         
         var index = table_name[2];
+      
+        var day = table_name[0];
+        alert(day);
         
         var type = "type_"+index;
         
@@ -824,17 +855,37 @@ $_SESSION['schedule_array']=$schedule_array;
                 
                 if((end_time - start_time) > (max_day_full * 100)){
                     alert("over on hours");
-                }   
+                }
+                else{
+                    switch(day){
+                        
+                        case "wed":
+                            document.getElementById("wed_time_start_"+index).value = start_time;
+                            document.getElementById("wed_time_end_"+index).value = end_time;
+                            alert(index);
+                        case "thu":
+                            document.getElementById("thr_start_time_"+index).value = start_time;
+                            document.getElementById("thr_start_time_"+index).value=end_time;
+                        case "fri":
+                        case "sat":
+                        case "sun":
+                        case "mon":
+                        case "tue":
+                        
+                    }
+                    
+                }
             }
         }
         if(emp_type =="P"){
         
             if(end_time != "default"){
+                
                 if((end_time - start_time) > (max_day_part *100)){
                     alert("Part-Time Over Hours:");
                 }
             }
-        }   
+        }  
     }
 </script>
     
