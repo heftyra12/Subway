@@ -244,6 +244,31 @@ $_SESSION['request_array']=$request_array;
                                 $start_time = $request_array[$x]->getStartTime();
                                 $end_time = $request_array[$x]->getEndTime();
                                 
+                                
+                                $converted_start_time = $start_time;
+                                $converted_end_time = $end_time;
+                                
+                                if($start_time > 1200){
+                                    $converted_start_time = $start_time - 1200;
+                                }
+                                
+                                if($end_time > 1200){
+                                    $converted_end_time = $end_time - 1200;
+                                }
+                                
+                                if(strlen($converted_start_time) > 3){   
+                                    $final_start_time = substr($converted_start_time,0,2) . ":" . substr($converted_start_time,2,4); 
+                                }
+                                else{
+                                   $final_start_time = "0" . substr($converted_start_time,0,1) . ":" . substr($converted_start_time,1,3);
+                                }
+                                if(strlen($converted_end_time) > 3){
+                                    $final_end_time = substr($converted_end_time,0,2) . ":" . substr($converted_end_time,2,4);
+                                }
+                                else{
+                                    $final_end_time = "0" . substr($converted_end_time,0,1) . ":" . substr($converted_end_time,1,3);
+                                }
+                                
                                 echo "<tr><td>";
                                 echo "<input type='radio' id='current' name='current' 
                                     onclick ='clearTable();insertRequests(\"$req_id\",\"$emp_id\",\"$first_name\",\"$last_name\"
@@ -258,9 +283,9 @@ $_SESSION['request_array']=$request_array;
                                 echo "</td><td>";
                                 echo $request_array[$x]->getEndDate();
                                 echo "</td><td>";
-                                echo $request_array[$x]->getStartTime();
+                                echo $final_start_time;
                                 echo "</td><td>";
-                                echo $request_array[$x]->getEndTime();
+                                echo $final_end_time;
                                 echo "</td></tr>";
                             }
                         ?>

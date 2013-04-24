@@ -766,7 +766,6 @@ $_SESSION['schedule_array']=$schedule_array;
 <script language="Javascript">
     
     function mainCall(table){
-        
         var name = table;
         resetTime(name);
         if(checkTime(name))
@@ -841,12 +840,9 @@ $_SESSION['schedule_array']=$schedule_array;
         var end_time = document.getElementById(end_name).value;
         
         var index = table_name[2];
-      
         var day = table_name[0];
-        alert(day);
-        
+       
         var type = "type_"+index;
-        
         var emp_type = document.getElementById(type).value;
         
         if(emp_type == "F"){
@@ -886,9 +882,7 @@ $_SESSION['schedule_array']=$schedule_array;
                         case "tue":
                             document.getElementById("tue_time_start_"+index).value = start_time;
                             document.getElementById("tue_time_end_"+index).value = end_time;
-                        
                     }
-                    
                 }
             }
         }
