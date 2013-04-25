@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('America/Chicago');
 
 if($_SESSION['current_prod'] != true){
     header("Location: productivity.php");
@@ -106,16 +107,53 @@ $_SESSION['schedule_array']=$schedule_array;
                         <tr class="schedule_table">
                             <th id="table_title" colspan="15">Create New Schedule:</th>
                         </tr>
+                        <tr>Week Begins On:
+                            <?php
+                                $yearNum = date("Y"); 
+                                
+                                //year
+                                echo "<select id='year_sched' name='year_sched' onChange='enableMonth();'>";
+                                echo "<option value='default'>YEAR</option>";
+                                for($y=$yearNum;$y<($yearNum+2);$y++){
+                                    echo "<option value='$y'>$y</option>";
+                                }
+                                echo "</select>";
+
+                                //month 
+                                echo "<select disabled id='month_sched' name='month_sched' onChange='setDaysInMonth();'>";
+                                echo "<option value='default'>MONTH</option>";
+                                echo "<option value='1'>January</option>";
+                                echo "<option value='2'>February</option>";
+                                echo "<option value='3'>March</option>";
+                                echo "<option value='4'>April</option>";
+                                echo "<option value='5'>May</option>";
+                                echo "<option value='6'>June</option>";
+                                echo "<option value='7'>July</option>";
+                                echo "<option value='8'>August</option>";
+                                echo "<option value='10'>October</option>";
+                                echo "<option value='11'>November</option>";
+                                echo "<option value='12'>December</option>";
+                                echo "</select>";
+
+                                //day
+                                echo "<select disabled id='day_sched' name='day_sched' onChange='displaySchedDays();'>";
+                                echo "<option value='default'>DAY</option>";
+                                echo "</select>";
+                                
+                                //reset
+                                echo"<input type='button' value='RESET' id='reset_day_selector' name='reset_day_selector' onClick='resetDaySelector();'/>";
+                            ?>
+                        </tr>
                
                         <tr class="schedule_table">
                             <th class="schedule_table">Employee:</th>
-                            <th class="schedule_table">Wednesday:</th>
-                            <th class="schedule_table">Thursday:</th>
-                            <th class="schedule_table">Friday:</th>
-                            <th class="schedule_table">Saturday:</th>
-                            <th class="schedule_table">Sunday:</th>
-                            <th class="schedule_table">Monday:</th>
-                            <th class="schedule_table">Tuesday:</th>
+                            <th id="day_num1" class="schedule_table">Wed</th>
+                            <th id="day_num2" class="schedule_table">Thu</th>
+                            <th id="day_num3" class="schedule_table">Fri</th>
+                            <th id="day_num4" class="schedule_table">Sat</th>
+                            <th id="day_num5" class="schedule_table">Sun</th>
+                            <th id="day_num6" class="schedule_table">Mon</th>
+                            <th id="day_num7" class="schedule_table">Tue</th>
                         </tr>             
                 <?php
                     
@@ -895,6 +933,96 @@ $_SESSION['schedule_array']=$schedule_array;
                 }
             }
         }  
+    }
+    
+    function enableMonth(){
+        document.getElementById("month_sched").disabled = false;
+    }
+    
+    function setDaysInMonth(){
+        // sets day count in HTML select option list for selected month
+        var selectedYear = document.getElementById("year_sched").value;
+        var selectedMonth = document.getElementById("month_sched").value;
+        var daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+        
+        // populate the option list
+        for(d=1;d<=daysInMonth;d++){
+            var x=document.getElementById("day_sched");
+            var option=document.createElement("option");
+            option.text=d;
+            try
+                {
+                // for IE earlier than version 8 -- found this on Google!!!
+                x.add(option,x.options[null]);
+                }
+            catch (e)
+                {
+                x.add(option,null);
+                }
+          }
+          //enable day selector field
+          document.getElementById("day_sched").disabled = false;
+    }
+    
+    function displaySchedDays(){
+        // displays day and month value on the schedule
+        var start_day = document.getElementById("day_sched").value;
+        var selectedYear = document.getElementById("year_sched").value;
+        var selectedMonth = document.getElementById("month_sched").value;
+        var daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+                
+        // month array to translate month number to month name
+        var d=new Date();
+        var month=new Array();
+        month[1]="Jan";
+        month[2]="Feb";
+        month[3]="Mar";
+        month[4]="Apr";
+        month[5]="May";
+        month[6]="Jun";
+        month[7]="Jul";
+        month[8]="Aug";
+        month[9]="Sep";
+        month[10]="Oct";
+        month[11]="Nov";
+        month[12]="Dec";
+        var monthNameNow = month[selectedMonth];
+        if (selectedMonth==12){
+            selectedMonth=0;
+        }
+        var monthNameNext = month[++selectedMonth];
+        
+        // output the values: Wed, Jun 8
+        for(index=1;index<8;index++){
+            document.getElementById("day_num"+index).innerHTML = document.getElementById("day_num"+index).innerHTML + ", " +monthNameNow + " " + start_day;
+            if(start_day==daysInMonth){
+                //new month
+                start_day=1;
+                monthNameNow=monthNameNext;
+            }
+            else{
+                //same month
+                start_day++;
+            }
+        }
+    }
+    
+    function resetDaySelector(){
+        // reset all day selector fields as well as the day value on schedule
+        document.getElementById("month_sched").disabled = true;
+        document.getElementById("day_sched").disabled = true;
+        document.getElementById("day_sched").options.length = 1;
+        document.getElementById("year_sched").value = "default";
+        document.getElementById("month_sched").value="default";
+        document.getElementById("day_sched").value = "default";
+        document.getElementById("day_num1").innerHTML = "Wed";
+        document.getElementById("day_num2").innerHTML = "Thu";
+        document.getElementById("day_num3").innerHTML = "Fri";
+        document.getElementById("day_num4").innerHTML = "Sat";
+        document.getElementById("day_num5").innerHTML = "Sun";
+        document.getElementById("day_num6").innerHTML = "Mon";
+        document.getElementById("day_num7").innerHTML = "Tue";
+
     }
 </script>
     

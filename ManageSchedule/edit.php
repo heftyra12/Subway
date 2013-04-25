@@ -1,7 +1,5 @@
 <?php
-
 session_start();
-echo"HI";
 
 include_once'../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/employeeClass.php';
