@@ -1024,5 +1024,6 @@ $_SESSION['schedule_array']=$schedule_array;
         document.getElementById("day_num7").innerHTML = "Tue";
 
     }
+function printDiv(divName) {
 </script>
     
