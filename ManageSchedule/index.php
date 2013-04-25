@@ -93,6 +93,10 @@ $_SESSION['schedule_array']=$schedule_array;
                 <form action="shifts.php" method="POST">
                     <input type="submit" value="Schedule Shifts" class="subway_buttons"/>
                 </form>
+                    
+                <form>
+                    <input type="button" value="Print" onClick='printDiv("home_sched");' class="subway_buttons"/>
+                </form>
             </div>
         </div>
 
@@ -1024,6 +1028,16 @@ $_SESSION['schedule_array']=$schedule_array;
         document.getElementById("day_num7").innerHTML = "Tue";
 
     }
+    
 function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     //document.body.innerHTML = originalContents;
+}
 </script>
     
