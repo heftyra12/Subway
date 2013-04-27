@@ -35,6 +35,10 @@ td{
     margin:0; 
     background:lightgreen;
 }
+
+.hour_total{
+    width:15px;
+}
 #log_out{
     float:right; 
     margin-top:1%;
@@ -64,7 +68,7 @@ td{
    width: 411px;
    height:150px;
    margin-right:50px;
-   
+
    background:white;
 }
 #form_div{

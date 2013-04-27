@@ -40,6 +40,6 @@ echo "<input type='hidden' id='max_week_minor' value='$max_week_minor'>";
 echo "<input type='hidden' id='max_day_full' value ='$max_day_full'>";
 echo "<input type='hidden' id='max_day_part' value='$max_day_part'>";
 
-echo "<input type='hidden' id='max_week_full_time_hours' value='$max_week_full'>";
+echo "<input type='hidden' id='max_week_full' value='$max_week_full'>";
 echo "<input type='hidden' id='max_week_part' value='$max_week_part'>";
 ?>

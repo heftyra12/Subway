@@ -26,12 +26,12 @@ while ($row = mysqli_fetch_array($result)) {
     
     $employee->setEmployeeID($row["employee_id"]);
     $employee->setEmployeeFirstName($row["first_name"]);
+    $employee->setEmployeeLastName($row["last_name"]);
     
     $schedule->setEmployeeID($row["employee_id"]);
     $schedule->setFirstName($row["first_name"]);
     $schedule->setLastName($row["last_name"]);
     
-    $employee->setEmployeeLastName($row["last_name"]);
     $employee->setEmployeeType($row["emp_type"]);
     $employee->setEmployeeMinor($row["emp_minor"]);
     
@@ -40,6 +40,7 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 $_SESSION['schedule_array']=$schedule_array;
+$_SESSION['full_sched_array']=$full_sched_array;
 ?>
 
 <!DOCTYPE html>
@@ -151,6 +152,7 @@ $_SESSION['schedule_array']=$schedule_array;
                
                         <tr class="schedule_table">
                             <th class="schedule_table">Employee:</th>
+                            <th class="schedule_table">Hours</th>
                             <th id="day_num1" class="schedule_table">Wed</th>
                             <th id="day_num2" class="schedule_table">Thu</th>
                             <th id="day_num3" class="schedule_table">Fri</th>
@@ -163,621 +165,614 @@ $_SESSION['schedule_array']=$schedule_array;
                     
                     $array = array(1,2,3,4,5,6,7);
                 
-                    for($x=0;$x<count($_SESSION['schedule_array']);$x++){
+                    for($x=0;$x<count($_SESSION['full_sched_array']);$x++){
                         
                         $isMinor = $_SESSION['schedule_array'][$x]->getEmployeeMinor();
                         $emp_type = $_SESSION['schedule_array'][$x]->getEmployeeType();
                         
                         echo "<input type='hidden' id='test'>";
                         echo "<tr class='schedule_table'><td class='sched_emp'>";
-                        echo $_SESSION['schedule_array'][$x]->getEmployeeFirstName()." ";
-                        echo $_SESSION['schedule_array'][$x]->getEmployeeLastName()."</td>";
-                            
+                        echo $_SESSION['full_sched_array'][$x]->getFirstName()." ";
+                        echo $_SESSION['full_sched_array'][$x]->getLastName()."</td>";
+                        echo "<td><output id='hour_total_$x' name='total_$x' class='hour_total' value=''></output></td>";    
                         echo "<td><select id='wed_start_$x' name='wed_start_$x' onChange='mainCall(name);' class='schedule_table'>";
-                        echo "<option value='default'>start</option>";
+                        echo "<option value='def'>start</option>";
                         
                         $dayNo=1;
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
+                        $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "' id='shift' name='shift' class='schedule_table'>" . $row['shift'] . "</option>";
+                           echo "<option value='" . $row['start_time']."_".$row['end_time'] . "' id='shift' name='shift' class='schedule_table'>" . $row['shift'] . "</option>";
                         }
-                        
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<select id='wed_end_$x' name='wed_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
                         
-                        echo "<option value='default'>end</option>";
+                        echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         
                         echo "<td><select id='thu_start_$x' name='thu_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
-                        echo "<option value='default'>start</option>";
+                        echo "<option value='def'>start</option>";
                         
                         $dayNo=1;
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
+                        $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "' class='schedule_table'>" . $row['shift'] . "</option>";
+                           echo "<option value='" . $row['start_time']."_".$row['end_time'] . "' id='shift' name='shift' class='schedule_table'>" . $row['shift'] . "</option>";
                         }
                         
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<select id='thu_end_$x' name='thu_end_$x' onChange='endMainCall(name);'class='schedule_table_end'>";
-                        echo "<option value='default'>end</option>";
+                        echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<td><select id='fri_start_$x' name='fri_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
-                        echo "<option value='default'>start</option>";
+                        echo "<option value='def'>start</option>";
                         
                         $dayNo=1;
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
+                        $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
+                           echo "<option value='" . $row['start_time']."_".$row['end_time'] . "' id='shift' name='shift' class='schedule_table'>" . $row['shift'] . "</option>";
                         }
                         
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<select id='fri_end_$x' name='fri_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
-                        echo "<option value='default'>end</option>";
-                        echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='def'>end</option>";
+                       echo "<option value='600'>6:00</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<td><select id='sat_start_$x' name='sat_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
-                        echo "<option value='default'>start</option>";
+                        echo "<option value='def'>start</option>";
                         
                         $dayNo=1;
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
+                       $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
+                           echo "<option value='" . $row['start_time']."_".$row['end_time'] . "' id='shift' name='shift' class='schedule_table'>" . $row['shift'] . "</option>";
                         }
                         
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<select id='sat_end_$x' name='sat_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
-                        echo "<option value='default'>end</option>";
+                        echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<td><select id='sun_start_$x' name='sun_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
-                        echo "<option value='default'>start</option>";
+                        echo "<option value='def'>start</option>";
                         
                         $dayNo=1;
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
+                        $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
+                           echo "<option value='" . $row['start_time']."_".$row['end_time'] . "' id='shift' name='shift' class='schedule_table'>" . $row['shift'] . "</option>";
                         }
                         
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<select id='sun_end_$x' name='sun_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
-                        echo "<option value='default'>end</option>";
+                        echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<td><select id='mon_start_$x' name='mon_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
-                        echo "<option value='default'>start</option>";
+                        echo "<option value='def'>start</option>";
                         
                         $dayNo=1;
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
+                        $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
+                           echo "<option value='" . $row['start_time']."_".$row['end_time'] . "' id='shift' name='shift' class='schedule_table'>" . $row['shift'] . "</option>";
                         }
                         
-                        echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                       echo "<option value='600'>6:00</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<select id='mon_end_$x' name='mon_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
-                        echo "<option value='default'>end</option>";
-                        echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='def'>end</option>";
+                       echo "<option value='600'>6:00</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<td><select id='tue_start_$x' name='tue_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
-                        echo "<option value='default'>start</option>";
+                        echo "<option value='def'>start</option>";
                         
                         $dayNo=1;
-                        $sqlShiftSelect = 'select shift_id, concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
+                        $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
-                           echo "<option value='" . $row['shift'] . "'>" . $row['shift'] . "</option>";
+                           echo "<option value='" . $row['start_time']."_".$row['end_time'] . "' id='shift' name='shift' class='schedule_table'>" . $row['shift'] . "</option>";
                         }
                         
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
                         echo "<select id='tue_end_$x' name='tue_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
-                        echo "<option value='default'>end</option>";
+                        echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
-                        echo "<option value='650'>6:30</option>";
+                        echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
-                        echo "<option value='750'>7:30</option>";
+                        echo "<option value='730'>7:30</option>";
                         echo "<option value='800'>8:00</option>";
-                        echo "<option value='850'>8:30</option>";
+                        echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
-                        echo "<option value='950'>9:30</option>";
+                        echo "<option value='930'>9:30</option>";
                         echo "<option value='1000'>10:00</option>";
-                        echo "<option value='1050'>10:30</option>";
+                        echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
-                        echo "<option value='1150'>11:30</option>";
+                        echo "<option value='1130'>11:30</option>";
                         echo "<option value='1200'>12:00</option>";
-                        echo "<option value='1250'>12:30</option>";
+                        echo "<option value='1230'>12:30</option>";
                         echo "<option value='1300'>1:00</option>";
-                        echo "<option value='1350'>1:30</option>";
+                        echo "<option value='1330'>1:30</option>";
                         echo "<option value='1400'>2:00</option>";
-                        echo "<option value='1450'>2:30</option>";
+                        echo "<option value='1430'>2:30</option>";
                         echo "<option value='1500'>3:00</option>";
-                        echo "<option value='1550'>3:30</option>";
+                        echo "<option value='1530'>3:30</option>";
                         echo "<option value='1600'>4:00</option>";
-                        echo "<option value='1650'>4:30</option>";
+                        echo "<option value='1630'>4:30</option>";
                         echo "<option value='1700'>5:00</option>";
-                        echo "<option value='1750'>5:30</option>";
+                        echo "<option value='1730'>5:30</option>";
                         echo "<option value='1800'>6:00</option>";
-                        echo "<option value='1850'>6:30</option>";
+                        echo "<option value='1830'>6:30</option>";
                         echo "<option value='1900'>7:00</option>";
-                        echo "<option value='1950'>7:30</option>";
+                        echo "<option value='1930'>7:30</option>";
                         echo "<option value='2000'>8:00</option>";
-                        echo "<option value='2050'>8:30</option>";
+                        echo "<option value='2030'>8:30</option>";
                         echo "<option value='2100'>9:00</option>";
-                        echo "<option value='2150'>9:30</option>";
+                        echo "<option value='2130'>9:30</option>";
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         echo "</tr>";
                          
                         echo "<input type='hidden' id='type_$x' name='type_$x' value=\"$emp_type\">";
                         echo "<input type='hidden' id='minor_$x' name='minor_$x' value=\"$isMinor\">";
-                        
-                        echo "<input type='hidden' id='mon_time_start_$x' name='mon_time_start_$x' value=''>";
-                        echo "<input type='hidden' id='mon_time_end_$x' name='mon_time_end_$x' value=''>";
-                        
-                        echo "<input type='hidden' id='tue_time_start_$x' name='tue_time_start_$x' value=''>";
-                        echo "<input type='hidden' id='tue_time_end_$x' name='tue_time_end_$x' value=''>";
-                        
+                       
                         echo "<input type='hidden' id='wed_time_start_$x' name='wed_time_start_$x' value=''>";
                         echo "<input type='hidden' id='wed_time_end_$x' name='wed_time_end_$x' value=''>";
                         
-                        echo "<input type='hidden' id='thr_time_start_$x' name='thu_time_start_$x' value=''>";
-                        echo "<input type='hidden' id='thr_time_end_$x' name='thu_time_end_$x' value=''>";
+                        echo "<input type='hidden' id='thu_time_start_$x' name='thu_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='thu_time_end_$x' name='thu_time_end_$x' value=''>";
                         
                         echo "<input type='hidden' id='fri_time_start_$x' name='fri_time_start_$x' value=''>";
                         echo "<input type='hidden' id='fri_time_end_$x' name='fri_time_end_$x' value=''>";
@@ -787,6 +782,12 @@ $_SESSION['schedule_array']=$schedule_array;
                         
                         echo "<input type='hidden' id='sun_time_start_$x' name='sun_time_start_$x' value=''>";
                         echo "<input type='hidden' id='sun_time_end_$x' name='sun_time_end_$x' value=''>";
+                        
+                        echo "<input type='hidden' id='mon_time_start_$x' name='mon_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='mon_time_end_$x' name='mon_time_end_$x' value=''>";
+                        
+                        echo "<input type='hidden' id='tue_time_start_$x' name='tue_time_start_$x' value=''>";
+                        echo "<input type='hidden' id='tue_time_end_$x' name='tue_time_end_$x' value=''>";
                      
                         echo "<input type='hidden' id='total_$x' name='total_$x' value=''>";
                     }
@@ -810,32 +811,57 @@ $_SESSION['schedule_array']=$schedule_array;
     function mainCall(table){
         var name = table;
         resetTime(name);
-        if(checkTime(name))
-            timeCheck(name);   
+        dayTimeCheck(name);
+        weekHourTotal(name);
     }
     
     function endMainCall(table){
         var name = table; 
         resetTime(name);
-        timeCheck(name);
+        dayTimeCheck(name);
+        weekHourTotal(name);
     }
  
-    
+    /*
+     * If start time is a shift, set end time to default. If start
+     * time is not a shift, call checkTime to set the end time to the 
+     * minimum shift length. 
+     * 
+     * 
+     * Will be modified if we end up having the time to check shift lengths
+     * against max shift times for employee types.
+     */
+  
     function resetTime(table){
         
         var table_name = table.split("_");
         
         var start_name = table_name[0]+"_start_"+table_name[2];
         var end_name = table_name[0]+"_end_"+table_name[2];
-        
+        var shift_time_name = table_name[0] + "_time_start_" + table_name[2];
+       
         var table_one = document.getElementById(start_name);
         var table_two = document.getElementById(end_name);
        
-        if(table_one.value.length > 8 || table_two.value.lengh > 8){
-            document.getElementById(end_name).value="default";
+        if(table_one.value.length > 6){
+            document.getElementById(end_name).value="def";
+            document.getElementById(shift_time_name).value = document.getElementById(start_name).value;
         }
+        
+        checkTime(table);
+        
     }
     
+    /*
+     * checkTime will grab the value for minumum shift time and set 
+     * the end time to that minimum. If a start time was selected that 
+     * does not allow for the minimum shift time the user is alerted. 
+     * 
+     * 
+     * 
+     * If time, we should probably have the start list end at what would be
+     * the minium time. 
+     */
     function checkTime(table){
         
         var table_name = table.split("_");
@@ -848,28 +874,146 @@ $_SESSION['schedule_array']=$schedule_array;
         
         var min_shift_hours = document.getElementById('min_shift_hours').value; 
         
-        for(var x = 0; x < table_one.length; x++){
+        //If the start row was clicked, set end time ahead by number of shifts 
+        //that are the minimum. 
+        if(table_name[1] == "start"){
             
-            if(table_one.value == table_two[x].value){
-                
-                if(x < table_two.length - (min_shift_hours * 2)){
+            for(var x = 0; x < table_one.length; x++){
+            
+                if(table_one.value == table_two[x].value){
+                 
+                     if(x < table_two.length - (min_shift_hours * 2)){
                     
-                    table_two.value = table_two[x+ (min_shift_hours * 2)].value;
-                    return true;
-                }
-                else{
-                    table_one.value="default";
-                    table_two.value="default";
-                    alert("Minimum Shift Time Is " + min_shift_hours);
-                    return true;
+                        table_two.value = table_two[x+ (min_shift_hours * 2)].value;
+                        return true;
+                    }
+                    else{
+                        table_one.value="def";
+                        table_two.value="def";
+                        alert("Minimum Shift Time Is " + min_shift_hours);
+                        return true;
+                    }
                 }   
             }
         }
-        return true;
+        else{
+      
+            //Loop through the second table. 
+            for(x=0;x<table_two.length;x++){
+                
+                //Location in table two that matches the start time. 
+                if(table_two[x].value == table_one.value)
+                    var first_value = x; 
+                //Location in table two that matches the end time. 
+                if(table_two[x].value == table_two.value)
+                    var second_value = x; 
+            }
+           
+           //If the difference between the shifts is less than the minimum shift time (currently 3 hours, so 6 list spots). 
+           if((second_value - first_value) < (min_shift_hours * 2)){
+               
+               //Find how  many shifts short the end time is. 
+               var spots_to_move = (min_shift_hours * 2)-(second_value - first_value);
+              
+               //Move end time to shift minimum. 
+               table_two.value = table_two[second_value + spots_to_move].value;
+               
+           }
+        }
     }
     
-    function timeCheck(table){
-   
+    /*
+     *weekHourTotal will keep a tally of the total hours each employee
+     *is scheduled for a week. If the total goes over the allotted time for a 
+     *certain employee type their total is changed to red font. If it goes 
+     *back under it will switch back to black.  
+     */
+    function weekHourTotal(table){
+       
+        var table_name = table.split("_");
+        var index = table_name[2];
+        
+        var start_name = table_name[0]+"_start_"+table_name[2];
+        var end_name = table_name[0]+"_end_"+table_name[2];
+        
+        var table_one = document.getElementById(start_name);
+        var table_two = document.getElementById(end_name);
+        
+        var type = "type_"+index;
+        var employee_type = document.getElementById(type).value;
+        
+        //Only executes when both start and end times are not default
+        //otherwise NaN will show up in the hour total column. 
+        if(table_one.value != "def" && table_two.value != "def"){
+        
+            var max_full = document.getElementById("max_week_full").value;
+            var max_part = document.getElementById("max_week_part").value;
+        
+            var wed_start = document.getElementById("wed_time_start_"+index).value;
+            var wed_end = document.getElementById("wed_time_end_"+index).value;
+        
+            var thu_start = document.getElementById("thu_time_start_"+index).value;
+            var thu_end = document.getElementById("thu_time_end_"+index).value;
+        
+            var fri_start = document.getElementById("fri_time_start_"+index).value;
+            var fri_end = document.getElementById("fri_time_end_"+index).value;
+        
+            var sat_start = document.getElementById("sat_time_start_"+index).value;
+            var sat_end = document.getElementById("sat_time_end_"+index).value;
+        
+            var sun_start = document.getElementById("sun_time_start_"+index).value;
+            var sun_end = document.getElementById("sun_time_end_"+index).value;
+        
+            var mon_start = document.getElementById("mon_time_start_"+index).value;
+            var mon_end = document.getElementById("mon_time_end_"+index).value;
+      
+            var tue_start = document.getElementById("tue_time_start_"+index).value;
+            var tue_end = document.getElementById("tue_time_end_"+index).value;
+       
+            var wed_hours = Number(wed_end) - Number(wed_start);
+            var thu_hours = Number(thu_end) - Number(thu_start);
+            var fri_hours = Number(fri_end) - Number(fri_start);
+            var sat_hours = Number(sat_end) - Number(sat_start);
+            var sun_hours = Number(sun_end) - Number(sun_start);
+            var mon_hours = Number(mon_end) - Number(mon_start);
+            var tue_hours = Number(tue_end) - Number(tue_start);
+        
+            var total_hours = (wed_hours + thu_hours + fri_hours + sat_hours + sun_hours + mon_hours + tue_hours)/100;
+            document.getElementById("hour_total_"+index).value = total_hours.toFixed(2);
+            document.getElementById("total_"+index).value = total_hours.toFixed(2);
+            if(employee_type == "F"){
+            
+                if(Number(total_hours) > Number(max_full)){
+                    alert("wtf");
+                    document.getElementById("hour_total_"+index).style.color = 'red';
+                }
+                else{
+                    document.getElementById("hour_total_"+index).style.color = 'black';
+                }
+            
+            }
+            else{
+                if(total_hours > max_part){
+                    document.getElementById("hour_total_"+index).style.color = 'red';
+                }
+                else{
+                    document.getElementById("hour_total_"+index).style.color = 'black';
+                }
+            }
+        }
+       
+    }
+    
+    /*
+     * dayTimeCheck will verify that the length of the shift fits in 
+     * the maximum time for part time and full time employees and 
+     * put the user selected hours into the hidden input fields.  
+     * 
+     * 
+     * Doesn't work for shifts, so if time...
+     */
+    function dayTimeCheck(table){
+        
         var max_day_part = document.getElementById('max_day_part').value;
         var max_day_full = document.getElementById('max_day_full').value;
         
@@ -888,52 +1032,87 @@ $_SESSION['schedule_array']=$schedule_array;
         var emp_type = document.getElementById(type).value;
         
         if(emp_type == "F"){
-        
-            if(end_time != "default"){
+     
+            if(end_time != "def"){
                 
                 if((end_time - start_time) > (max_day_full * 100)){
-                    alert("over on hours");
+                    alert("Over Maximum Full-Time Daily Hours");
                 }
                 else{
-                    
-                    var current_total = Number(document.getElementById("total_"+index).value);
-                    var new_hours = Number(end_time)- Number(start_time);
-                    
-                    document.getElementById("total_"+index).value = Number(current_total) + Number(new_hours);
                     
                     switch(day){
                         
                         case "wed":
                             document.getElementById("wed_time_start_"+index).value = start_time;
                             document.getElementById("wed_time_end_"+index).value = end_time;
+                            break;
                         case "thu":
-                            document.getElementById("thr_time_start_"+index).value = start_time;
-                            document.getElementById("thr_time_end_"+index).value=end_time;
+                            document.getElementById("thu_time_start_"+index).value = start_time;
+                            document.getElementById("thu_time_end_"+index).value=end_time;
+                            break;
                         case "fri":
                             document.getElementById("fri_time_start_"+index).value = start_time;
                             document.getElementById("fri_time_end_"+index).value = end_time;
+                            break;
                         case "sat":
                             document.getElementById("sat_time_start_"+index).value = start_time;
                             document.getElementById("sat_time_end_"+index).value = end_time;
+                            break;
                         case "sun":
                             document.getElementById("sun_time_start_"+index).value = start_time;
                             document.getElementById("sun_time_end_"+index).value = end_time;
+                            break;
                         case "mon":
                             document.getElementById("mon_time_start_"+index).value = start_time;
                             document.getElementById("mon_time_end_"+index).value = end_time;
+                            break;
                         case "tue":
                             document.getElementById("tue_time_start_"+index).value = start_time;
                             document.getElementById("tue_time_end_"+index).value = end_time;
+                            break;
                     }
                 }
             }
         }
-        if(emp_type =="P"){
+        else{
         
-            if(end_time != "default"){
+            if(end_time != "def"){
                 
                 if((end_time - start_time) > (max_day_part *100)){
-                    alert("Part-Time Over Hours:");
+                    alert("Over Maximum Part-Time Daily Hours:");
+                }
+                else{
+                    switch(day){
+                        
+                        case "wed":
+                            document.getElementById("wed_time_start_"+index).value = start_time;
+                            document.getElementById("wed_time_end_"+index).value = end_time;
+                            break;
+                        case "thu":
+                            document.getElementById("thu_time_start_"+index).value = start_time;
+                            document.getElementById("thu_time_end_"+index).value=end_time;
+                            break;
+                        case "fri":
+                            document.getElementById("fri_time_start_"+index).value = start_time;
+                            document.getElementById("fri_time_end_"+index).value = end_time;
+                            break;
+                        case "sat":
+                            document.getElementById("sat_time_start_"+index).value = start_time;
+                            document.getElementById("sat_time_end_"+index).value = end_time;
+                            break;
+                        case "sun":
+                            document.getElementById("sun_time_start_"+index).value = start_time;
+                            document.getElementById("sun_time_end_"+index).value = end_time;
+                            break;
+                        case "mon":
+                            document.getElementById("mon_time_start_"+index).value = start_time;
+                            document.getElementById("mon_time_end_"+index).value = end_time;
+                            break;
+                        case "tue":
+                            document.getElementById("tue_time_start_"+index).value = start_time;
+                            document.getElementById("tue_time_end_"+index).value = end_time;
+                            break;
+                    }    
                 }
             }
         }  
@@ -956,7 +1135,8 @@ $_SESSION['schedule_array']=$schedule_array;
             option.text=d;
             try
                 {
-                // for IE earlier than version 8 -- found this on Google!!!
+                // for IE earlier than version 8 -- found this on Google!!! 
+                //ROOOOBBBB!!!!!!
                 x.add(option,x.options[null]);
                 }
             catch (e)
