@@ -969,7 +969,71 @@ $_SESSION['full_sched_array']=$full_sched_array;
       
             var tue_start = document.getElementById("tue_time_start_"+index).value;
             var tue_end = document.getElementById("tue_time_end_"+index).value;
-       
+            
+            if(mon_start.substring(mon_start.length-2)== 30){
+               var work_pls = mon_start.substring(0,mon_start.length-2) + 50;
+               mon_start = work_pls;   
+            }
+            if(mon_end.substring(mon_end.length-2)==30){
+                var work_pls = mon_end.substring(0,mon_end.length-2) + 50;
+                mon_end = work_pls;
+            }
+             
+            if(tue_start.substring(tue_start.length-2)== 30){
+               var work_pls = tue_start.substring(0,tue_start.length-2) + 50;
+               tue_start = work_pls;   
+            }  
+            if(tue_end.substring(tue_end.length-2)==30){
+                var work_pls = tue_end.substring(0,tue_end.length-2) + 50;
+                tue_end = work_pls;
+            }
+                
+            if(wed_start.substring(wed_start.length-2)== 30){
+               var work_pls = wed_start.substring(0,wed_start.length-2) + 50;
+               wed_start = work_pls;   
+            }
+             if(wed_end.substring(wed_end.length-2)==30){
+                var work_pls = wed_end.substring(0,wed_end.length-2) + 50;
+                wed_end = work_pls;
+             }
+                
+             if(thu_start.substring(thu_start.length-2)== 30){
+                var work_pls = thu_start.substring(0,thu_start.length-2) + 50;
+                thu_start = work_pls;   
+             }
+                
+             if(thu_end.substring(thu_end.length-2)==30){
+                var work_pls = thu_end.substring(0,thu_end.length-2) + 50;
+                thu_end = work_pls;
+             }
+                
+             if(fri_start.substring(fri_start.length-2)== 30){
+                var work_pls = fri_start.substring(0,fri_start.length-2) + 50;
+                fri_start = work_pls;   
+             }
+             if(fri_end.substring(fri_end.length-2)==30){
+                var work_pls = fri_end.substring(0,fri_end.length-2) + 50;
+                fri_end = work_pls;
+             }
+                
+             if(sat_start.substring(sat_start.length-2)== 30){
+                    var work_pls = sat_start.substring(0,sat_start.length-2) + 50;
+                    sat_start = work_pls;   
+             }
+             if(sat_end.substring(sat_end.length-2)==30){
+                var work_pls = sat_end.substring(0,sat_end.length-2) + 50;
+                sat_end = work_pls;
+             }
+             
+             if(sun_start.substring(sun_start.length-2)== 30){
+                var work_pls = sun_start.substring(0,sun_start.length-2) + 50;
+                sun_start = work_pls;   
+             }
+             if(sun_end.substring(sun_end.length-2)==30){
+                var work_pls = sun_end.substring(0,sun_end.length-2) + 50;
+                sun_end = work_pls;
+             }
+           
             var wed_hours = Number(wed_end) - Number(wed_start);
             var thu_hours = Number(thu_end) - Number(thu_start);
             var fri_hours = Number(fri_end) - Number(fri_start);
@@ -1090,8 +1154,9 @@ $_SESSION['full_sched_array']=$full_sched_array;
                     switch(day){
                         
                         case "wed":
+
                             document.getElementById("wed_time_start_"+index).value = shift_start;
-                            document.getElementById("wed_time_end_"+index).value = shift_end; 
+                            document.getElementById("wed_time_end_"+index).value = shift_end;
                             break;
                         case "thu":
                             document.getElementById("thu_time_start_"+index).value = shift_start;
@@ -1125,7 +1190,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
         else{
         
             if(end_time != "def"){
-                
+               
                 if((end_time - start_time) > (max_day_part *100)){
                     alert("Over Maximum Part-Time Daily Hours:");
                 }
@@ -1168,7 +1233,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 var shift_split = start_time.split("_");
                 var shift_start = shift_split[0];
                 var shift_end = shift_split[1];
-                
+              
                 //If the shift was over the max hours for a full-time day
                 if((shift_end - shift_start) > (max_day_part * 100)){
                     alert("Over Maximum Part-Time Daily Hours"); 
