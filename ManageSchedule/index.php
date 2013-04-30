@@ -1033,7 +1033,8 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 var work_pls = sun_end.substring(0,sun_end.length-2) + 50;
                 sun_end = work_pls;
              }
-           
+        
+        
             var wed_hours = Number(wed_end) - Number(wed_start);
             var thu_hours = Number(thu_end) - Number(thu_start);
             var fri_hours = Number(fri_end) - Number(fri_start);
@@ -1102,7 +1103,41 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 
                 //alert user if the start and end time are greater than the max full-time shift. 
                 if((end_time - start_time) > (max_day_full * 100)){
+                    
                     alert("Over Maximum Full-Time Daily Hours");
+                    
+                    switch(day){
+                        
+                        case "wed":
+                            document.getElementById("wed_time_start_"+index).value = start_time;
+                            document.getElementById("wed_time_end_"+index).value = end_time;
+                            break;
+                        case "thu":
+                            document.getElementById("thu_time_start_"+index).value = start_time;
+                            document.getElementById("thu_time_end_"+index).value=end_time;
+                            break;
+                        case "fri":
+                            document.getElementById("fri_time_start_"+index).value = start_time;
+                            document.getElementById("fri_time_end_"+index).value = end_time;
+                            break;
+                        case "sat":
+                            document.getElementById("sat_time_start_"+index).value = start_time;
+                            document.getElementById("sat_time_end_"+index).value = end_time;
+                            break;
+                        case "sun":
+                            document.getElementById("sun_time_start_"+index).value = start_time;
+                            document.getElementById("sun_time_end_"+index).value = end_time;
+                            break;
+                        case "mon":
+                            document.getElementById("mon_time_start_"+index).value = start_time;
+                            document.getElementById("mon_time_end_"+index).value = end_time;
+                            break;
+                        case "tue":
+                            document.getElementById("tue_time_start_"+index).value = start_time;
+                            document.getElementById("tue_time_end_"+index).value = end_time;
+                            break;
+                    }
+                    
                 }
                 else{
                     
@@ -1148,7 +1183,42 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 
                 //If the shift was over the max hours for a full-time day
                 if((shift_end - shift_start) > (max_day_full * 100)){
+                    
                     alert("Over Maximum Full-Time Daily Hours"); 
+                    
+                    switch(day){
+                        
+                        case "wed":
+
+                            document.getElementById("wed_time_start_"+index).value = shift_start;
+                            document.getElementById("wed_time_end_"+index).value = shift_end;
+                            break;
+                        case "thu":
+                            document.getElementById("thu_time_start_"+index).value = shift_start;
+                            document.getElementById("thu_time_end_"+index).value = shift_end;
+                            break;
+                        case "fri":
+                            document.getElementById("fri_time_start_"+index).value = shift_start;
+                            document.getElementById("fri_time_end_"+index).value = shift_end;
+                            break;
+                        case "sat":
+                            document.getElementById("sat_time_start_"+index).value = shift_start;
+                            document.getElementById("sat_time_end_"+index).value = shift_end;
+                            break;
+                        case "sun":
+                            document.getElementById("sun_time_start_"+index).value = shift_start;
+                            document.getElementById("sun_time_end_"+index).value = shift_end;
+                            break;
+                        case "mon":
+                            document.getElementById("mon_time_start_"+index).value = shift_start;
+                            document.getElementById("mon_time_end_"+index).value = shift_end;
+                            break;
+                        case "tue":
+                            document.getElementById("tue_time_start_"+index).value = shift_start;
+                            document.getElementById("tue_time_end_"+index).value = shift_end;
+                            break;
+                    }
+                    
                 }
                 else{
                     switch(day){
@@ -1192,9 +1262,44 @@ $_SESSION['full_sched_array']=$full_sched_array;
             if(end_time != "def"){
                
                 if((end_time - start_time) > (max_day_part *100)){
+                    
                     alert("Over Maximum Part-Time Daily Hours:");
+                    
+                     switch(day){
+                        
+                        case "wed":
+                            document.getElementById("wed_time_start_"+index).value = start_time;
+                            document.getElementById("wed_time_end_"+index).value = end_time;
+                            break;
+                        case "thu":
+                            document.getElementById("thu_time_start_"+index).value = start_time;
+                            document.getElementById("thu_time_end_"+index).value=end_time;
+                            break;
+                        case "fri":
+                            document.getElementById("fri_time_start_"+index).value = start_time;
+                            document.getElementById("fri_time_end_"+index).value = end_time;
+                            break;
+                        case "sat":
+                            document.getElementById("sat_time_start_"+index).value = start_time;
+                            document.getElementById("sat_time_end_"+index).value = end_time;
+                            break;
+                        case "sun":
+                            document.getElementById("sun_time_start_"+index).value = start_time;
+                            document.getElementById("sun_time_end_"+index).value = end_time;
+                            break;
+                        case "mon":
+                            document.getElementById("mon_time_start_"+index).value = start_time;
+                            document.getElementById("mon_time_end_"+index).value = end_time;
+                            break;
+                        case "tue":
+                            document.getElementById("tue_time_start_"+index).value = start_time;
+                            document.getElementById("tue_time_end_"+index).value = end_time;
+                            break;
+                    }    
+                    
                 }
                 else{
+                    
                     switch(day){
                         
                         case "wed":
@@ -1236,9 +1341,43 @@ $_SESSION['full_sched_array']=$full_sched_array;
               
                 //If the shift was over the max hours for a full-time day
                 if((shift_end - shift_start) > (max_day_part * 100)){
+                    
                     alert("Over Maximum Part-Time Daily Hours"); 
+                    
+                    switch(day){
+                        
+                        case "wed":
+                            document.getElementById("wed_time_start_"+index).value = shift_start;
+                            document.getElementById("wed_time_end_"+index).value = shift_end;
+                            break;
+                        case "thu":
+                            document.getElementById("thu_time_start_"+index).value = shift_start;
+                            document.getElementById("thu_time_end_"+index).value = shift_end;
+                            break;
+                        case "fri":
+                            document.getElementById("fri_time_start_"+index).value = shift_start;
+                            document.getElementById("fri_time_end_"+index).value = shift_end;
+                            break;
+                        case "sat":
+                            document.getElementById("sat_time_start_"+index).value = shift_start;
+                            document.getElementById("sat_time_end_"+index).value = shift_end;
+                            break;
+                        case "sun":
+                            document.getElementById("sun_time_start_"+index).value = shift_start;
+                            document.getElementById("sun_time_end_"+index).value = shift_end;
+                            break;
+                        case "mon":
+                            document.getElementById("mon_time_start_"+index).value = shift_start;
+                            document.getElementById("mon_time_end_"+index).value = shift_end;
+                            break;
+                        case "tue":
+                            document.getElementById("tue_time_start_"+index).value = shift_start;
+                            document.getElementById("tue_time_end_"+index).value = shift_end;
+                            break;
+                    }
                 }
                 else{
+                    
                     switch(day){
                         
                         case "wed":
