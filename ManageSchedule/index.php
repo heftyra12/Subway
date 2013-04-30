@@ -263,7 +263,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<td><select id='thu_start_$x' name='thu_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
-                        $dayNo=1;
+                        $dayNo=2;
                         $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
@@ -347,7 +347,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<td><select id='fri_start_$x' name='fri_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
-                        $dayNo=1;
+                        $dayNo=3;
                         $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
@@ -431,7 +431,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<td><select id='sat_start_$x' name='sat_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
-                        $dayNo=1;
+                        $dayNo=4;
                        $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
@@ -515,7 +515,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<td><select id='sun_start_$x' name='sun_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
-                        $dayNo=1;
+                        $dayNo=5;
                         $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
@@ -599,7 +599,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<td><select id='mon_start_$x' name='mon_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
-                        $dayNo=1;
+                        $dayNo=6;
                         $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
@@ -683,7 +683,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<td><select id='tue_start_$x' name='tue_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
-                        $dayNo=1;
+                        $dayNo=7;
                         $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
                             ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
                             From subway.shifts where day='.$dayNo.'';
@@ -1294,6 +1294,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 {
                 // for IE earlier than version 8 -- found this on Google!!! 
                 //ROOOOBBBB!!!!!!
+                // Deal with it.  I'm too old to re-invent the wheel.
                 x.add(option,x.options[null]);
                 }
             catch (e)
@@ -1313,7 +1314,6 @@ $_SESSION['full_sched_array']=$full_sched_array;
         var daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
                 
         // month array to translate month number to month name
-        var d=new Date();
         var month=new Array();
         month[1]="Jan";
         month[2]="Feb";
@@ -1328,7 +1328,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
         month[11]="Nov";
         month[12]="Dec";
         var monthNameNow = month[selectedMonth];
-        if (selectedMonth==12){
+        if (selectedMonth===12){
             selectedMonth=0;
         }
         var monthNameNext = month[++selectedMonth];
@@ -1367,14 +1367,11 @@ $_SESSION['full_sched_array']=$full_sched_array;
     }
     
 function printDiv(divName) {
-     var printContents = document.getElementById(divName).innerHTML;
-     var originalContents = document.body.innerHTML;
-
-     document.body.innerHTML = printContents;
-
-     window.print();
-
-     //document.body.innerHTML = originalContents;
+//     var printContents = document.getElementById(divName).innerHTML;
+//     var originalContents = document.body.innerHTML;
+//     document.body.innerHTML = printContents;
+//     window.print();
+//     document.body.innerHTML = originalContents;
 }
 </script>
     
