@@ -8,7 +8,7 @@ include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 
 $shift_array = array();
 
-$sqlCommand = "SELECT shift_id, day, start_time, end_time FROM subway.shifts";
+$sqlCommand = "SELECT shift_id, day, start_time, end_time FROM subway.shifts order by day, start_time asc";
 $result = mysqli_query($db_connect, $sqlCommand);
 
 while ($row = mysqli_fetch_array($result)) {

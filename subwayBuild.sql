@@ -60,20 +60,20 @@ CREATE TABLE `employee` (
   `email` varchar(45) NOT NULL,
   `emp_type` varchar(1) NOT NULL,
   `emp_minor` varchar(1) NOT NULL,
-  `monday_start` int(11) DEFAULT NULL,
-  `monday_end` int(11) DEFAULT NULL,
-  `tuesday_start` int(11) DEFAULT NULL,
-  `tuesday_end` int(11) DEFAULT NULL,
-  `wednesday_start` int(11) DEFAULT NULL,
-  `wednesday_end` int(11) DEFAULT NULL,
-  `thursday_start` int(11) DEFAULT NULL,
-  `thursday_end` int(11) DEFAULT NULL,
-  `friday_start` int(11) DEFAULT NULL,
-  `friday_end` int(11) DEFAULT NULL,
-  `saturday_start` int(11) DEFAULT NULL,
-  `saturday_end` int(11) DEFAULT NULL,
-  `sunday_start` int(11) DEFAULT NULL,
-  `sunday_end` int(11) DEFAULT NULL,
+  `monday_start` int(4) DEFAULT NULL,
+  `monday_end` int(4) DEFAULT NULL,
+  `tuesday_start` int(4) DEFAULT NULL,
+  `tuesday_end` int(4) DEFAULT NULL,
+  `wednesday_start` int(4) DEFAULT NULL,
+  `wednesday_end` int(4) DEFAULT NULL,
+  `thursday_start` int(4) DEFAULT NULL,
+  `thursday_end` int(4) DEFAULT NULL,
+  `friday_start` int(4) DEFAULT NULL,
+  `friday_end` int(4) DEFAULT NULL,
+  `saturday_start` int(4) DEFAULT NULL,
+  `saturday_end` int(4) DEFAULT NULL,
+  `sunday_start` int(4) DEFAULT NULL,
+  `sunday_end` int(4) DEFAULT NULL,
   PRIMARY KEY (`employee_id`,`store_id`),
   UNIQUE KEY `employee_id_UNIQUE` (`employee_id`),
   UNIQUE KEY `user_name_UNIQUE` (`user_name`)
@@ -86,7 +86,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` (`employee_id`, `store_id`, `user_name`, `password`, `first_name`, `last_name`, `email`, `emp_type`, `emp_minor`, `monday_start`, `monday_end`, `tuesday_start`, `tuesday_end`, `wednesday_start`, `wednesday_end`, `thursday_start`, `thursday_end`, `friday_start`, `friday_end`, `saturday_start`, `saturday_end`, `sunday_start`, `sunday_end`) VALUES (1,1,'rob','rob','Rob','Hefty','heftyra12@uww.edu','F','N',600,1400,600,1400,600,1400,600,930,600,1400,600,1400,NULL,NULL),(2,1,'troy','troy123','Troy','Halverson','th@uww.edu','F','N',600,1800,1000,1800,1000,1800,800,1400,NULL,NULL,NULL,NULL,1000,1800),(3,1,'katherine','kat123','Katherine','Travis','kt@uww.edu','P','Y',600,2000,1200,2000,1200,2000,1200,2000,1100,2000,NULL,NULL,NULL,NULL),(4,1,'nicki','nicki123','Nicki','Edwards','ne@uww.edu','F','N',1700,2200,1700,2200,1700,2200,1700,2200,1700,2200,1700,2200,1700,2200),(5,1,'han','han123','Han','Solo','hs@uww.edu','T','Y',1200,2200,1200,2200,1200,2200,1200,2200,1200,2200,1200,2200,1200,2200),(6,1,'luke','luke123','Luke','Skywalker','ls@uww.edu','F','N',1600,2200,1700,2200,1600,2200,1600,2200,1600,2200,600,2200,600,2200),(7,1,'leia','leia123','Leia','Skywalker','ls2@uww.edu','F','N',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,600,2200,600,2200),(8,1,'vader','vader123','Darth','Vader','dv@uww.edu','P','N',600,2200,600,2200,NULL,NULL,NULL,NULL,600,2200,600,2200,600,2200),(9,1,'yoda','yoda123','Yoda','Noname','yoda@uww.edu','P','Y',NULL,NULL,NULL,NULL,600,2000,600,1200,NULL,NULL,NULL,NULL,NULL,NULL),(10,1,'r2d2','r2d2123','R2','D2','r2d2@uww.edu','S','N',NULL,NULL,1200,2200,NULL,1200,2200,NULL,1200,2200,1200,2200,1200,2200);
+INSERT INTO `employee` (`employee_id`, `store_id`, `user_name`, `password`, `first_name`, `last_name`, `email`, `emp_type`, `emp_minor`, `monday_start`, `monday_end`, `tuesday_start`, `tuesday_end`, `wednesday_start`, `wednesday_end`, `thursday_start`, `thursday_end`, `friday_start`, `friday_end`, `saturday_start`, `saturday_end`, `sunday_start`, `sunday_end`) VALUES (1,1,'rob','rob','Rob','Hefty','heftyra12@uww.edu','F','N',600,1400,600,1400,600,1400,600,930,600,1400,600,1400,NULL,NULL),(2,1,'troy','troy123','Troy','Halverson','th@uww.edu','F','N',600,1800,1000,1800,1000,1800,800,1400,NULL,NULL,NULL,NULL,1000,1800),(3,1,'katherine','kat123','Katherine','Travis','kt@uww.edu','P','Y',600,2000,1200,2000,1200,2000,1200,2000,1100,2000,NULL,NULL,NULL,NULL),(4,1,'nicki','nicki123','Nicki','Edwards','ne@uww.edu','F','N',1700,2200,1700,2200,1700,2200,1700,2200,1700,2200,1700,2200,1700,2200),(5,1,'han','han123','Han','Solo','hs@uww.edu','T','Y',1200,2200,1200,2200,1200,2200,1200,2200,1200,2200,1200,2200,1200,2200),(6,1,'luke','luke123','Luke','Skywalker','ls@uww.edu','F','N',1600,2200,1700,2200,1600,2200,1600,2200,1600,2200,600,2200,600,2200),(7,1,'leia','leia123','Leia','Skywalker','ls2@uww.edu','F','N',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,600,2200,600,2200),(8,1,'vader','vader123','Darth','Vader','dv@uww.edu','P','N',600,2200,600,2200,NULL,NULL,NULL,NULL,600,2200,600,2200,600,2200),(9,1,'yoda','yoda123','Yoda','Noname','yoda@uww.edu','P','Y',NULL,NULL,NULL,NULL,600,2000,600,1200,NULL,NULL,NULL,NULL,NULL,NULL),(10,1,'r2d2','r2d2123','R2','D2','r2d2@uww.edu','S','N',NULL,NULL,1200,2200,NULL,1200,2200,NULL,1200,2200,1200,2200,1200,2200),(11,1,'emperor','blah','Emperor','Palpatine','ep@sw.com','P','N',1000,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ CREATE TABLE `parameters` (
 
 LOCK TABLES `parameters` WRITE;
 /*!40000 ALTER TABLE `parameters` DISABLE KEYS */;
-INSERT INTO `parameters` (`busn_rule_id`, `store_id`, `descr`, `value0`, `value1`) VALUES (1,1,'Minors are less than this','18',NULL),(2,1,'Max full time hours per day','8',NULL),(3,1,'Max full time hours per week','40',NULL),(4,1,'Max part time hours per day','6',NULL),(5,1,'Max part time hours per week','32',NULL);
+INSERT INTO `parameters` (`busn_rule_id`, `store_id`, `descr`, `value0`, `value1`) VALUES (1,1,'Minors are less than this','18','0'),(2,1,'Max full time hours per day','8','0'),(3,1,'Max full time hours per week','40','0'),(4,1,'Max part time hours per day','6','0'),(5,1,'Max part time hours per week','32','0'),(6,1,'Minimum shift hours','2','0');
 /*!40000 ALTER TABLE `parameters` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +140,7 @@ CREATE TABLE `productivity` (
 
 LOCK TABLES `productivity` WRITE;
 /*!40000 ALTER TABLE `productivity` DISABLE KEYS */;
-INSERT INTO `productivity` (`store_id`, `week_no`, `day`, `units`) VALUES (1,1,1,170),(1,1,2,175),(1,1,3,180),(1,1,4,185),(1,1,5,190),(1,1,6,195),(1,1,7,200),(1,2,1,175),(1,2,2,180),(1,2,3,185),(1,2,4,190),(1,2,5,200),(1,2,6,220),(1,2,7,200);
+INSERT INTO `productivity` (`store_id`, `week_no`, `day`, `units`) VALUES (1,1,1,170),(1,1,2,175),(1,1,3,180),(1,1,4,185),(1,1,5,190),(1,1,6,195),(1,1,7,200),(1,2,1,175),(1,2,2,180),(1,2,3,185),(1,2,4,190),(1,2,5,200),(1,2,6,220),(1,2,7,200),(1,15,1,123),(1,15,2,121),(1,15,3,12),(1,15,4,1231),(1,15,5,123),(1,15,6,32),(1,15,7,12),(1,16,1,100),(1,16,2,101),(1,16,3,102),(1,16,4,120),(1,16,5,199),(1,16,6,121),(1,16,7,131),(1,17,1,100),(1,17,2,100),(1,17,3,100),(1,17,4,100),(1,17,5,100),(1,17,6,100),(1,17,7,100),(1,18,1,120),(1,18,2,120),(1,18,3,210),(1,18,4,120),(1,18,5,120),(1,18,6,120),(1,18,7,120),(1,19,1,101),(1,19,2,102),(1,19,3,103),(1,19,4,104),(1,19,5,105),(1,19,6,106),(1,19,7,107),(1,20,1,787),(1,20,2,787),(1,20,3,787),(1,20,4,8787),(1,20,5,787),(1,20,6,34),(1,20,7,38);
 /*!40000 ALTER TABLE `productivity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +152,7 @@ DROP TABLE IF EXISTS `request`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `request` (
-  `request_id` varchar(45) NOT NULL,
+  `request_id` int(11) NOT NULL,
   `employee_id` int(11) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
@@ -168,7 +168,7 @@ CREATE TABLE `request` (
 
 LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
-INSERT INTO `request` (`request_id`, `employee_id`, `start_date`, `end_date`, `start_time`, `end_time`) VALUES ('1',1,'2013-05-18','2013-05-20',600,2200);
+INSERT INTO `request` (`request_id`, `employee_id`, `start_date`, `end_date`, `start_time`, `end_time`) VALUES (1,1,'2013-05-18','2013-05-20',600,2200);
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,6 +212,7 @@ DROP TABLE IF EXISTS `shifts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `shifts` (
   `shift_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
   `day` int(1) NOT NULL,
   `start_time` int(4) NOT NULL,
   `end_time` int(4) NOT NULL,
@@ -226,7 +227,7 @@ CREATE TABLE `shifts` (
 
 LOCK TABLES `shifts` WRITE;
 /*!40000 ALTER TABLE `shifts` DISABLE KEYS */;
-INSERT INTO `shifts` (`shift_id`, `day`, `start_time`, `end_time`) VALUES (1,1,600,1400),(2,1,1000,1800),(3,1,1030,1400),(4,1,1600,2100),(5,1,1700,2200),(6,2,600,1400),(7,2,1000,1800),(8,2,1100,1800),(9,2,1600,2100),(10,2,1700,2200);
+INSERT INTO `shifts` (`shift_id`, `store_id`, `day`, `start_time`, `end_time`) VALUES (1,1,1,600,1400),(2,1,1,1000,1800),(3,1,1,1030,1400),(4,1,1,1600,2100),(5,1,1,1700,2200),(6,1,2,600,1400),(7,1,2,1000,1800),(8,1,2,1100,1800),(9,1,2,1600,2100),(10,1,2,1700,2200),(11,1,3,600,1400),(12,1,3,1000,1800),(13,1,3,1100,1800),(14,1,3,1600,2200),(15,1,3,1700,2200),(16,1,4,600,1400),(17,1,4,1000,1800),(18,1,4,1100,1800),(19,1,5,600,1400),(20,1,6,600,1400),(21,1,7,600,1400),(22,1,5,1100,1800),(23,1,5,700,1500),(24,1,6,700,1500),(25,1,7,700,1500);
 /*!40000 ALTER TABLE `shifts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,4 +265,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-11 23:43:32
+-- Dump completed on 2013-04-30 16:07:20
