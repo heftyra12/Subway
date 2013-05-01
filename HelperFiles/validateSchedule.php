@@ -67,6 +67,7 @@ for ($x = 0; $x < $index; $x++) {
     $_SESSION['full_sched_array'][$x]->setTotalHours($_POST['total_' . $x]);
 }
 
+echo "<div id='printArea'>";
 echo "<table>";
 echo "<tr><th class='table_title'>Schedule</th></tr>";
 echo "<tr><th>Employee</th><th>Hours</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th><th>Monday</th><th>Tuesday</th></tr>";
@@ -93,4 +94,18 @@ for ($x = 0; $x < $index; $x++) {
     echo "</td></tr>";
 }
 echo "</table>";
+echo "</div>";
+
 ?>
+                <form>
+                   <input type="button" value="Print" onClick='printDiv("printArea");' class="subway_buttons"/>
+                </form>
+<script language="Javascript">
+function printDiv(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+</script>

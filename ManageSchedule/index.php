@@ -69,7 +69,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
         
             <ul class="subway_tabs">
                 <li><a href="/MainMenu/index.php">Home</a></li>
-                <li class="current_position">Create Schedule</a></li>
+                <li class="current_position">Creates Schedule</a></li>
                 <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees</a></li>
                 <li><a href="/EditRequests/index.php">Requests</a></li>
@@ -93,10 +93,6 @@ $_SESSION['full_sched_array']=$full_sched_array;
             
                 <form action="shifts.php" method="POST">
                     <input type="submit" value="Schedule Shifts" class="subway_buttons"/>
-                </form>
-                    
-                <form>
-                    <input type="button" value="Print" onClick='printDiv("home_sched");' class="subway_buttons"/>
                 </form>
             </div>
         </div>
@@ -1486,4 +1482,3 @@ function printDiv(divName) {
 //     document.body.innerHTML = originalContents;
 }
 </script>
-    
