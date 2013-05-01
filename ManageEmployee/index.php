@@ -109,7 +109,6 @@ $_SESSION['employee_array'] = $employee_array;
             <ul class="subway_tabs">
                 <li><a href="/MainMenu/index.php">Home</a></li>
                 <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
-                <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li class="current_position">Employees</li>
                 <li><a href="/EditRequests/index.php" value="edit_requests">Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>

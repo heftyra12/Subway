@@ -97,7 +97,7 @@ $_SESSION['employee_array'] = $employee_array;
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
-        <title>Subway Scheduling Program: Main Menu</title>
+        <title>Home</title>
     </head>
     <body>
         <div id="page_top">
@@ -115,7 +115,6 @@ $_SESSION['employee_array'] = $employee_array;
             <ul class="subway_tabs">
                 <li class="current_position">Home</li>
                 <li><a href='/ManageSchedule/index.php'>Create Schedule</a></li>
-                <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees</a></li>
                 <li><a href="/EditRequests/index.php" >Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
