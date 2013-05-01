@@ -12,12 +12,13 @@ function insertEmployeeRequest(first, last, id){
         update_choice.options[0]=option;
 } 
 
-function insertEmployee(index,id,first,last,emp_minor,emp_type,
+function insertEmployee(index,id,first,last,email,emp_minor,emp_type,
                         mon_start,mon_end,tues_start,tues_end,wed_start,wed_end,
                         thurs_start,thurs_end,fri_start,fri_end,sat_start,sat_end,sun_start,sun_end){
            
     document.getElementById('first_name').value = first;
     document.getElementById('last_name').value = last;
+    document.getElementById('email').value = email;
     document.getElementById('emp_minor').value = emp_minor;
     document.getElementById('emp_type').value = emp_type;
        

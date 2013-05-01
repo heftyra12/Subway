@@ -97,13 +97,9 @@ echo "</table>";
 echo "</div>";
 
 ?>
-<form>
-   <input type="button" value="Print" onClick='printDiv("printArea");' class="subway_buttons"/>
-</form>
-
-<form action="../MainMenu/index.php" method="POST">
-    <input type="submit" value="Back" class="subway_buttons"/>
-</form>
+                <form>
+                   <input type="button" value="Print" onClick='printDiv("printArea");' class="subway_buttons"/>
+                </form>
 <script language="Javascript">
 function printDiv(divName) {
     var printContents = document.getElementById(divName).innerHTML;

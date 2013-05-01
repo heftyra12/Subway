@@ -5,6 +5,7 @@
         //Class Variables
         private $employee_first_name;
         private $employee_last_name;
+        private $employee_email;
         private $employee_type;
         private $employee_minor;
         private $employee_id;
@@ -28,6 +29,7 @@
         public function __construct(){
             $this->employee_first_name ="";
             $this->employee_last_name = "";
+            $this->employee_email = "";
             $this->employee_type ="";
             $this->employee_minor ="No";
             $this->employee_id ="";
@@ -57,6 +59,9 @@
         }
         public function getEmployeeLastName(){
             return $this->employee_last_name;
+        }
+        public function getEmployeeEmail(){
+            return $this->employee_email;
         }
         public function getEmployeeType(){
             return $this->employee_type;
@@ -119,6 +124,9 @@
         }
         public function setEmployeeLastName($last_name){
             $this->employee_last_name = $last_name;
+        }
+        public function setEmployeeEmail($email){
+            $this->employee_email = $email;
         }
         public function setEmployeeType($employee_type){
             $this->employee_type = $employee_type;

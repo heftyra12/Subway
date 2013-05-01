@@ -7,6 +7,7 @@ include_once'employeeClass.php';
 $employee_id = $_POST['employee_id'];
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
+$email = $_POST['email'];
 $emp_type = $_POST['emp_type'];
 $emp_minor = $_POST['emp_minor'];
 $index_value = $_POST['array_index'];
@@ -29,6 +30,7 @@ $sun_end = $_POST['sunday_end'];
 
 $_SESSION['first_name'] = $first_name;
 $_SESSION['last_name'] = $last_name;
+$_SESSION['email'] = $email;
 $_SESSION['emp_type'] = $emp_type;
 $_SESSION['emp_minor'] = $emp_minor;
 
@@ -66,12 +68,21 @@ else {
             $error_found = "true";
             $_SESSION['last_name'] = "Error: Invalid Last Name:";
         }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error_found = "true";
+            $_SESSION['email'] = "Error: Invalid Email Address:";
+        } else {
+            if ($update_choice === 'Delete') {
+                $error_found = "false";
+            }
+        }
     }
 
     if ($error_found === "false") {
 
         unset($_SESSION['first_name']);
         unset($_SESSION['last_name']);
+        unset($_SESSION['email']);
         unset($_SESSION['emp_type']);
         unset($_SESSION['emp_minor']);
 
@@ -91,17 +102,17 @@ else {
         $store_id = 1;
 
         $addEmployeeSQL = "INSERT INTO subway.employee(employee_id,store_id, user_name, password, 
-            first_name, last_name, emp_type, emp_minor, monday_start, tuesday_start, wednesday_start, 
+            first_name, last_name, email, emp_type, emp_minor, monday_start, tuesday_start, wednesday_start, 
             thursday_start, friday_start, saturday_start, sunday_start, monday_end, 
             tuesday_end, wednesday_end, thursday_end, friday_end, saturday_end, sunday_end) VALUES
             ('$add_count','$store_id','$user_name','$password','$first_name','$last_name',
-            ''$emp_type', '$emp_minor', '$mon_start', '$tues_start', '$wed_start',
+            '$email', '$emp_type', '$emp_minor', '$mon_start', '$tues_start', '$wed_start',
             '$thurs_start', '$fri_start', '$sat_start', '$sun_start', '$mon_end', 
             '$tues_end', '$wed_end', '$thurs_end', '$fri_end', '$sat_end','$sun_end')";
         $addEmployeeSQL = str_replace("''",'null',$addEmployeeSQL);
 
         $updateEmployeeSQL = "UPDATE subway.employee SET first_name ='$first_name',
-            last_name ='$last_name', emp_type ='$emp_type', 
+            last_name ='$last_name', email ='$email', emp_type ='$emp_type', 
             emp_minor='$emp_minor', monday_start ='$mon_start', monday_end ='$mon_end', 
             tuesday_start ='$tues_start', tuesday_end ='$tues_end',
             wednesday_start ='$wed_start' , wednesday_end ='$wed_end',

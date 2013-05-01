@@ -50,7 +50,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
 
-        <title>Create Schedule</title>
+        <title></title>
     </head>
     <body>
         
@@ -70,6 +70,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
             <ul class="subway_tabs">
                 <li><a href="/MainMenu/index.php">Home</a></li>
                 <li class="current_position">Creates Schedule</a></li>
+                <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees</a></li>
                 <li><a href="/EditRequests/index.php">Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
