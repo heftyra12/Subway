@@ -89,7 +89,7 @@ $_SESSION['employee_array'] = $employee_array;
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
         <script type="text/javascript" src="/HelperFiles/JS/setTime.js"></script>
-        <title>Subway Scheduling Program: Employees</title>
+        <title>Employees</title>
     </head>
     <body>
 
@@ -147,7 +147,7 @@ $_SESSION['employee_array'] = $employee_array;
 
                     <tr><td colspan="3">First Name:<input type="text" id="first_name" name="first_name" value="<?php echo $_SESSION['first_name'];?>" required/></td></tr>
                     <tr><td colspan="3">Last Name:<input type="text" id="last_name" name="last_name" value="<?php echo $_SESSION['last_name'];?>"required/></td></tr>
-<!--                    <tr><td colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" required/></td></tr>-->
+                    <tr><td hidden colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" required/></td></tr>
                     
                     <tr><td colspan="3">Type:<select id="emp_type" name="emp_type" value="<?php echo $_SESSION['emp_type']; ?>"/>
                                                 <option value="F">Full-Time</option>
@@ -466,6 +466,7 @@ $_SESSION['employee_array'] = $employee_array;
                     <tr><th id="table_title" colspan="8">Subway Employees</th></tr>
 
 <?php
+
 for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
 
     $id = $_SESSION['employee_array'][$x]->getEmployeeID();
@@ -498,8 +499,8 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     echo $first;
     echo "</td><td class='employee_table'>";
     echo $last;
-    echo "</td><td class='employee_table'>";
-    echo $email;
+//    echo "</td><td class='employee_table'>";
+//    echo $email;
     echo "</td><td class='employee_table'>";
     echo $emp_type;
     echo "</td><td class='employee_table'>";
@@ -517,7 +518,7 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
 <script language="Javascript">
 
     function update(){
-        
+
         document.getElementById("monday_end").title = "";
         document.getElementById("tuesday_end").title = "";
         document.getElementById("wednesday_end").title = "";
@@ -543,7 +544,7 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     }
     
     function resetForm(){
-        
+
         document.getElementById("first_name").value="";
         document.getElementById("last_name").value="";
         document.getElementById("email").value="";
