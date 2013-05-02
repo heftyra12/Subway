@@ -21,30 +21,22 @@ table{
     background:black;
 }
 th{
-    padding:5px;
+    padding:2px;
     border:0;
     margin:0;
     font-weight:bold;
-    text-align:right;
-    background:lightgreen;
-}
-td{
-    padding:5px;
-    text-align:right;
-    border:0;
-    margin:0; 
+    text-align:center;
     background:lightgreen;
 }
 
-.hour_total{
-    width:15px;
+td{
+    padding:2px;
+    text-align:right;
+    border:0;
+    margin:0;
+    background:lightgreen;
 }
-#log_out{
-    float:right; 
-    margin-top:1%;
-    margin-right:1%;
-    font-size:90%;
-}
+
 /*CSS FOR ALL TABLE TITLES*/
 
 /*END TABLE TITLE CSS*/
@@ -68,7 +60,7 @@ td{
    width: 411px;
    height:150px;
    margin-right:50px;
-
+   
    background:white;
 }
 #form_div{
@@ -88,7 +80,7 @@ td{
     background:white;
     margin-left:auto;
     margin-right:auto;
-    margin-top:2%;
+    margin-top:1%;
     position:relative;
     border-top-left-radius:15px;
     border-top-right-radius:15px;
@@ -129,9 +121,11 @@ td{
 }
 #normal_right{
     float:left;
-    width:88%;
+    width:87%;
     height:100%;
     background:#FFFFB2;
+    margin-right:auto;
+    margin-left:auto;
     overflow-x:auto;
     overflow-y:auto;
     border-bottom-right-radius:15px;
@@ -140,7 +134,7 @@ td{
     height:100%;
     overflow-x:auto;
     overflow-y:auto;
-    width:12%;
+    width:13%;
     background:#FEF200;
     float:left;
     border-bottom-left-radius:15px;
@@ -161,7 +155,7 @@ td{
 }
 #small_left{
     float:left;
-    width:12%;
+    width:15%;
     height:100%;
     background:#FEF200;
     border-bottom-left-radius:15px;
@@ -175,7 +169,7 @@ td{
 #small_right{
     float:left;  
     border-bottom-right-radius:15px;
-    width:88%; 
+    width:85%; 
     margin-right:auto;
     margin-left:auto;
     overflow-x:auto;
@@ -224,7 +218,7 @@ td{
     font-weight:bold;
 }
 #home_sched{
-    margin-left:3%;
+    margin-left:2%;
     margin-top:4%;
     margin-right:auto;
     float:left;
@@ -333,13 +327,14 @@ input{
     overflow-y:auto;
 }
 #employee_right{
+    float:left;
     width:37%;
-    overflow-x:auto;
-    overflow-y:auto;
     margin-top:2%;
     margin-left:2%;
-    height:90%;
-    float:left;
+    text-align:left;
+    overflow-x:auto;
+    overflow-y:auto;
+    height:85%;
 }
 #employee_far_right{
     margin-top:2%;
@@ -356,68 +351,18 @@ input{
 
 #request_far_right{
     margin-top:3%;
+    margin-left:5%;
     float:left;
-    width:22%;
-    overflow-x:auto;
 }
 #request_left{
     margin-top:3%;
-    margin-left:6%;
-    margin-right:2%;
+    margin-left:5%;
     float:left;
-    width:25%;
-    overflow-x:auto;
 }
-/*DROP DOWN BOX CSS*/
-.default_month_drop_down{
-    width:90px;
-}
-.default_day_drop_down{
-    width:37px;
-}
-.default_time_drop_down{
-    width:55px;
-}
-/*END DROP DOWN BOX CSS*/
-
-
-
-
-
-/*SCHEDULE TABLE CSS*/
-
-
-select.schedule_table_end{
-    width:50px;
-    font-size:55%;
-}
-select.schedule_table{
-    width:71px;
-    font-size:55%;
-}
-.schedule_table option{
-
-}
-table.schedule_table{
-    padding:0px;
-}
-td.schedule_table{
-    padding:0px;
-}
-tr.schedule_table{
-    padding:0px;
-}
-th.schedule_table{
-    padding:0px;
-}
-/*END SCHEDULE TABLE CSS*/
-
-
 #request_right{
     margin-top:3%;
+    margin-left:5%;
     float:left;
-    width:45%;
-    overflow-x:auto;
 }
 /*END REQUEST CSS*/
 
@@ -540,7 +485,6 @@ a:active {
     color:black;
 }
 .sched_emp{
-    font-size:85%;
     text-align:left;
 }
 .emp_table{
@@ -557,13 +501,4 @@ a:active {
     background:white;
     color:black;
     height:30px;
-}
-
-#row_title{
-    text-align:center;
-    background:lightgreen;
-}
-
-#rule_description{
-    background:lavenderblush;
 }

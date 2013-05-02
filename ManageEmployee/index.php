@@ -89,17 +89,11 @@ $_SESSION['employee_array'] = $employee_array;
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
         <script type="text/javascript" src="/HelperFiles/JS/setTime.js"></script>
-        <title>Employees</title>
+        <title>Subway Scheduling Program: Employees</title>
     </head>
     <body>
 
         <div id="page_top"/>
-        
-            <div id="log_out">
-            User: <?php echo $_SESSION['user_name'];
-                        echo " | <a href=../index.php>Logout</a>";
-                     ?>
-            </div>
         
             <div id="top_image">
 
@@ -109,6 +103,7 @@ $_SESSION['employee_array'] = $employee_array;
             <ul class="subway_tabs">
                 <li><a href="/MainMenu/index.php">Home</a></li>
                 <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
+                <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li class="current_position">Employees</li>
                 <li><a href="/EditRequests/index.php" value="edit_requests">Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
@@ -146,7 +141,7 @@ $_SESSION['employee_array'] = $employee_array;
 
                     <tr><td colspan="3">First Name:<input type="text" id="first_name" name="first_name" value="<?php echo $_SESSION['first_name'];?>" required/></td></tr>
                     <tr><td colspan="3">Last Name:<input type="text" id="last_name" name="last_name" value="<?php echo $_SESSION['last_name'];?>"required/></td></tr>
-                    <tr><td hidden colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" required/></td></tr>
+                    <tr><td colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" required/></td></tr>
                     
                     <tr><td colspan="3">Type:<select id="emp_type" name="emp_type" value="<?php echo $_SESSION['emp_type']; ?>"/>
                                                 <option value="F">Full-Time</option>
@@ -160,7 +155,7 @@ $_SESSION['employee_array'] = $employee_array;
                     <tr><td>Availability:</td><td>Start:</td><td>End:</td></tr>
                                     
                     <tr><td>Monday:</td><td>
-                           <select id="monday_start" name="monday_start" onChange="startTime('monday_start');" class="default_time_drop_down">
+                           <select id="monday_start" name="monday_start" onChange="startTime('monday_start');">
                                <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
@@ -196,12 +191,12 @@ $_SESSION['employee_array'] = $employee_array;
                                <option value="2130">09:30</option>
                                <option value="2200">10:00</option>
                            </select></td><td>
-               <select name="monday_end" id="monday_end" value="" class="default_time_drop_down" title="Select Start Time First:">
+               <select name="monday_end" id="monday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Tuesday:</td><td><select id="tuesday_start" name="tuesday_start" onChange="startTime('tuesday_start');" class="default_time_drop_down">
+                           Tuesday:</td><td><select id="tuesday_start" name="tuesday_start" onChange="startTime('tuesday_start');">
                                <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
@@ -237,12 +232,12 @@ $_SESSION['employee_array'] = $employee_array;
                                <option value="2130">09:30</option>
                                <option value="2200">10:00</option>
                            </select></td><td>
-               <select name="tuesday_end" id="tuesday_end" value="" class="default_time_drop_down" title="Select Start Time First:">
+               <select name="tuesday_end" id="tuesday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Wednesday:</td><td><select id="wednesday_start" name="wednesday_start" onChange="startTime('wednesday_start');" class="default_time_drop_down">
+                           Wednesday:</td><td><select id="wednesday_start" name="wednesday_start" onChange="startTime('wednesday_start');">
                                <option value="default">---</option> 
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
@@ -278,12 +273,12 @@ $_SESSION['employee_array'] = $employee_array;
                                <option value="2130">09:30</option>
                                <option value="2200">10:00</option>
                            </select></td><td>
-               <select name="wednesday_end" id="wednesday_end" value="" class="default_time_drop_down" title="Select Start Time First:">
+               <select name="wednesday_end" id="wednesday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Thursday:</td><td><select id="thursday_start" name="thursday_start" onChange="startTime('thursday_start');" class="default_time_drop_down">
+                           Thursday:</td><td><select id="thursday_start" name="thursday_start" onChange="startTime('thursday_start');">
                                 <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
@@ -319,12 +314,12 @@ $_SESSION['employee_array'] = $employee_array;
                                <option value="2130">09:30</option>
                                <option value="2200">10:00</option>
                            </select></td><td>
-               <select name="thursday_end" id="thursday_end" value="" class="default_time_drop_down" title="Select Start Time First:">
+               <select name="thursday_end" id="thursday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Friday:</td><td><select id="friday_start" name="friday_start" onChange="startTime('friday_start');" class="default_time_drop_down">
+                           Friday:</td><td><select id="friday_start" name="friday_start" onChange="startTime('friday_start');">
                                <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
@@ -360,12 +355,12 @@ $_SESSION['employee_array'] = $employee_array;
                                <option value="2130">09:30</option>
                                <option value="2200">10:00</option>
                            </select></td><td>
-               <select name="friday_end" id="friday_end" value="" class="default_time_drop_down" title="Select Start Time First:">
+               <select name="friday_end" id="friday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Saturday:</td><td><select id="saturday_start" name="saturday_start" onChange="startTime('saturday_start');" class="default_time_drop_down">
+                           Saturday:</td><td><select id="saturday_start" name="saturday_start" onChange="startTime('saturday_start');">
                                <option value="default">---</option> 
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
@@ -401,12 +396,12 @@ $_SESSION['employee_array'] = $employee_array;
                                <option value="2130">09:30</option>
                                <option value="2200">10:00</option>
                            </select></td><td>
-               <select name="saturday_end" id="saturday_end" value="" class="default_time_drop_down" title="Select Start Time First:">
+               <select name="saturday_end" id="saturday_end" value="">
                                
                            </select>
                     </td></tr>
                     <tr><td>
-                           Sunday:</td><td><select id="sunday_start" name="sunday_start" onChange="startTime('sunday_start');" class="default_time_drop_down">
+                           Sunday:</td><td><select id="sunday_start" name="sunday_start" onChange="startTime('sunday_start');">
                                <option value="default">---</option>
                                <option value="600">06:00</option>
                                <option value="630">06:30</option>
@@ -442,7 +437,7 @@ $_SESSION['employee_array'] = $employee_array;
                                <option value="2130">09:30</option>
                                <option value="2200">10:00</option>
                            </select></td><td>
-               <select name="sunday_end" id="sunday_end" value="" class="default_time_drop_down" title="Select Start Time First:">
+               <select name="sunday_end" id="sunday_end" value="">
                                
                            </select>
                     </td></tr>
@@ -465,7 +460,6 @@ $_SESSION['employee_array'] = $employee_array;
                     <tr><th id="table_title" colspan="8">Subway Employees</th></tr>
 
 <?php
-
 for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
 
     $id = $_SESSION['employee_array'][$x]->getEmployeeID();
@@ -498,8 +492,8 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     echo $first;
     echo "</td><td class='employee_table'>";
     echo $last;
-//    echo "</td><td class='employee_table'>";
-//    echo $email;
+    echo "</td><td class='employee_table'>";
+    echo $email;
     echo "</td><td class='employee_table'>";
     echo $emp_type;
     echo "</td><td class='employee_table'>";
@@ -517,14 +511,6 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
 <script language="Javascript">
 
     function update(){
-
-        document.getElementById("monday_end").title = "";
-        document.getElementById("tuesday_end").title = "";
-        document.getElementById("wednesday_end").title = "";
-        document.getElementById("thursday_end").title = "";
-        document.getElementById("friday_end").title = "";
-        document.getElementById("saturday_end").title = "";
-        document.getElementById("sunday_end").title = "";
         
         var update_options = document.getElementById("update_option");
         
@@ -543,7 +529,7 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     }
     
     function resetForm(){
-
+        
         document.getElementById("first_name").value="";
         document.getElementById("last_name").value="";
         document.getElementById("email").value="";
@@ -556,15 +542,6 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
         document.getElementById("sunday_start").value="default";
         document.getElementById("monday_start").value="default";
         document.getElementById("tuesday_start").value="default";
-        
-        
-        document.getElementById("monday_end").title = "Select Start Time First:";
-        document.getElementById("tuesday_end").title = "Select Start Time First:";
-        document.getElementById("wednesday_end").title = "Select Start Time First:";
-        document.getElementById("thursday_end").title = "Select Start Time First:";
-        document.getElementById("friday_end").title = "Select Start Time First:";
-        document.getElementById("saturday_end").title = "Select Start Time First:";
-        document.getElementById("sunday_end").title = "Select Start Time First:";
         
         document.getElementById("monday_end").options.length=0;
         document.getElementById("tuesday_end").options.length=0;
