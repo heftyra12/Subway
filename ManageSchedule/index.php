@@ -5,6 +5,7 @@ date_default_timezone_set('America/Chicago');
 if($_SESSION['current_prod'] != true){
     header("Location: productivity.php");
 }
+
 include_once '../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/getBusinessRules.php';
 include_once'../../Subway/HelperFiles/scheduleClass.php';
