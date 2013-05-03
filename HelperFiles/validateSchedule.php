@@ -99,6 +99,7 @@ echo "</div>";
 ?>
                 <form>
                    <input type="button" value="Print" onClick='printDiv("printArea");' class="subway_buttons"/>
+                   <input type="button" value="Done" onClick="window.location.href = '../MainMenu/index.php'" class="subway_buttons"/>
                 </form>
 <script language="Javascript">
 function printDiv(divName) {

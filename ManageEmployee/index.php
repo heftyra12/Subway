@@ -103,7 +103,6 @@ $_SESSION['employee_array'] = $employee_array;
             <ul class="subway_tabs">
                 <li><a href="/MainMenu/index.php">Home</a></li>
                 <li><a href="/ManageSchedule/index.php">Create Schedule</a></li>
-                <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li class="current_position">Employees</li>
                 <li><a href="/EditRequests/index.php" value="edit_requests">Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
@@ -141,7 +140,7 @@ $_SESSION['employee_array'] = $employee_array;
 
                     <tr><td colspan="3">First Name:<input type="text" id="first_name" name="first_name" value="<?php echo $_SESSION['first_name'];?>" required/></td></tr>
                     <tr><td colspan="3">Last Name:<input type="text" id="last_name" name="last_name" value="<?php echo $_SESSION['last_name'];?>"required/></td></tr>
-                    <tr><td colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" required/></td></tr>
+                    <tr><td hidden colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" required/></td></tr>
                     
                     <tr><td colspan="3">Type:<select id="emp_type" name="emp_type" value="<?php echo $_SESSION['emp_type']; ?>"/>
                                                 <option value="F">Full-Time</option>

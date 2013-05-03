@@ -61,5 +61,4 @@ if($update_choice === "delete"){
 }
 
 header("Location: /EditRequests/index.php");
-
 ?>
