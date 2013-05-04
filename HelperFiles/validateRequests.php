@@ -3,6 +3,7 @@
 include_once'requestClass.php';
 //Session Start
 session_start();
+date_default_timezone_set('America/Chicago');
 //Include the db connection file.
 include_once'config.php';
 
