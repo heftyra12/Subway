@@ -95,6 +95,11 @@ $_SESSION['employee_array'] = $employee_array;
     <body>
 
         <div id="page_top"/>
+            <div id="log_out">
+                User: <?php echo $_SESSION['user_name'];
+                            echo " | <a href=../index.php>Logout</a>";
+                ?>
+            </div>
         
             <div id="top_image">
 
