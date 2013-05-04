@@ -96,6 +96,7 @@ $_SESSION['employee_array'] = $employee_array;
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" href="../images/subway.ico">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
         <title>Home</title>
     </head>

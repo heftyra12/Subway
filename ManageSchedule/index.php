@@ -51,6 +51,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" href="../images/subway.ico">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
 
         <title>Create Schedule</title>
