@@ -146,7 +146,7 @@ $_SESSION['employee_array'] = $employee_array;
 
                     <tr><td colspan="3">First Name:<input type="text" id="first_name" name="first_name" value="<?php echo $_SESSION['first_name'];?>" required/></td></tr>
                     <tr><td colspan="3">Last Name:<input type="text" id="last_name" name="last_name" value="<?php echo $_SESSION['last_name'];?>"required/></td></tr>
-                    <tr><td hidden colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" required/></td></tr>
+                    <tr><td hidden colspan="3">Email:<input type="text" id="email" name="email" value="<?php echo $_SESSION['email']?>" /></td></tr>
                     
                     <tr><td colspan="3">Type:<select id="emp_type" name="emp_type" value="<?php echo $_SESSION['emp_type']; ?>"/>                   
                                                 <option value="F">Full-Time</option>
@@ -470,7 +470,7 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     $id = $_SESSION['employee_array'][$x]->getEmployeeID();
     $first = $_SESSION['employee_array'][$x]->getEmployeeFirstName();
     $last = $_SESSION['employee_array'][$x]->getEmployeeLastName();
-    $email = $_SESSION['employee_array'][$x]->getEmployeeEmail();
+    //$email = $_SESSION['employee_array'][$x]->getEmployeeEmail();
     $email='fake@email.com';
     $emp_type = $_SESSION['employee_array'][$x]->getEmployeeType();
     $emp_minor = $_SESSION['employee_array'][$x]->getEmployeeMinor();
@@ -488,7 +488,7 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     $sat_end = $_SESSION['employee_array'][$x]->getSaturdayEnd();
     $sun_start = $_SESSION['employee_array'][$x]->getSundayStart();
     $sun_end = $_SESSION['employee_array'][$x]->getSundayEnd();
-
+    
     echo"<tr><td class='employee_table'><input type='radio' id='employee' name='employee' onclick = 'insertEmployee($x,\"$id\",
         \"$first\",\"$last\",\"$email\",\"$emp_minor\",\"$emp_type\",\"$mon_start\",\"$mon_end\",\"$tues_start\",
         \"$tues_end\",\"$wed_start\",\"$wed_end\",\"$thurs_start\",\"$thurs_end\",\"$fri_start\",\"$fri_end\",
@@ -517,7 +517,7 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
 <script language="Javascript">
 
     function update(){
-        
+
         var update_options = document.getElementById("update_option");
         
         update_options.options.length = 0; 

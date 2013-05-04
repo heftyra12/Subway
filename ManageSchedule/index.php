@@ -1403,14 +1403,11 @@ $_SESSION['full_sched_array']=$full_sched_array;
             option.text=d;
             try
                 {
-                // for IE earlier than version 8 -- found this on Google!!! 
-                //ROOOOBBBB!!!!!!
-                // Deal with it.  I'm too old to re-invent the wheel.
-                x.add(option,x.options[null]);
+                    x.add(option,x.options[null]);
                 }
             catch (e)
                 {
-                x.add(option,null);
+                    x.add(option,null);
                 }
           }
           //enable day selector field
