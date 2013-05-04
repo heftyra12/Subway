@@ -7,8 +7,9 @@ $employee_id = $_POST['employee_id'];
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 $email = $_POST['email'];
-$type = $_POST['type'];
-$minor = $_POST['minor'];
+$email='fake@email.com';
+$emp_type = $_POST['emp_type'];
+$emp_minor = $_POST['emp_minor'];
 $index_value = $_POST['array_index'];
 $update_choice = $_POST['update_option'];
 $count = count($_SESSION['employee_array']);
@@ -30,8 +31,8 @@ $sun_end = $_POST['sunday_end'];
 $_SESSION['first_name'] = $first_name;
 $_SESSION['last_name'] = $last_name;
 $_SESSION['email'] = $email;
-$_SESSION['type'] = $type;
-$_SESSION['minor'] = $minor;
+$_SESSION['type'] = $emp_type;
+$_SESSION['minor'] = $emp_minor;
 
 //to match valid first and last names:
 $name_match = "/^[A-Za-z]+$/";
@@ -46,7 +47,7 @@ else if ($update_choice === 'Add' && (!empty($index_value))) {
     $_SESSION['duplicate_employee'] = "true";
     header("Location: /ManageEmployee/index.php");
 } 
-else if($type === 'Full-Time' && $minor === 'Yes'){
+else if($emp_type === 'Full-Time' && $emp_minor === 'Yes'){
     
     $_SESSION['fulltime_minor'] = "true";
     header("Location: /ManageEmployee/index.php");
@@ -66,10 +67,10 @@ else {
 
             $error_found = "true";
             $_SESSION['last_name'] = "Error: Invalid Last Name:";
-        }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $error_found = "true";
-            $_SESSION['email'] = "Error: Invalid Email Address:";
+//        }
+//        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+//            $error_found = "true";
+//            $_SESSION['email'] = "Error: Invalid Email Address:";
         } else {
             if ($update_choice === 'Delete') {
                 $error_found = "false";
@@ -78,7 +79,7 @@ else {
     }
 
     if ($error_found === "false") {
-
+        
         unset($_SESSION['first_name']);
         unset($_SESSION['last_name']);
         unset($_SESSION['email']);
@@ -88,39 +89,48 @@ else {
         $total_emp = count($_SESSION['employee_array']) - 1;
         $last_id = $_SESSION['employee_array'][($total_emp)]->getEmployeeID();
         $add_count = $last_id + 1;
+        $store_id=1;
+        
+        // replace html values with db appropriate values:
+        $mon_start=str_replace('default', 'null', $mon_start);
+        $mon_end=str_replace("\0", 'null', $mon_end);
+        $tues_start=str_replace('default', 'null', $tues_start);
+        $tues_end=preg_replace("/^[0-9]?$/", 'null', $tues_end);
+        $wed_start=str_replace('default', 'null', $wed_start);
+        $wed_end=preg_replace("/^[0-9]?$/", 'null', $wed_end);
+        $thurs_start=str_replace('default', 'null', $thurs_start);
+        $thurs_end=preg_replace("/^[0-9]?$/", 'null', $thurs_end);
+        $fri_start=str_replace('default', 'null', $fri_start);
+        $fri_end=preg_replace("/^[0-9]?$/", 'null', $fri_end);
+        $sat_start=str_replace('default', 'null', $sat_start);
+        $sat_end=preg_replace("/^[0-9]?$/", 'null', $sat_end);
+        $sun_start=str_replace('default', 'null', $sun_start);
+        $sun_end=preg_replace("/^[0-9]?$/", 'null', $sun_end);
 
-        $addScheduleSQL = "INSERT INTO test.schedule(idschedule,monday_start,tuesday_start, wednesday_start, thursday_start, friday_start, saturday_start, sunday_start,
-                 monday_end, tuesday_end, wednesday_end, thursday_end, friday_end, saturday_end, sunday_end) VALUES('$add_count','$mon_start', '$tues_start', '$wed_start',
-                     '$thurs_start', '$fri_start', '$sat_start', '$sun_start', '$mon_end', '$tues_end', '$wed_end', '$thurs_end', '$fri_end', '$sat_end',
-                         '$sun_end')";
+        $addEmployeeSQL = "INSERT INTO subway.employee VALUES 
+            ($add_count, $store_id, concat(substring(lower($first_name),1,3),$add_count), '$first_name', '$last_name', '$email', '$emp_type', '$emp_minor',
+            $mon_start, $mon_end, $tues_start, $tues_end, $wed_start, $wed_end, $thurs_start, $thurs_end, $fri_start, $fri_end,
+            $sat_start, $sat_end, $sun_start, $sun_end)";
+        echo $addEmployeeSQL;
 
-        $addEmployeeSQL = "INSERT INTO test.emp(idemp,first_name, last_name, email, type, minor)
-                    VALUES('$add_count','$first_name','$last_name','$email','$type','$minor')";
-
-        $updateEmployeeSQL = "UPDATE test.emp SET first_name ='$first_name', last_name ='$last_name',
-                    email ='$email', type ='$type', minor='$minor' WHERE idemp ='$employee_id'";
-
-        $updateScheduleSQL = "UPDATE test.schedule SET monday_start ='$mon_start', monday_end ='$mon_end', tuesday_start ='$tues_start', tuesday_end ='$tues_end',
-                    wednesday_start ='$wed_start' , wednesday_end ='$wed_end' , thursday_start ='$thurs_start' , thursday_end ='$thurs_end' , friday_start='$fri_start' ,
-                        friday_end='$fri_end', saturday_start ='$sat_start', saturday_end ='$sat_end', sunday_start='$sun_start',sunday_end='$sun_end' 
-                            WHERE idschedule ='$employee_id'";
+        $updateEmployeeSQL = "UPDATE subway.employee SET first_name ='$first_name', last_name ='$last_name', email ='$email', emp_type ='$emp_type', 
+            emp_minor='$emp_minor', monday_start=$mon_start, monday_end=$mon_end, tuesday_start=$tues_start, tuesday_end=$tues_end,
+            wednesday_start=$wed_start, wednesday_end=$wed_end, thursday_start=$thurs_start, thursday_end=$thurs_end, 
+            friday_start=$fri_start, friday_end=$fri_end, saturday_start=$sat_start, sunday_start=$sun_start, sunday_end=$sun_end
+            WHERE employee_id =$employee_id";
 
         if ($update_choice === 'Add') {
-
             mysqli_query($db_connect, $addEmployeeSQL);
-            mysqli_query($db_connect, $addScheduleSQL);
             header("Location:/ManageEmployee/index.php");
         } else {
 
             if ($update_choice === 'Update') {
                 mysqli_query($db_connect, $updateEmployeeSQL);
-                mysqli_query($db_connect, $updateScheduleSQL);
                 header("Location:/ManageEmployee/index.php");
             } else {
 
                 if ($update_choice === 'Delete') {
-                    mysqli_query($db_connect, "DELETE FROM test.emp WHERE idemp='$employee_id'");
-                    mysqli_query($db_connect, "DELETE FROM test.schedule WHERE idschedule ='$employee_id'");
+                    mysqli_query($db_connect, "DELETE FROM subway.employee WHERE employee_id='$employee_id'");
                     header("Location:/ManageEmployee/index.php");
                 }
             }
