@@ -64,6 +64,7 @@ $_SESSION['request_array']=$request_array;
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" href="../images/subway.ico">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
         <script type="text/javascript" src="/HelperFiles/JS/setTime.js"></script>
         <title>Requests</title>

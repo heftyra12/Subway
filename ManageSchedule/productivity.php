@@ -39,6 +39,7 @@ while($row = mysqli_fetch_array($result)){
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" href="../images/subway.ico">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
         <title></title>
     </head>
@@ -59,7 +60,6 @@ while($row = mysqli_fetch_array($result)){
             <ul class="subway_tabs">
                 <li><a href="/MainMenu/index.php">Home</a></li>
                 <li class="current_position">Create Schedule</a></li>
-                <li><a href="/ViewSchedule/index.php">View Schedule</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees</a></li>
                 <li><a href="/EditRequests/index.php">Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>

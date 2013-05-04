@@ -87,6 +87,7 @@ $_SESSION['employee_array'] = $employee_array;
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" href="../images/subway.ico">
         <link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>
         <script type="text/javascript" src="/HelperFiles/JS/setTime.js"></script>
         <title>Subway Scheduling Program: Employees</title>
@@ -491,7 +492,7 @@ for ($x = 0; $x < count($_SESSION['employee_array']); $x++) {
     echo $first;
     echo "</td><td class='employee_table'>";
     echo $last;
-    echo "</td><td class='employee_table'>";
+    echo "</td><td hidden class='employee_table'>";
     echo $email;
     echo "</td><td class='employee_table'>";
     echo $emp_type;
