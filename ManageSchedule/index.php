@@ -19,6 +19,7 @@ $result = mysqli_query($db_connect, $sqlCommand);
 
 $schedule_array = array();
 $full_sched_array = array();
+$count = 0;
 
 while ($row = mysqli_fetch_array($result)) {
 
@@ -38,6 +39,7 @@ while ($row = mysqli_fetch_array($result)) {
     
     array_push($full_sched_array,$schedule);
     array_push($schedule_array, $employee);
+    $count++;
 }
 
 $_SESSION['schedule_array']=$schedule_array;
@@ -70,7 +72,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
         
             <ul class="subway_tabs">
                 <li><a href="/MainMenu/index.php">Home</a></li>
-                <li class="current_position">Creates Schedule</a></li>
+                <li class="current_position">Create Schedule</a></li>
                 <li><a href="/ManageEmployee/index.php">Employees</a></li>
                 <li><a href="/EditRequests/index.php">Requests</a></li>
                 <li><a href="/ScheduleParameters/index.php">Business Rules</a></li>
@@ -137,15 +139,15 @@ $_SESSION['full_sched_array']=$full_sched_array;
                                 echo "</select>";
 
                                 //day
-                                echo "<select disabled id='day_sched' name='day_sched' onChange='displaySchedDays();'>";
+                                echo "<select disabled id='day_sched' name='day_sched' onChange='displaySchedDays($count);'>";
                                 echo "<option value='default'>DAY</option>";
                                 echo "</select>";
                                 
                                 //reset
-                                echo"<input type='button' value='RESET' id='reset_day_selector' name='reset_day_selector' onClick='resetDaySelector();'/>";
+                                echo"<input type='button' value='RESET' id='reset_day_selector' name='reset_day_selector' onClick='resetDaySelector($count);'/>";
                             ?>
                         </tr>
-               
+                        
                         <tr class="schedule_table">
                             <th class="schedule_table">Employee:</th>
                             <th class="schedule_table">Hours</th>
@@ -171,7 +173,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo $_SESSION['full_sched_array'][$x]->getFirstName()." ";
                         echo $_SESSION['full_sched_array'][$x]->getLastName()."</td>";
                         echo "<td><output id='hour_total_$x' name='total_$x' class='hour_total' value=''></output></td>";    
-                        echo "<td class='test_td' id='wed_$x'><select id='wed_start_$x' name='wed_start_$x' onChange='mainCall(name);' class='schedule_table'>";
+                        echo "<td class='test_td' id='wed_$x'><select disabled id='wed_start_$x' name='wed_start_$x' onChange='mainCall(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
                         $dayNo=1;
@@ -217,7 +219,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='wed_end_$x' name='wed_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
+                        echo "<select disabled id='wed_end_$x' name='wed_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
                         
                         echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
@@ -256,7 +258,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "</select>";
                         
                         
-                        echo "<td class='test_td' id='thur_$x'><select id='thu_start_$x' name='thu_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
+                        echo "<td class='test_td' id='thur_$x'><select disabled id='thu_start_$x' name='thu_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
                         $dayNo=2;
@@ -303,7 +305,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='thu_end_$x' name='thu_end_$x' onChange='endMainCall(name);'class='schedule_table_end'>";
+                        echo "<select disabled id='thu_end_$x' name='thu_end_$x' onChange='endMainCall(name);'class='schedule_table_end'>";
                         echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='630'>6:30</option>";
@@ -340,7 +342,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<td class='test_td' id='fri_$x'><select id='fri_start_$x' name='fri_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
+                        echo "<td class='test_td' id='fri_$x'><select disabled id='fri_start_$x' name='fri_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
                         $dayNo=3;
@@ -387,7 +389,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='fri_end_$x' name='fri_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
+                        echo "<select disabled id='fri_end_$x' name='fri_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
                         echo "<option value='def'>end</option>";
                        echo "<option value='600'>6:00</option>";
                         echo "<option value='630'>6:30</option>";
@@ -424,7 +426,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<td class='test_td' id='sat_$x'><select id='sat_start_$x' name='sat_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
+                        echo "<td class='test_td' id='sat_$x'><select disabled id='sat_start_$x' name='sat_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
                         $dayNo=4;
@@ -471,7 +473,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='sat_end_$x' name='sat_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
+                        echo "<select disabled id='sat_end_$x' name='sat_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
                         echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='630'>6:30</option>";
@@ -508,7 +510,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<td class='test_td' id='sun_$x'><select id='sun_start_$x' name='sun_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
+                        echo "<td class='test_td' id='sun_$x'><select disabled id='sun_start_$x' name='sun_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
                         $dayNo=5;
@@ -555,7 +557,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='sun_end_$x' name='sun_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
+                        echo "<select disabled id='sun_end_$x' name='sun_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
                         echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='630'>6:30</option>";
@@ -592,7 +594,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<td class='test_td' id='mon_$x'><select id='mon_start_$x' name='mon_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
+                        echo "<td class='test_td' id='mon_$x'><select disabled id='mon_start_$x' name='mon_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
                         $dayNo=6;
@@ -639,7 +641,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='mon_end_$x' name='mon_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
+                        echo "<select disabled id='mon_end_$x' name='mon_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
                         echo "<option value='def'>end</option>";
                        echo "<option value='600'>6:00</option>";
                         echo "<option value='630'>6:30</option>";
@@ -676,7 +678,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<td class='test_td' id='tue_$x'><select id='tue_start_$x' name='tue_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
+                        echo "<td class='test_td' id='tue_$x'><select disabled id='tue_start_$x' name='tue_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
                         $dayNo=7;
@@ -723,7 +725,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        echo "<select id='tue_end_$x' name='tue_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
+                        echo "<select disabled id='tue_end_$x' name='tue_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
                         echo "<option value='def'>end</option>";
                         echo "<option value='600'>6:00</option>";
                         echo "<option value='630'>6:30</option>";
@@ -1414,7 +1416,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
           document.getElementById("day_sched").disabled = false;
     }
     
-    function displaySchedDays(){
+    function displaySchedDays(table){
         // displays day and month value on the schedule
         var start_day = document.getElementById("day_sched").value;
         var selectedYear = document.getElementById("year_sched").value;
@@ -1454,9 +1456,25 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 start_day++;
             }
         }
+        for(index=0;index<=table; index++){
+            document.getElementById("wed_start_"+index).disabled = false;
+            document.getElementById("wed_end_"+index).disabled = false;
+            document.getElementById("thu_start_"+index).disabled = false;
+            document.getElementById("thu_end_"+index).disabled = false;
+            document.getElementById("fri_start_"+index).disabled = false;
+            document.getElementById("fri_end_"+index).disabled = false;
+            document.getElementById("sat_start_"+index).disabled = false;
+            document.getElementById("sat_end_"+index).disabled = false;
+            document.getElementById("sun_start_"+index).disabled = false;
+            document.getElementById("sun_end_"+index).disabled = false;            
+            document.getElementById("mon_start_"+index).disabled = false;
+            document.getElementById("mon_end_"+index).disabled = false;
+            document.getElementById("tue_start_"+index).disabled = false;
+            document.getElementById("tue_end_"+index).disabled = false;            
+        }
     }
     
-    function resetDaySelector(){
+    function resetDaySelector(table){
         // reset all day selector fields as well as the day value on schedule
         document.getElementById("month_sched").disabled = true;
         document.getElementById("day_sched").disabled = true;
@@ -1471,6 +1489,23 @@ $_SESSION['full_sched_array']=$full_sched_array;
         document.getElementById("day_num5").innerHTML = "Sun";
         document.getElementById("day_num6").innerHTML = "Mon";
         document.getElementById("day_num7").innerHTML = "Tue";
+        
+        for(index=0;index<=table; index++){
+            document.getElementById("wed_start_"+index).disabled = true;
+            document.getElementById("wed_end_"+index).disabled = true;
+            document.getElementById("thu_start_"+index).disabled = true;
+            document.getElementById("thu_end_"+index).disabled = true;
+            document.getElementById("fri_start_"+index).disabled = true;
+            document.getElementById("fri_end_"+index).disabled = true;
+            document.getElementById("sat_start_"+index).disabled = true;
+            document.getElementById("sat_end_"+index).disabled = true;
+            document.getElementById("sun_start_"+index).disabled = true;
+            document.getElementById("sun_end_"+index).disabled = true;            
+            document.getElementById("mon_start_"+index).disabled = true;
+            document.getElementById("mon_end_"+index).disabled = true;
+            document.getElementById("tue_start_"+index).disabled = true;
+            document.getElementById("tue_end_"+index).disabled = true;            
+        }
 
     }
 </script>
