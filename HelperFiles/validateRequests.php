@@ -29,20 +29,26 @@ $fe = $final_end->format('Y-m-d');
 
 if($update_choice === "add"){
 
-    $request_id = 0; 
-    
-    for($x=0; $x < count($_SESSION['request_array']);$x++){
-        
-        if($request_id < $_SESSION['request_array'][$x]->getRequestID()){
-            
-            $request_id = $_SESSION['request_array'][$x]->getRequestID();
-        }
-    }
-    
-    $request_id++;
+//    $request_id = 0; 
+//    echo count($_SESSION['request_array']);
+//    for($x=0; $x < count($_SESSION['request_array']);$x++){
+//        
+//        if($request_id < $_SESSION['request_array'][$x]->getRequestID()){
+//            
+//            $request_id = $_SESSION['request_array'][$x]->getRequestID();
+//        }
+//    }
+//    
+//    $request_id++;
+      $sqlCommand = "select max(request_id)as val from subway.request";
+      $result = mysqli_query($db_connect, $sqlCommand);
+      while ($row = mysqli_fetch_array($result)){
+        $request_id=$row["val"]+1;
+      }
     
     $addSQLCommand = "INSERT INTO subway.request(request_id, employee_id, start_date, end_date, start_time, end_time)
-                      VALUES('$request_id','$emp_id', '$fs', '$fe', '$start_request', '$end_request')";
+                      VALUES($request_id,$emp_id, '$fs', '$fe', $start_request, $end_request)";
+    //echo $addSQLCommand;
     mysqli_query($db_connect,$addSQLCommand);  
 }
 if($update_choice === "update"){
@@ -50,8 +56,8 @@ if($update_choice === "update"){
     $request_id = $_POST['request_id'];
     
     $updateSQLCommand = "UPDATE subway.request
-                         SET start_date ='$fs', end_date ='$fe', start_time = '$start_request', end_time ='$end_request'
-                         WHERE request_id ='$request_id' AND employee_id ='$emp_id'";
+                         SET start_date ='$fs', end_date ='$fe', start_time = $start_request, end_time =$end_request
+                         WHERE request_id =$request_id AND employee_id =$emp_id";
     
     mysqli_query($db_connect,$updateSQLCommand);
 }

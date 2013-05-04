@@ -23,8 +23,9 @@ while($row = mysqli_fetch_array($result)){
     array_push($emp_array,$employee);
 }
 
-// only display requests that have an end day value greater than or equal to today:
-$sqlCommand = "SELECT request_id, employee_id, start_date, end_date, start_time, end_time FROM subway.request where end_date >= CURDATE()";
+// only display requests that have an end day value greater than or equal to today
+// AND that are tied to active employees:
+$sqlCommand = "SELECT R.request_id, R.employee_id, R.start_date, R.end_date, R.start_time, R.end_time FROM subway.request R, subway.employee E where R.end_date >= CURDATE() and R.employee_id = E.employee_id";
 $result = mysqli_query($db_connect, $sqlCommand);
 
 while ($row = mysqli_fetch_array($result)){
