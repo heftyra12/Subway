@@ -87,8 +87,12 @@ else {
         unset($_SESSION['minor']);
 
         $total_emp = count($_SESSION['employee_array']) - 1;
-        $last_id = $_SESSION['employee_array'][($total_emp)]->getEmployeeID();
-        $add_count = $last_id + 1;
+        
+        $sqlCommand = "select max(employee_id)as val from subway.employee";
+        $result = mysqli_query($db_connect, $sqlCommand);
+        while ($row = mysqli_fetch_array($result)){
+            $add_count=$row["val"]+1;
+        }
         $store_id=1;
         
         // replace html values with db appropriate values:
@@ -108,10 +112,10 @@ else {
         $sun_end=preg_replace("/^[0-9]?$/", 'null', $sun_end);
 
         $addEmployeeSQL = "INSERT INTO subway.employee VALUES 
-            ($add_count, $store_id, concat(substring(lower($first_name),1,3),$add_count), '$first_name', '$last_name', '$email', '$emp_type', '$emp_minor',
+            ($add_count, $store_id, concat(substring(lower('$first_name'),1,3),$add_count), concat(substring(lower('$first_name'),1,3),$add_count), '$first_name', '$last_name', '$email', '$emp_type', '$emp_minor',
             $mon_start, $mon_end, $tues_start, $tues_end, $wed_start, $wed_end, $thurs_start, $thurs_end, $fri_start, $fri_end,
             $sat_start, $sat_end, $sun_start, $sun_end)";
-        echo $addEmployeeSQL;
+        //echo $addEmployeeSQL;
 
         $updateEmployeeSQL = "UPDATE subway.employee SET first_name ='$first_name', last_name ='$last_name', email ='$email', emp_type ='$emp_type', 
             emp_minor='$emp_minor', monday_start=$mon_start, monday_end=$mon_end, tuesday_start=$tues_start, tuesday_end=$tues_end,
