@@ -1396,22 +1396,27 @@ $_SESSION['full_sched_array']=$full_sched_array;
         var selectedMonth = document.getElementById("month_sched").value;
         var daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
         
-        // populate the option list
+        // loop through list of days in month and populate the option list
         for(d=1;d<=daysInMonth;d++){
             var x=document.getElementById("day_sched");
             var option=document.createElement("option");
-            option.text=d;
-            try
-                {
-                    x.add(option,x.options[null]);
-                }
-            catch (e)
-                {
-                    x.add(option,null);
-                }
-          }
-          //enable day selector field
-          document.getElementById("day_sched").disabled = false;
+            var myDate = new Date(selectedYear, selectedMonth-1, d);
+            //only display Wednesdays:
+            if(myDate.getDay() == 3)
+            {
+                option.text=d;
+                try
+                    {
+                        x.add(option,x.options[null]);
+                    }
+                catch (e)
+                    {
+                        x.add(option,null);
+                    }
+            }
+        }
+        //enable day selector field
+        document.getElementById("day_sched").disabled = false;
     }
     
     function displaySchedDays(table){
