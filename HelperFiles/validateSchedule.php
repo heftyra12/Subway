@@ -2,7 +2,7 @@
 include_once'scheduleClass.php';
 include_once'employeeClass.php';
 session_start();
-echo "<link rel='stylesheet' href='/CSS/subway_css.css' type='text/css'>";
+echo "<link rel='stylesheet' href='/CSS/print_table.css' type='text/css'>";
 $index = $_POST['index'] - 1;
 
 //Function to convert time to make the schedule easier to read for employees
@@ -69,29 +69,32 @@ for ($x = 0; $x < $index; $x++) {
 
 echo "<div id='printArea'>";
 echo "<table>";
-echo "<tr><th class='table_title'>Schedule</th></tr>";
-echo "<tr><th>Employee</th><th>Hours</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th><th>Monday</th><th>Tuesday</th></tr>";
+echo "<tr><th colspan='8'>Schedule</th></tr>";
+echo "<tr><th>Employee</th>
+          <th>Hours</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          </tr>";
 for ($x = 0; $x < $index; $x++) {
 
     echo "<tr><td>";
     echo $_SESSION['full_sched_array'][$x]->getFirstName() . " " .  $_SESSION['full_sched_array'][$x]->getLastName();
     echo "</td><td>";
-    echo $_POST['total_' . $x];
-    echo "</td><td>";
-    echo convertTime($_POST['wed_time_start_'.$x],$_POST['wed_time_end_'.$x]);
-    echo "</td><td>";
-    echo convertTime($_POST['thu_time_start_'.$x],$_POST['thu_time_end_'.$x]);
-    echo "</td><td>";
-    echo convertTime($_POST['fri_time_start_'.$x],$_POST['fri_time_end_'.$x]);
-    echo "</td><td>";
-    echo convertTime($_POST['sat_time_start_'.$x],$_POST['sat_time_end_'.$x]);
-    echo "</td><td>";
-    echo convertTime($_POST['sun_time_start_'.$x],$_POST['sun_time_end_'.$x]);
-    echo "</td><td>";
-    echo convertTime($_POST['mon_time_start_'.$x],$_POST['mon_time_end_'.$x]);
-    echo "</td><td>";
-    echo convertTime($_POST['tue_time_start_'.$x],$_POST['tue_time_end_'.$x]);
-    echo "</td></tr>";
+    echo $_POST['total_' . $x] . "</td>";
+    
+    echo "<td id='wed_$x'>" . convertTime($_POST['wed_time_start_'.$x],$_POST['wed_time_end_'.$x]) . "</td>";
+    echo "<td id='thu_$x'>" . convertTime($_POST['thu_time_start_'.$x],$_POST['thu_time_end_'.$x]) . "</td>";
+    echo "<td id='fri_$x'>" . convertTime($_POST['fri_time_start_'.$x],$_POST['fri_time_end_'.$x]) . "</td>";
+    echo "<td id='sat_$x'>" . convertTime($_POST['sat_time_start_'.$x],$_POST['sat_time_end_'.$x]) . "</td>";
+    echo "<td id='sun_$x'>" . convertTime($_POST['sun_time_start_'.$x],$_POST['sun_time_end_'.$x]) . "</td>";
+    echo "<td id='mon_$x'>" . convertTime($_POST['mon_time_start_'.$x],$_POST['mon_time_end_'.$x]) . "</td>";
+    echo "<td id='tue_$x'>" . convertTime($_POST['tue_time_start_'.$x],$_POST['tue_time_end_'.$x]) . "</td>";
+    echo "</tr>";
 }
 echo "</table>";
 echo "</div>";

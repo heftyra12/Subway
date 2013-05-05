@@ -788,6 +788,8 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<input type='hidden' id='tue_time_start_$x' name='tue_time_start_$x' value=''>";
                         echo "<input type='hidden' id='tue_time_end_$x' name='tue_time_end_$x' value=''>";
                      
+                       
+                        
                         echo "<input type='hidden' id='total_$x' name='total_$x' value=''>";
                     }
                     
@@ -1192,24 +1194,31 @@ $_SESSION['full_sched_array']=$full_sched_array;
                             switch(day)
                             {    
                                 case "wed":
+                                    
                                     document.getElementById("wed_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "thu":
+                                    
                                     document.getElementById("thu_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "fri":
+                                    
                                     document.getElementById("fri_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "sat":
+                                    
                                     document.getElementById("sat_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "sun":
+                                    
                                     document.getElementById("sun_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "mon":
+                                    
                                     document.getElementById("mon_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "tue":
+                                    
                                     document.getElementById("tue_"+index).style.backgroundColor = 'red';
                                     break;
                             }//end switch
@@ -1219,24 +1228,31 @@ $_SESSION['full_sched_array']=$full_sched_array;
                             switch(day)
                             {
                                 case "wed":
+                                   
                                     document.getElementById("wed_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "thu":
+                                    
                                     document.getElementById("thu_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "fri":
+                                    
                                     document.getElementById("fri_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "sat":
+                                    
                                     document.getElementById("sat_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "sun":
+                                    
                                     document.getElementById("sun_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "mon":
+                                    
                                     document.getElementById("mon_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "tue":
+                                   
                                     document.getElementById("tue_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                             }//end switch
@@ -1292,24 +1308,31 @@ $_SESSION['full_sched_array']=$full_sched_array;
                             switch(day)
                             {    
                                 case "wed":
+                                    document.getElementById("wed_break_"+index).value ="y";
                                     document.getElementById("wed_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "thu":
+                                    document.getElementById("thu_break_"+index).value ="y";
                                     document.getElementById("thu_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "fri":
+                                    document.getElementById("fri_break_"+index).value ="y";
                                     document.getElementById("fri_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "sat":
+                                    document.getElementById("sat_break_"+index).value ="y";
                                     document.getElementById("sat_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "sun":
+                                    document.getElementById("sun_break_"+index).value ="y";
                                     document.getElementById("sun_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "mon":
+                                    document.getElementById("mon_break_"+index).value ="y";
                                     document.getElementById("mon_"+index).style.backgroundColor = 'red';
                                     break;
                                 case "tue":
+                                    document.getElementById("tue_break_"+index).value ="y";
                                     document.getElementById("tue_"+index).style.backgroundColor = 'red';
                                     break;
                                 }
@@ -1319,24 +1342,31 @@ $_SESSION['full_sched_array']=$full_sched_array;
                             switch(day)
                             {
                                 case "wed":
+                                    document.getElementById("wed_break_"+index).value ="n";
                                     document.getElementById("wed_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "thu":
+                                    document.getElementById("thu_break_"+index).value ="n";
                                     document.getElementById("thu_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "fri":
+                                    document.getElementById("fri_break_"+index).value ="n";
                                     document.getElementById("fri_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "sat":
+                                    document.getElementById("sat_break_"+index).value ="n";
                                     document.getElementById("sat_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "sun":
+                                    document.getElementById("sun_break_"+index).value ="n";
                                     document.getElementById("sun_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "mon":
+                                    document.getElementById("mon_break_"+index).value ="n";
                                     document.getElementById("mon_"+index).style.backgroundColor = 'lightgreen';
                                     break;
                                 case "tue":
+                                    document.getElementById("tue_break_"+index).value ="n";
                                     document.getElementById("tue_"+index).style.backgroundColor = 'lightgree';
                                     break;
 

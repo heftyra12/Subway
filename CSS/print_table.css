@@ -1,0 +1,25 @@
+root { 
+    display: block;
+}
+body{
+    background:white;
+}
+table{
+    margin:0px;
+    border-collapse:collapse;
+}
+td{
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    border-bottom:2px solid black;
+    margin:0px;
+}
+th{
+    margin:0px;
+}
+tr{
+    margin:0px;
+    padding:0px;
+}
