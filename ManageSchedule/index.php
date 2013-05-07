@@ -259,7 +259,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "</select>";
                         
                         
-                        echo "<td class='test_td' id='thur_$x'><select disabled id='thu_start_$x' name='thu_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
+                        echo "<td class='test_td' id='thu_$x'><select disabled id='thu_start_$x' name='thu_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
                         $dayNo=2;
@@ -800,6 +800,36 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 <tr><td colspan="9"><input type="submit" value="Create Schedule:"/></td></tr>  
                 </form>
                 </table>
+         <div hidden id="requests" align="left">
+             <p>Requests off this week:</p>
+                <table id="request_table" class="schedule_table">
+                <tr align=left>
+                    <th>Name</th>
+                     <th>Start Day</th>
+                     <th>End Day</th>
+                     <th>Start Time</th>
+                     <th>End Time</th>
+                </tr>
+                <?php      
+                    $sqlCommand = "SELECT E.first_name, E.last_name, R.start_date, R.end_date,
+                        concat(substr(if(R.start_time>=1300, (R.start_time-1200), R.start_time),1,length(if(R.start_time>=1300, (R.start_time-1200), R.start_time))-2),concat(':',substr(start_time,length(start_time)-1,length(start_time)))) as start_time,
+                        concat(substr(if(R.end_time>=1300, (R.end_time-1200), R.end_time),1,length(if(R.end_time>=1300, (R.end_time-1200), R.end_time))-2),concat(':',substr(end_time,length(end_time)-1,length(end_time)))) as end_time
+                        FROM subway.request R, subway.employee E 
+                        where /*(R.start_date between '2013-06-01' and '2013-06-07' OR R.end_date between '2013-06-01' and '2013-06-07')
+                        and */R.employee_id = E.employee_id";
+                    $result = mysqli_query($db_connect, $sqlCommand);
+
+                    while ($row = mysqli_fetch_array($result)){
+                        //echo"<li><a><u>DATE:</u> $row[start_date] - $row[end_date] ---- <u>EMPLOYEE:</u> $row[first_name] $row[last_name] ---- <u>TIME:</u> $row[start_time]-$row[end_time] </a></li>";
+                        echo"<tr><td>$row[first_name] $row[last_name]</td>";
+                        echo"<td>$row[start_date]</td>";
+                        echo"<td>$row[end_date]</td>";
+                        echo"<td>$row[start_time]</td>";
+                        echo"<td>$row[end_time]</td>";
+                    }                    
+                ?>
+            </table>
+        </div>
             </div>
         </div>
     </div>
@@ -1489,6 +1519,22 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 start_day++;
             }
         }
+        
+//        var table = document.getElementById('request_table');
+//        for (var r = 0, n = table.rows.length; r < n; r++) {
+//            for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
+//                //alert("booyeah");
+//            }
+//        } 
+        
+        var setDay = document.getElementById("day_sched").value;
+        var setYear = document.getElementById("year_sched").value;
+        var setMonth = document.getElementById("month_sched").value;
+        var myDate = new Date(setYear, setMonth, setDay);
+        //alert(setYear+"-"+setMonth+"-"+setDay+" || "+myDate);
+        
+        document.getElementById("requests").hidden=false;
+        
         for(index=0;index<=table; index++){
             document.getElementById("wed_start_"+index).disabled = false;
             document.getElementById("wed_end_"+index).disabled = false;
@@ -1503,7 +1549,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
             document.getElementById("mon_start_"+index).disabled = false;
             document.getElementById("mon_end_"+index).disabled = false;
             document.getElementById("tue_start_"+index).disabled = false;
-            document.getElementById("tue_end_"+index).disabled = false;            
+            document.getElementById("tue_end_"+index).disabled = false;
         }
     }
     
