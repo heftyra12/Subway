@@ -104,7 +104,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 </form>
             </div>
         </div>
-
+        
         <div id="normal_right">
            
             <div id="home_sched">   
@@ -398,7 +398,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         
                         echo "<select disabled id='fri_end_$x' name='fri_end_$x' onChange='endMainCall(name);' class='schedule_table_end'>";
                         echo "<option value='def'>end</option>";
-                       echo "<option value='600'>6:00</option>";
+                        echo "<option value='600'>6:00</option>";
                         echo "<option value='630'>6:30</option>";
                         echo "<option value='700'>7:00</option>";
                         echo "<option value='730'>7:30</option>";
