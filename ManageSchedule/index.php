@@ -1,10 +1,15 @@
 <?php
 session_start();
-date_default_timezone_set('America/Chicago');
 
+if(!isset($_SESSION['user_name']))
+{
+    header("Location: ../index.php");
+}
 if($_SESSION['current_prod'] != true){
     header("Location: productivity.php");
 }
+
+date_default_timezone_set('America/Chicago');
 
 include_once '../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/getBusinessRules.php';
@@ -174,6 +179,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo $_SESSION['full_sched_array'][$x]->getFirstName()." ";
                         echo $_SESSION['full_sched_array'][$x]->getLastName()."</td>";
                         echo "<td><output id='hour_total_$x' name='total_$x' class='hour_total' value=''></output></td>";    
+                        
                         echo "<td class='test_td' id='wed_$x'><select disabled id='wed_start_$x' name='wed_start_$x' onChange='mainCall(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
@@ -258,7 +264,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='2200'>10:00</option>";
                         echo "</select>";
                         
-                        
+
                         echo "<td class='test_td' id='thu_$x'><select disabled id='thu_start_$x' name='thu_start_$x' onChange='mainCall(name); checkTime(name);' class='schedule_table'>";
                         echo "<option value='def'>start</option>";
                         
@@ -788,8 +794,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<input type='hidden' id='tue_time_start_$x' name='tue_time_start_$x' value=''>";
                         echo "<input type='hidden' id='tue_time_end_$x' name='tue_time_end_$x' value=''>";
                      
-                       
-                        
+       
                         echo "<input type='hidden' id='total_$x' name='total_$x' value=''>";
                     }
                     
@@ -839,20 +844,23 @@ $_SESSION['full_sched_array']=$full_sched_array;
 
 <script language="Javascript">
     
-    function mainCall(table){
+    function mainCall(table)
+    {
         var name = table;
         resetTime(name);
         dayTimeCheck(name);
         weekHourTotal(name);
+      
     }
     
-    function endMainCall(table){
+    function endMainCall(table)
+    {
         var name = table; 
         resetTime(name);
         dayTimeCheck(name);
         weekHourTotal(name);
     }
- 
+
     /*
      * If start time is a shift, set end time to default. If start
      * time is not a shift, call checkTime to set the end time to the 
@@ -862,9 +870,8 @@ $_SESSION['full_sched_array']=$full_sched_array;
      * Will be modified if we end up having the time to check shift lengths
      * against max shift times for employee types.
      */
-  
-    function resetTime(table){
-        
+    function resetTime(table)
+    {    
         var table_name = table.split("_");
         
         var start_name = table_name[0]+"_start_"+table_name[2];
@@ -874,11 +881,13 @@ $_SESSION['full_sched_array']=$full_sched_array;
         var table_one = document.getElementById(start_name);
         var table_two = document.getElementById(end_name);
        
-        if(table_one.value.length > 6){
+        if(table_one.value.length > 6)
+        {
             document.getElementById(end_name).value="def";
             document.getElementById(shift_time_name).value = document.getElementById(start_name).value;
         }
-        else{
+        else
+        {
              checkTime(table);
         }
     }
@@ -893,8 +902,8 @@ $_SESSION['full_sched_array']=$full_sched_array;
      * If time, we should probably have the start list end at what would be
      * the minium time. 
      */
-    function checkTime(table){
-        
+    function checkTime(table)
+    {    
         var table_name = table.split("_");
         
         var start_name = table_name[0]+"_start_"+table_name[2];
@@ -907,31 +916,35 @@ $_SESSION['full_sched_array']=$full_sched_array;
         
         //If the start row was clicked, set end time ahead by number of shifts 
         //that are the minimum. 
-        if(table_name[1] == "start"){
-            
-            for(var x = 0; x < table_one.length; x++){
-            
-                if(table_one.value == table_two[x].value){
-                 
-                     if(x < table_two.length - (min_shift_hours * 2)){
-                    
-                        table_two.value = table_two[x+ (min_shift_hours * 2)].value;
-                        return true;
-                    }
-                    else{
-                        table_one.value="def";
-                        table_two.value="def";
-                        alert("Minimum Shift Time Is " + min_shift_hours);
-                        return true;
-                    }
+        if(table_name[1] == "start")
+        {
+            for(var x = 0; x < table_one.length; x++)
+            {
+                if(table_one.value == table_two[x].value)
+                {
+                    var found_index = x;
                 }   
             }
+            
+            if((found_index < table_two.length - (min_shift_hours * 2)) && table_one.value != "def")
+            {
+                alert("blah");
+                table_two.value = table_two[found_index + (min_shift_hours * 2)].value;   
+            }
+            if(found_index > table_two.length - (min_shift_hours * 2))
+            {
+                alert("Minimum Shift Time Is " + min_shift_hours);
+                table_one.value = 'def';
+                table_two.value = table_two[0].value;
+                alert(table_two[0].value);
+                            
+            }
         }
-        else{
-      
+        else
+        { 
             //Loop through the second table. 
-            for(x=0;x<table_two.length;x++){
-                
+            for(x=0;x<table_two.length;x++)
+            {    
                 //Location in table two that matches the start time. 
                 if(table_two[x].value == table_one.value)
                     var first_value = x; 
@@ -941,14 +954,13 @@ $_SESSION['full_sched_array']=$full_sched_array;
             }
            
            //If the difference between the shifts is less than the minimum shift time (currently 3 hours, so 6 list spots). 
-           if((second_value - first_value) < (min_shift_hours * 2)){
-               
+           if((second_value - first_value) < (min_shift_hours * 2))
+           {    
                //Find how  many shifts short the end time is. 
                var spots_to_move = (min_shift_hours * 2)-(second_value - first_value);
               
-               //Move end time to shift minimum. 
-               table_two.value = table_two[second_value + spots_to_move].value;
-               
+               table_one[x].value = "def";
+               table_two[x].value = "def";
            }
         }
     }
@@ -959,8 +971,9 @@ $_SESSION['full_sched_array']=$full_sched_array;
      *certain employee type their total is changed to red font. If it goes 
      *back under it will switch back to black.  
      */
-    function weekHourTotal(table){
-       
+    function weekHourTotal(table)
+    {   
+        alert("week_hour");
         var table_name = table.split("_");
         var index = table_name[2];
         
@@ -975,8 +988,8 @@ $_SESSION['full_sched_array']=$full_sched_array;
         
         //Only executes when both start and end times are not default
         //otherwise NaN will show up in the hour total column. 
-        if(table_one.value != "def" ){
-        
+        if(table_one.value != "def" )
+        {
             var max_full = document.getElementById("max_week_full").value;
             var max_part = document.getElementById("max_week_part").value;
         
@@ -1107,7 +1120,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
      * Doesn't work for shifts, so if time...
      */
     function dayTimeCheck(table){
-        
+        alert("dayTime");
         var max_day_part = document.getElementById('max_day_part').value;
         var max_day_full = document.getElementById('max_day_full').value;
         
@@ -1328,7 +1341,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                     }                       
                 }
                 else
-                {
+                {// shift was selected:
                     var shift_split = start_time.split("_");
                     var shift_start = shift_split[0];
                     var shift_end = shift_split[1];
@@ -1402,7 +1415,6 @@ $_SESSION['full_sched_array']=$full_sched_array;
 
                             }
                         }
-              
               
                     //If the shift was over the max hours for a full-time day
                     if((shift_end - shift_start) > (max_day_part * 100))
