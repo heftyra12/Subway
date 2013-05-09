@@ -863,7 +863,6 @@ $_SESSION['full_sched_array']=$full_sched_array;
     
     function resetTime(table)
     {    
-        alert("resetTime");
         var table_name = table.split("_");
         
         var start_name = table_name[0]+"_start_"+table_name[2];
@@ -1492,13 +1491,6 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 start_day++;
             }
         }
-        
-        //        var table = document.getElementById('request_table');
-        //        for (var r = 0, n = table.rows.length; r < n; r++) {
-        //            for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
-        //                //alert("booyeah");
-        //            }
-        //        } 
         
         var setDay = document.getElementById("day_sched").value;
         var setYear = document.getElementById("year_sched").value;
