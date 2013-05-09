@@ -1479,14 +1479,48 @@ $_SESSION['full_sched_array']=$full_sched_array;
         var monthNameNext = month[++selectedMonth];
         
         // output the values: Wed, Jun 8
-        for(index=1;index<8;index++){
-            document.getElementById("day_num"+index).innerHTML = document.getElementById("day_num"+index).innerHTML + ", " +monthNameNow + " " + start_day;
-            if(start_day==daysInMonth){
+        for(index=1;index<8;index++)
+        {
+            switch(index)
+            {
+                case(1): 
+                        var test = "Wed";
+                        document.getElementById("day_num"+index).innerHTML = test + ", " + monthNameNow + " " + start_day;
+                        break;
+                case(2):
+                        var test = "Thu";
+                        document.getElementById("day_num"+index).innerHTML = test + ", " + monthNameNow + " " + start_day;
+                        break;
+                case(3):
+                       var test = "Fri";
+                       document.getElementById("day_num"+index).innerHTML = test + ", " + monthNameNow + " " + start_day;
+                       break;
+                case(4):
+                       var test = "Sat";
+                       document.getElementById("day_num"+index).innerHTML = test + ", " + monthNameNow + " " + start_day;
+                       break;
+                case(5):
+                       var test = "Sun";
+                       document.getElementById("day_num"+index).innerHTML = test + ", " + monthNameNow + " " + start_day;
+                       break;
+                case(6):
+                       var test = "Mon";
+                       document.getElementById("day_num"+index).innerHTML = test + ", " + monthNameNow + " " + start_day;
+                       break;
+                 case(7):
+                        var test = "Tue";
+                        document.getElementById("day_num"+index).innerHTML = test + ", " + monthNameNow + " " + start_day;
+                        break;
+            }
+            
+            if(start_day==daysInMonth)
+            {
                 //new month
                 start_day=1;
                 monthNameNow=monthNameNext;
             }
-            else{
+            else
+            {
                 //same month
                 start_day++;
             }
