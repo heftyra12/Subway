@@ -825,15 +825,13 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         and */R.employee_id = E.employee_id";
                     $result = mysqli_query($db_connect, $sqlCommand);
 
-                    $requestCount=1;
                     while ($row = mysqli_fetch_array($result)){
                         //echo"<li><a><u>DATE:</u> $row[start_date] - $row[end_date] ---- <u>EMPLOYEE:</u> $row[first_name] $row[last_name] ---- <u>TIME:</u> $row[start_time]-$row[end_time] </a></li>";
-                        echo"<tr><td id='reqName$requestCount'>$row[first_name] $row[last_name]</td>";
-                        echo"<td id='reqStartDt$requestCount'>$row[start_date]</td>";
-                        echo"<td id='reqEndDt$requestCount'>$row[end_date]</td>";
-                        echo"<td id='reqStartTime$requestCount'>$row[start_time]</td>";
-                        echo"<td id='reqEndTime$requestCount'>$row[end_time]</td>";
-                        $requestCount++;
+                        echo"<tr><td>$row[first_name] $row[last_name]</td>";
+                        echo"<td>$row[start_date]</td>";
+                        echo"<td>$row[end_date]</td>";
+                        echo"<td>$row[start_time]</td>";
+                        echo"<td>$row[end_time]</td>";
                     }                    
                 ?>
             </table>
@@ -924,22 +922,14 @@ $_SESSION['full_sched_array']=$full_sched_array;
             
             if((found_index < table_two.length - (min_shift_hours * 2)))
             {
-<<<<<<< HEAD
                 var auto_index = found_index + (min_shift_hours * 2);
                 table_two.value = table_two[auto_index].value;
-=======
-                table_two.value = table_two[found_index + (min_shift_hours * 2)].value;   
->>>>>>> More requests changes for schedule page
             }
             if(found_index > table_two.length - (min_shift_hours * 2))
             {
                 alert("Minimum Shift Time Is " + min_shift_hours);
                 table_one.value = 'def';
-<<<<<<< HEAD
                 table_two.value = table_two[0].value;       
-=======
-                table_two.value = table_two[0].value;
->>>>>>> More requests changes for schedule page
             }
         }
         else
@@ -1124,10 +1114,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
      * Doesn't work for shifts, so if time...
      */
     function dayTimeCheck(table){
-<<<<<<< HEAD
         
-=======
->>>>>>> More requests changes for schedule page
         var max_day_part = document.getElementById('max_day_part').value;
         var max_day_full = document.getElementById('max_day_full').value;
         
@@ -1190,7 +1177,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 }//end switch 
             }
             else
-            {// shift was selected
+            {   
                 var shift_split = start_time.split("_");
                 var shift_start = shift_split[0];
                 var shift_end = shift_split[1];
@@ -1234,15 +1221,10 @@ $_SESSION['full_sched_array']=$full_sched_array;
             }
         }
         else
-        {// part time
+        {
             if(end_time != "def")
-<<<<<<< HEAD
             {   
                 if((end_time - start_time > 600) && isMinor == "Y")
-=======
-            {// not a shift   
-                if((end_time - start_time >= 600) && isMinor == "Y")
->>>>>>> More requests changes for schedule page
                 {
                     switch(day)
                     {    
@@ -1511,7 +1493,6 @@ $_SESSION['full_sched_array']=$full_sched_array;
             }
         }
         
-<<<<<<< HEAD
         //        var table = document.getElementById('request_table');
         //        for (var r = 0, n = table.rows.length; r < n; r++) {
         //            for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
@@ -1519,27 +1500,11 @@ $_SESSION['full_sched_array']=$full_sched_array;
         //            }
         //        } 
         
-=======
->>>>>>> More requests changes for schedule page
         var setDay = document.getElementById("day_sched").value;
         var setYear = document.getElementById("year_sched").value;
         var setMonth = document.getElementById("month_sched").value;
-        setMonth=setMonth-1;
         var myDate = new Date(setYear, setMonth, setDay);
         //alert(setYear+"-"+setMonth+"-"+setDay+" || "+myDate);
-        
-        var requestData = document.getElementById("request_table");
-        for (var i = 0, row; row = requestData.rows[i]; i++) {
-           //iterate through rows
-           //rows would be accessed using the "row" variable assigned in the for loop
-           for (var j = 0, col; col = row.cells[j]; j++) {
-             //iterate through columns
-             //columns would be accessed using the "col" variable assigned in the for loop
-             if (i>1 && (j==1 || j==2)){
-                //alert("i:"+i+" j:"+j+" "+col.innerHTML);
-             }
-           }
-        }
         
         document.getElementById("requests").hidden=false;
         
