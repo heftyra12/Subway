@@ -3,6 +3,11 @@
 /*Start Session*/
 session_start();
 
+if(!isset($_SESSION['user_name']))
+{
+    header("Location: ../index.php");
+}
+
 /*Included files*/
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 include_once'../../Subway/HelperFiles/config.php';

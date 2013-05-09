@@ -5,6 +5,11 @@ include_once'../../Subway/HelperFiles/employeeClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';
 include_once'../../Subway/HelperFiles/productivityClass.php';
 
+if(!isset($_SESSION['user_name']))
+{
+    header("Location: ../index.php");
+}
+
 /*BEGIN Check for productivity for current week*/
 $prodSQLCommand = 'SELECT store_id, week_no, units FROM subway.productivity';
 $result = mysqli_query($db_connect,$prodSQLCommand);

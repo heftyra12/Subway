@@ -2,6 +2,11 @@
 
 session_start();
 
+if(!isset($_SESSION['user_name']))
+{
+    header("Location: ../index.php");
+}
+
 include_once'../../Subway/HelperFiles/config.php';
 include_once'../../Subway/HelperFiles/shiftsClass.php';
 include_once'../../Subway/HelperFiles/unsetEmpFields.php';

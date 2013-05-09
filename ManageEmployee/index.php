@@ -4,7 +4,10 @@ include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once '../../Subway/HelperFiles/Availability.php';
 include_once '../../Subway/HelperFiles/config.php';
 
-//Variables to hold textfield data / input errors
+if(!isset($_SESSION['user_name']))
+{
+    header("Location: ../index.php");
+}
 
 if(!isset($_SESSION['first_name']))
     $_SESSION['first_name']= "";

@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if(!isset($_SESSION['user_name']))
+{
+    header("Location: ../index.php");
+}
+
 date_default_timezone_set('America/Chicago');
 
 include_once'../HelperFiles/config.php';

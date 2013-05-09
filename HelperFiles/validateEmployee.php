@@ -124,7 +124,8 @@ else
             mysqli_query($db_connect, $addEmployeeSQL);
             header("Location:/ManageEmployee/index.php");
         } 
-        else{
+        else
+        {
             if ($update_choice === 'Update')
             {
                 mysqli_query($db_connect, $updateEmployeeSQL);
