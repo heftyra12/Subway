@@ -145,6 +145,9 @@ else
     {
         $_SESSION['error_found'] = $error_found;
         header("Location: /ManageEmployee/index.php");
+    
+        
+        
     }
 }
 ?>
