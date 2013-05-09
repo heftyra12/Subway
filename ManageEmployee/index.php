@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include_once '../../Subway/HelperFiles/employeeClass.php';
 include_once '../../Subway/HelperFiles/Availability.php';
 include_once '../../Subway/HelperFiles/config.php';
@@ -121,22 +120,12 @@ $_SESSION['employee_array'] = $employee_array;
     <div id="employee_body">
 
         <?php
-        if ($_SESSION['no_employee_selected'] === "true") {
-
-            echo "<script language=javascript>alert('Please select an employee to modify')</script>";
-            unset($_SESSION['no_employee_selected']);
-        }
-
-        if ($_SESSION['duplicate_employee'] === "true") {
-
-            echo "<script language=javascript>alert('Error: Cannot add a duplicate employee')</script>";
-            unset($_SESSION['duplicate_employee']);
-        }
-        if($_SESSION['fulltime_minor'] === "true"){
-            
-            echo "<script language=javascript>alert('Error: A minor cannot be a full-time employee')</script>";
-            unset($_SESSION['fulltime_minor']);
-        }
+       
+            if($_SESSION['fulltime_minor'] === "true")
+            {
+                echo "<script language=javascript>alert('Error: A minor cannot be a full-time employee')</script>";
+                unset($_SESSION['fulltime_minor']);
+            }
         ?>
         
             <div id="employee_left">
