@@ -34,13 +34,12 @@ while ($row = mysqli_fetch_array($result)) {
     $employee->setEmployeeID($row["employee_id"]);
     $employee->setEmployeeFirstName($row["first_name"]);
     $employee->setEmployeeLastName($row["last_name"]);
+    $employee->setEmployeeType($row["emp_type"]);
+    $employee->setEmployeeMinor($row["emp_minor"]);
     
     $schedule->setEmployeeID($row["employee_id"]);
     $schedule->setFirstName($row["first_name"]);
     $schedule->setLastName($row["last_name"]);
-    
-    $employee->setEmployeeType($row["emp_type"]);
-    $employee->setEmployeeMinor($row["emp_minor"]);
     
     array_push($full_sched_array,$schedule);
     array_push($schedule_array, $employee);
@@ -173,6 +172,9 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         
                         $isMinor = $_SESSION['schedule_array'][$x]->getEmployeeMinor();
                         $emp_type = $_SESSION['schedule_array'][$x]->getEmployeeType();
+                        
+                        echo "<input type='hidden' id='type_$x' name='type_$x' value=\"$emp_type\">";
+                        echo "<input type='hidden' id='minor_$x' name='minor_$x' value=\"$isMinor\">";
                         
                         echo "<input type='hidden' id='test'>";
                         echo "<tr class='schedule_table'><td class='sched_emp' >";
@@ -770,8 +772,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "</select>";
                         echo "</tr>";
                          
-                        echo "<input type='hidden' id='type_$x' name='type_$x' value=\"$emp_type\">";
-                        echo "<input type='hidden' id='minor_$x' name='minor_$x' value=\"$isMinor\">";
+                        
                        
                         echo "<input type='hidden' id='wed_time_start_$x' name='wed_time_start_$x' value=''>";
                         echo "<input type='hidden' id='wed_time_end_$x' name='wed_time_end_$x' value=''>";
@@ -850,7 +851,6 @@ $_SESSION['full_sched_array']=$full_sched_array;
         resetTime(name);
         dayTimeCheck(name);
         weekHourTotal(name);
-      
     }
     
     function endMainCall(table)
@@ -860,27 +860,19 @@ $_SESSION['full_sched_array']=$full_sched_array;
         dayTimeCheck(name);
         weekHourTotal(name);
     }
-
-    /*
-     * If start time is a shift, set end time to default. If start
-     * time is not a shift, call checkTime to set the end time to the 
-     * minimum shift length. 
-     * 
-     * 
-     * Will be modified if we end up having the time to check shift lengths
-     * against max shift times for employee types.
-     */
+    
     function resetTime(table)
     {    
+        alert("resetTime");
         var table_name = table.split("_");
         
         var start_name = table_name[0]+"_start_"+table_name[2];
         var end_name = table_name[0]+"_end_"+table_name[2];
         var shift_time_name = table_name[0] + "_time_start_" + table_name[2];
-       
+        
         var table_one = document.getElementById(start_name);
         var table_two = document.getElementById(end_name);
-       
+        
         if(table_one.value.length > 6)
         {
             document.getElementById(end_name).value="def";
@@ -888,7 +880,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
         }
         else
         {
-             checkTime(table);
+            checkTime(table);
         }
     }
     
@@ -923,21 +915,21 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 if(table_one.value == table_two[x].value)
                 {
                     var found_index = x;
+                    alert(table_two.length - (min_shift_hours *2));
+                    break;
                 }   
             }
             
-            if((found_index < table_two.length - (min_shift_hours * 2)) && table_one.value != "def")
+            if((found_index < table_two.length - (min_shift_hours * 2)))
             {
-                alert("blah");
-                table_two.value = table_two[found_index + (min_shift_hours * 2)].value;   
+                var auto_index = found_index + (min_shift_hours * 2);
+                table_two.value = table_two[auto_index].value;
             }
             if(found_index > table_two.length - (min_shift_hours * 2))
             {
                 alert("Minimum Shift Time Is " + min_shift_hours);
                 table_one.value = 'def';
-                table_two.value = table_two[0].value;
-                alert(table_two[0].value);
-                            
+                table_two.value = table_two[0].value;       
             }
         }
         else
@@ -952,16 +944,14 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 if(table_two[x].value == table_two.value)
                     var second_value = x; 
             }
-           
-           //If the difference between the shifts is less than the minimum shift time (currently 3 hours, so 6 list spots). 
-           if((second_value - first_value) < (min_shift_hours * 2))
-           {    
-               //Find how  many shifts short the end time is. 
-               var spots_to_move = (min_shift_hours * 2)-(second_value - first_value);
-              
-               table_one[x].value = "def";
-               table_two[x].value = "def";
-           }
+            
+            if((second_value - first_value) < (min_shift_hours * 2))
+            {    
+                var spots_to_move = (min_shift_hours * 2)-(second_value - first_value);
+                
+                table_one[x].value = "def";
+                table_two[x].value = "def";
+            }
         }
     }
     
@@ -973,7 +963,6 @@ $_SESSION['full_sched_array']=$full_sched_array;
      */
     function weekHourTotal(table)
     {   
-        alert("week_hour");
         var table_name = table.split("_");
         var index = table_name[2];
         
@@ -985,99 +974,99 @@ $_SESSION['full_sched_array']=$full_sched_array;
         
         var type = "type_"+index;
         var employee_type = document.getElementById(type).value;
-        
+            
         //Only executes when both start and end times are not default
         //otherwise NaN will show up in the hour total column. 
         if(table_one.value != "def" )
         {
             var max_full = document.getElementById("max_week_full").value;
             var max_part = document.getElementById("max_week_part").value;
-        
+            
             var wed_start = document.getElementById("wed_time_start_"+index).value;
             var wed_end = document.getElementById("wed_time_end_"+index).value;
-        
+            
             var thu_start = document.getElementById("thu_time_start_"+index).value;
             var thu_end = document.getElementById("thu_time_end_"+index).value;
-        
+            
             var fri_start = document.getElementById("fri_time_start_"+index).value;
             var fri_end = document.getElementById("fri_time_end_"+index).value;
-        
+            
             var sat_start = document.getElementById("sat_time_start_"+index).value;
             var sat_end = document.getElementById("sat_time_end_"+index).value;
-        
+            
             var sun_start = document.getElementById("sun_time_start_"+index).value;
             var sun_end = document.getElementById("sun_time_end_"+index).value;
-        
+            
             var mon_start = document.getElementById("mon_time_start_"+index).value;
             var mon_end = document.getElementById("mon_time_end_"+index).value;
-      
+            
             var tue_start = document.getElementById("tue_time_start_"+index).value;
             var tue_end = document.getElementById("tue_time_end_"+index).value;
             
             if(mon_start.substring(mon_start.length-2)== 30){
-               var work_pls = mon_start.substring(0,mon_start.length-2) + 50;
-               mon_start = work_pls;   
+                var work_pls = mon_start.substring(0,mon_start.length-2) + 50;
+                mon_start = work_pls;   
             }
             if(mon_end.substring(mon_end.length-2)==30){
                 var work_pls = mon_end.substring(0,mon_end.length-2) + 50;
                 mon_end = work_pls;
             }
-             
+            
             if(tue_start.substring(tue_start.length-2)== 30){
-               var work_pls = tue_start.substring(0,tue_start.length-2) + 50;
-               tue_start = work_pls;   
+                var work_pls = tue_start.substring(0,tue_start.length-2) + 50;
+                tue_start = work_pls;   
             }  
             if(tue_end.substring(tue_end.length-2)==30){
                 var work_pls = tue_end.substring(0,tue_end.length-2) + 50;
                 tue_end = work_pls;
             }
-                
+            
             if(wed_start.substring(wed_start.length-2)== 30){
-               var work_pls = wed_start.substring(0,wed_start.length-2) + 50;
-               wed_start = work_pls;   
+                var work_pls = wed_start.substring(0,wed_start.length-2) + 50;
+                wed_start = work_pls;   
             }
-             if(wed_end.substring(wed_end.length-2)==30){
+            if(wed_end.substring(wed_end.length-2)==30){
                 var work_pls = wed_end.substring(0,wed_end.length-2) + 50;
                 wed_end = work_pls;
-             }
-                
-             if(thu_start.substring(thu_start.length-2)== 30){
+            }
+            
+            if(thu_start.substring(thu_start.length-2)== 30){
                 var work_pls = thu_start.substring(0,thu_start.length-2) + 50;
                 thu_start = work_pls;   
-             }
-                
-             if(thu_end.substring(thu_end.length-2)==30){
+            }
+            
+            if(thu_end.substring(thu_end.length-2)==30){
                 var work_pls = thu_end.substring(0,thu_end.length-2) + 50;
                 thu_end = work_pls;
-             }
-                
-             if(fri_start.substring(fri_start.length-2)== 30){
+            }
+            
+            if(fri_start.substring(fri_start.length-2)== 30){
                 var work_pls = fri_start.substring(0,fri_start.length-2) + 50;
                 fri_start = work_pls;   
-             }
-             if(fri_end.substring(fri_end.length-2)==30){
+            }
+            if(fri_end.substring(fri_end.length-2)==30){
                 var work_pls = fri_end.substring(0,fri_end.length-2) + 50;
                 fri_end = work_pls;
-             }
-                
-             if(sat_start.substring(sat_start.length-2)== 30){
-                    var work_pls = sat_start.substring(0,sat_start.length-2) + 50;
-                    sat_start = work_pls;   
-             }
-             if(sat_end.substring(sat_end.length-2)==30){
+            }
+            
+            if(sat_start.substring(sat_start.length-2)== 30){
+                var work_pls = sat_start.substring(0,sat_start.length-2) + 50;
+                sat_start = work_pls;   
+            }
+            if(sat_end.substring(sat_end.length-2)==30){
                 var work_pls = sat_end.substring(0,sat_end.length-2) + 50;
                 sat_end = work_pls;
-             }
-             
-             if(sun_start.substring(sun_start.length-2)== 30){
+            }
+            
+            if(sun_start.substring(sun_start.length-2)== 30){
                 var work_pls = sun_start.substring(0,sun_start.length-2) + 50;
                 sun_start = work_pls;   
-             }
-             if(sun_end.substring(sun_end.length-2)==30){
+            }
+            if(sun_end.substring(sun_end.length-2)==30){
                 var work_pls = sun_end.substring(0,sun_end.length-2) + 50;
                 sun_end = work_pls;
-             }
-        
+            }
+            
             var wed_hours = Number(wed_end) - Number(wed_start);
             var thu_hours = Number(thu_end) - Number(thu_start);
             var fri_hours = Number(fri_end) - Number(fri_start);
@@ -1085,30 +1074,35 @@ $_SESSION['full_sched_array']=$full_sched_array;
             var sun_hours = Number(sun_end) - Number(sun_start);
             var mon_hours = Number(mon_end) - Number(mon_start);
             var tue_hours = Number(tue_end) - Number(tue_start);
-        
+            
             var total_hours = (wed_hours + thu_hours + fri_hours + sat_hours + sun_hours + mon_hours + tue_hours)/100;
             document.getElementById("hour_total_"+index).value = total_hours.toFixed(2);
             document.getElementById("total_"+index).value = total_hours.toFixed(2);
-            if(employee_type == "F"){
             
-                if(Number(total_hours) > Number(max_full)){
+            if(employee_type == "F")
+            {
+                if(Number(total_hours) > Number(max_full))
+                {
                     document.getElementById("hour_total_"+index).style.color = 'red';
                 }
-                else{
+                else
+                {
                     document.getElementById("hour_total_"+index).style.color = 'black';
                 }
-            
+                
             }
-            else{
-                if(total_hours > max_part){
+            else
+            {
+                if(Number(total_hours) > Number(max_part))
+                {
                     document.getElementById("hour_total_"+index).style.color = 'red';
                 }
-                else{
+                else
+                {
                     document.getElementById("hour_total_"+index).style.color = 'black';
                 }
             }
         }
-       
     }
     
     /*
@@ -1120,7 +1114,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
      * Doesn't work for shifts, so if time...
      */
     function dayTimeCheck(table){
-        alert("dayTime");
+        
         var max_day_part = document.getElementById('max_day_part').value;
         var max_day_full = document.getElementById('max_day_full').value;
         
@@ -1134,19 +1128,18 @@ $_SESSION['full_sched_array']=$full_sched_array;
         
         var index = table_name[2];
         var day = table_name[0];
-       
+        
         var type = "type_"+index;
         var emp_type = document.getElementById(type).value;
+        
         
         var isMinor = document.getElementById("minor_"+index).value;
         
         //if the employee is full-time
         if(emp_type == "F")
         {
-            //if a shift was not selected
             if(end_time != "def")
             {       
-                //alert user if the start and end time are greater than the max full-time shift. 
                 if((end_time - start_time) > (max_day_full * 100))
                 {      
                     alert("Over Maximum Full-Time Daily Hours");
@@ -1189,12 +1182,11 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 var shift_start = shift_split[0];
                 var shift_end = shift_split[1];
                 
-                //If the shift was over the max hours for a full-time day
                 if((shift_end - shift_start) > (max_day_full * 100))
                 {       
                     alert("Over Maximum Full-Time Daily Hours"); 
                 }
-                    
+                
                 switch(day)
                 {       
                     case "wed":
@@ -1232,233 +1224,202 @@ $_SESSION['full_sched_array']=$full_sched_array;
         {
             if(end_time != "def")
             {   
-                if((end_time - start_time >= 600) && isMinor == "Y")
+                if((end_time - start_time > 600) && isMinor == "Y")
                 {
-                            switch(day)
-                            {    
-                                case "wed":
-                                    
-                                    document.getElementById("wed_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "thu":
-                                    
-                                    document.getElementById("thu_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "fri":
-                                    
-                                    document.getElementById("fri_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "sat":
-                                    
-                                    document.getElementById("sat_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "sun":
-                                    
-                                    document.getElementById("sun_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "mon":
-                                    
-                                    document.getElementById("mon_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "tue":
-                                    
-                                    document.getElementById("tue_"+index).style.backgroundColor = 'red';
-                                    break;
-                            }//end switch
-                        }//end if
-                        else
-                        {
-                            switch(day)
-                            {
-                                case "wed":
-                                   
-                                    document.getElementById("wed_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "thu":
-                                    
-                                    document.getElementById("thu_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "fri":
-                                    
-                                    document.getElementById("fri_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "sat":
-                                    
-                                    document.getElementById("sat_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "sun":
-                                    
-                                    document.getElementById("sun_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "mon":
-                                    
-                                    document.getElementById("mon_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "tue":
-                                   
-                                    document.getElementById("tue_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                            }//end switch
-                            
-                        }//end else
-                
+                    switch(day)
+                    {    
+                        case "wed":
+                            document.getElementById("wed_"+index).style.backgroundColor = 'red';
+                            break;
+                        case "thu":
+                            document.getElementById("thu_"+index).style.backgroundColor = 'red';
+                            break;
+                        case "fri":
+                            document.getElementById("fri_"+index).style.backgroundColor = 'red';
+                            break;
+                        case "sat":
+                            document.getElementById("sat_"+index).style.backgroundColor = 'red';
+                            break;
+                        case "sun":
+                            document.getElementById("sun_"+index).style.backgroundColor = 'red';
+                            break;
+                        case "mon":
+                            document.getElementById("mon_"+index).style.backgroundColor = 'red';
+                            break;
+                        case "tue":
+                            document.getElementById("tue_"+index).style.backgroundColor = 'red';
+                            break;
+                    }         
+                }
+                else
+                {
+                    switch(day)
+                    {
+                        case "wed":
+                            document.getElementById("wed_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "thu":
+                            document.getElementById("thu_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "fri":
+                            document.getElementById("fri_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "sat":
+                            document.getElementById("sat_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "sun":
+                            document.getElementById("sun_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "mon":
+                            document.getElementById("mon_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "tue":
+                            document.getElementById("tue_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                    }//end switch
+                }//end else
                 
                 if((end_time - start_time) > (max_day_part *100))
                 {
                     alert("Over Maximum Part-Time Daily Hours:");    
                 }
-                          
-                     switch(day)
-                     {   
-                        case "wed":
-                            document.getElementById("wed_time_start_"+index).value = start_time;
-                            document.getElementById("wed_time_end_"+index).value = end_time;
-                            break;
-                        case "thu":
-                            document.getElementById("thu_time_start_"+index).value = start_time;
-                            document.getElementById("thu_time_end_"+index).value=end_time;
-                            break;
-                        case "fri":
-                            document.getElementById("fri_time_start_"+index).value = start_time;
-                            document.getElementById("fri_time_end_"+index).value = end_time;
-                            break;
-                        case "sat":
-                            document.getElementById("sat_time_start_"+index).value = start_time;
-                            document.getElementById("sat_time_end_"+index).value = end_time;
-                            break;
-                        case "sun":
-                            document.getElementById("sun_time_start_"+index).value = start_time;
-                            document.getElementById("sun_time_end_"+index).value = end_time;
-                            break;
-                        case "mon":
-                            document.getElementById("mon_time_start_"+index).value = start_time;
-                            document.getElementById("mon_time_end_"+index).value = end_time;
-                            break;
-                        case "tue":
-                            document.getElementById("tue_time_start_"+index).value = start_time;
-                            document.getElementById("tue_time_end_"+index).value = end_time;
-                            break;
-                    }                       
-                }
-                else
-                {// shift was selected:
-                    var shift_split = start_time.split("_");
-                    var shift_start = shift_split[0];
-                    var shift_end = shift_split[1];
-              
-                    if((shift_end - shift_start >= 600) && isMinor == "Y")
-                        {
-                            switch(day)
-                            {    
-                                case "wed":
-                                    document.getElementById("wed_break_"+index).value ="y";
-                                    document.getElementById("wed_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "thu":
-                                    document.getElementById("thu_break_"+index).value ="y";
-                                    document.getElementById("thu_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "fri":
-                                    document.getElementById("fri_break_"+index).value ="y";
-                                    document.getElementById("fri_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "sat":
-                                    document.getElementById("sat_break_"+index).value ="y";
-                                    document.getElementById("sat_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "sun":
-                                    document.getElementById("sun_break_"+index).value ="y";
-                                    document.getElementById("sun_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "mon":
-                                    document.getElementById("mon_break_"+index).value ="y";
-                                    document.getElementById("mon_"+index).style.backgroundColor = 'red';
-                                    break;
-                                case "tue":
-                                    document.getElementById("tue_break_"+index).value ="y";
-                                    document.getElementById("tue_"+index).style.backgroundColor = 'red';
-                                    break;
-                                }
-                        }
-                        else
-                        {
-                            switch(day)
-                            {
-                                case "wed":
-                                    document.getElementById("wed_break_"+index).value ="n";
-                                    document.getElementById("wed_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "thu":
-                                    document.getElementById("thu_break_"+index).value ="n";
-                                    document.getElementById("thu_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "fri":
-                                    document.getElementById("fri_break_"+index).value ="n";
-                                    document.getElementById("fri_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "sat":
-                                    document.getElementById("sat_break_"+index).value ="n";
-                                    document.getElementById("sat_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "sun":
-                                    document.getElementById("sun_break_"+index).value ="n";
-                                    document.getElementById("sun_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "mon":
-                                    document.getElementById("mon_break_"+index).value ="n";
-                                    document.getElementById("mon_"+index).style.backgroundColor = 'lightgreen';
-                                    break;
-                                case "tue":
-                                    document.getElementById("tue_break_"+index).value ="n";
-                                    document.getElementById("tue_"+index).style.backgroundColor = 'lightgree';
-                                    break;
-
-                            }
-                        }
-              
-                    //If the shift was over the max hours for a full-time day
-                    if((shift_end - shift_start) > (max_day_part * 100))
-                    {
-                        alert("Over Maximum Part-Time Daily Hours");
-                    }
-                   
+                
+                switch(day)
+                {   
+                    case "wed":
+                        document.getElementById("wed_time_start_"+index).value = start_time;
+                        document.getElementById("wed_time_end_"+index).value = end_time;
+                        break;
+                    case "thu":
+                        document.getElementById("thu_time_start_"+index).value = start_time;
+                        document.getElementById("thu_time_end_"+index).value=end_time;
+                        break;
+                    case "fri":
+                        document.getElementById("fri_time_start_"+index).value = start_time;
+                        document.getElementById("fri_time_end_"+index).value = end_time;
+                        break;
+                    case "sat":
+                        document.getElementById("sat_time_start_"+index).value = start_time;
+                        document.getElementById("sat_time_end_"+index).value = end_time;
+                        break;
+                    case "sun":
+                        document.getElementById("sun_time_start_"+index).value = start_time;
+                        document.getElementById("sun_time_end_"+index).value = end_time;
+                        break;
+                    case "mon":
+                        document.getElementById("mon_time_start_"+index).value = start_time;
+                        document.getElementById("mon_time_end_"+index).value = end_time;
+                        break;
+                    case "tue":
+                        document.getElementById("tue_time_start_"+index).value = start_time;
+                        document.getElementById("tue_time_end_"+index).value = end_time;
+                        break;
+                }                       
+            }
+            else
+            {
+                var shift_split = start_time.split("_");
+                var shift_start = shift_split[0];
+                var shift_end = shift_split[1];
+                
+                if((shift_end - shift_start > 600) && isMinor == "Y")
+                {
                     switch(day)
                     {    
                         case "wed":
-                            document.getElementById("wed_time_start_"+index).value = shift_start;
-                            document.getElementById("wed_time_end_"+index).value = shift_end;
+                            document.getElementById("wed_"+index).style.backgroundColor = 'red';
                             break;
                         case "thu":
-                            document.getElementById("thu_time_start_"+index).value = shift_start;
-                            document.getElementById("thu_time_end_"+index).value = shift_end;
+                            document.getElementById("thu_"+index).style.backgroundColor = 'red';
                             break;
                         case "fri":
-                            document.getElementById("fri_time_start_"+index).value = shift_start;
-                            document.getElementById("fri_time_end_"+index).value = shift_end;
+                            document.getElementById("fri_"+index).style.backgroundColor = 'red';
                             break;
                         case "sat":
-                            document.getElementById("sat_time_start_"+index).value = shift_start;
-                            document.getElementById("sat_time_end_"+index).value = shift_end;
+                            document.getElementById("sat_"+index).style.backgroundColor = 'red';
                             break;
                         case "sun":
-                            document.getElementById("sun_time_start_"+index).value = shift_start;
-                            document.getElementById("sun_time_end_"+index).value = shift_end;
+                            document.getElementById("sun_"+index).style.backgroundColor = 'red';
                             break;
                         case "mon":
-                            document.getElementById("mon_time_start_"+index).value = shift_start;
-                            document.getElementById("mon_time_end_"+index).value = shift_end;
+                            document.getElementById("mon_"+index).style.backgroundColor = 'red';
                             break;
                         case "tue":
-                            document.getElementById("tue_time_start_"+index).value = shift_start;
-                            document.getElementById("tue_time_end_"+index).value = shift_end;
+                            document.getElementById("tue_"+index).style.backgroundColor = 'red';
                             break;
-                    }
+                    }         
+                }
+                else
+                {
+                    switch(day)
+                    {
+                        case "wed":
+                            document.getElementById("wed_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "thu":
+                            document.getElementById("thu_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "fri":
+                            document.getElementById("fri_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "sat":
+                            document.getElementById("sat_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "sun":
+                            document.getElementById("sun_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "mon":
+                            document.getElementById("mon_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                        case "tue":
+                            document.getElementById("tue_"+index).style.backgroundColor = 'lightgreen';
+                            break;
+                    }//end switch
+                }
                 
+                //If the shift was over the max hours for a full-time day
+                if((shift_end - shift_start) > (max_day_part * 100))
+                {
+                    alert("Over Maximum Part-Time Daily Hours");
+                }
+                
+                switch(day)
+                {    
+                    case "wed":
+                        document.getElementById("wed_time_start_"+index).value = shift_start;
+                        document.getElementById("wed_time_end_"+index).value = shift_end;
+                        break;
+                    case "thu":
+                        document.getElementById("thu_time_start_"+index).value = shift_start;
+                        document.getElementById("thu_time_end_"+index).value = shift_end;
+                        break;
+                    case "fri":
+                        document.getElementById("fri_time_start_"+index).value = shift_start;
+                        document.getElementById("fri_time_end_"+index).value = shift_end;
+                        break;
+                    case "sat":
+                        document.getElementById("sat_time_start_"+index).value = shift_start;
+                        document.getElementById("sat_time_end_"+index).value = shift_end;
+                        break;
+                    case "sun":
+                        document.getElementById("sun_time_start_"+index).value = shift_start;
+                        document.getElementById("sun_time_end_"+index).value = shift_end;
+                        break;
+                    case "mon":
+                        document.getElementById("mon_time_start_"+index).value = shift_start;
+                        document.getElementById("mon_time_end_"+index).value = shift_end;
+                        break;
+                    case "tue":
+                        document.getElementById("tue_time_start_"+index).value = shift_start;
+                        document.getElementById("tue_time_end_"+index).value = shift_end;
+                        break;
+                }
             }
         }
     }
     
-    function enableMonth(){
+    function enableMonth()
+    {
         document.getElementById("month_sched").disabled = false;
     }
     
@@ -1478,13 +1439,13 @@ $_SESSION['full_sched_array']=$full_sched_array;
             {
                 option.text=d;
                 try
-                    {
-                        x.add(option,x.options[null]);
-                    }
+                {
+                    x.add(option,x.options[null]);
+                }
                 catch (e)
-                    {
-                        x.add(option,null);
-                    }
+                {
+                    x.add(option,null);
+                }
             }
         }
         //enable day selector field
@@ -1497,7 +1458,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
         var selectedYear = document.getElementById("year_sched").value;
         var selectedMonth = document.getElementById("month_sched").value;
         var daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
-                
+        
         // month array to translate month number to month name
         var month=new Array();
         month[1]="Jan";
@@ -1532,12 +1493,12 @@ $_SESSION['full_sched_array']=$full_sched_array;
             }
         }
         
-//        var table = document.getElementById('request_table');
-//        for (var r = 0, n = table.rows.length; r < n; r++) {
-//            for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
-//                //alert("booyeah");
-//            }
-//        } 
+        //        var table = document.getElementById('request_table');
+        //        for (var r = 0, n = table.rows.length; r < n; r++) {
+        //            for (var c = 0, m = table.rows[r].cells.length; c < m; c++) {
+        //                //alert("booyeah");
+        //            }
+        //        } 
         
         var setDay = document.getElementById("day_sched").value;
         var setYear = document.getElementById("year_sched").value;
@@ -1597,6 +1558,6 @@ $_SESSION['full_sched_array']=$full_sched_array;
             document.getElementById("tue_start_"+index).disabled = true;
             document.getElementById("tue_end_"+index).disabled = true;            
         }
-
+        
     }
 </script>
