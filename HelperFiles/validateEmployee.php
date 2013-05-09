@@ -94,7 +94,7 @@ else
         
         // replace html values with db appropriate values:
         $mon_start=str_replace('default', 'null', $mon_start);
-        $mon_end=str_replace("\0", 'null', $mon_end);
+        $mon_end=preg_replace("/^[0-9]?$/", 'null', $mon_end);
         $tues_start=str_replace('default', 'null', $tues_start);
         $tues_end=preg_replace("/^[0-9]?$/", 'null', $tues_end);
         $wed_start=str_replace('default', 'null', $wed_start);
@@ -145,9 +145,6 @@ else
     {
         $_SESSION['error_found'] = $error_found;
         header("Location: /ManageEmployee/index.php");
-    
-        
-        
     }
 }
 ?>
