@@ -825,13 +825,15 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         and */R.employee_id = E.employee_id";
                     $result = mysqli_query($db_connect, $sqlCommand);
 
+                    $reqCount=1;
                     while ($row = mysqli_fetch_array($result)){
                         //echo"<li><a><u>DATE:</u> $row[start_date] - $row[end_date] ---- <u>EMPLOYEE:</u> $row[first_name] $row[last_name] ---- <u>TIME:</u> $row[start_time]-$row[end_time] </a></li>";
-                        echo"<tr><td>$row[first_name] $row[last_name]</td>";
-                        echo"<td>$row[start_date]</td>";
-                        echo"<td>$row[end_date]</td>";
-                        echo"<td>$row[start_time]</td>";
-                        echo"<td>$row[end_time]</td>";
+                        echo"<tr><td hidden id='td_name_$reqCount'>$row[first_name] $row[last_name]</td>";
+                        echo"<td hidden id='td_startdate_$reqCount'>$row[start_date]</td>";
+                        echo"<td hidden id='td_enddate_$reqCount'>$row[end_date]</td>";
+                        echo"<td hidden id='td_starttime_$reqCount'>$row[start_time]</td>";
+                        echo"<td hidden id='td_endtime_$reqCount'>$row[end_time]</td>";
+                        $reqCount++;
                     }                    
                 ?>
             </table>
@@ -1526,14 +1528,50 @@ $_SESSION['full_sched_array']=$full_sched_array;
             }
         }
         
+        // This section sets the requests values in the request table
         var setDay = document.getElementById("day_sched").value;
         var setYear = document.getElementById("year_sched").value;
-        var setMonth = document.getElementById("month_sched").value;
-        var myDate = new Date(setYear, setMonth, setDay);
-        //alert(setYear+"-"+setMonth+"-"+setDay+" || "+myDate);
+        var setMonth = document.getElementById("month_sched").value-1;
+        var schedStartDate = new Date(setYear, setMonth, setDay);
+        var schedEndDate = new Date(setYear, setMonth, +setDay+6);
         
         document.getElementById("requests").hidden=false;
         
+        var req_table = document.getElementById("request_table");
+        for (var i = 0, row; row = req_table.rows[i]; i++) {
+           for (var j = 0, col; col = row.cells[j]; j++) {
+             if (i>0 && (j==1 || j==2)){
+                if (j==1){//start date
+                        var startSplit = (col.innerHTML).split("-");
+                        var reqStartYear = startSplit[0];
+                        var reqStartMonth = startSplit[1]-1;
+                        var reqStartDay = startSplit[2];
+                }
+                if (j==2){//end date
+                        var endSplit = (col.innerHTML).split("-");
+                        var reqEndYear = endSplit[0];
+                        var reqEndMonth = endSplit[1]-1;
+                        var reqEndDay = endSplit[2];
+                }
+                
+                
+                var reqStartDate = new Date(reqStartYear, reqStartMonth, reqStartDay);
+                var reqEndDate = new Date(reqEndYear, reqEndMonth, reqEndDay);
+             }
+             if(i>0 && (j==3)){
+                 if((reqStartDate >= schedStartDate && reqStartDate <= schedEndDate) || (reqEndDate >= schedStartDate && reqEndDate <= schedEndDate) || (reqStartDate <= schedStartDate && reqEndDate >= schedEndDate)) {
+                    document.getElementById("td_name_"+i).style.display = 'block'; 
+                    document.getElementById("td_startdate_"+i).style.display = 'block'; 
+                    document.getElementById("td_enddate_"+i).style.display = 'block'; 
+                    document.getElementById("td_starttime_"+i).style.display = 'block'; 
+                    document.getElementById("td_endtime_"+i).style.display = 'block'; 
+                 }
+             }
+           }  
+        }
+        document.getElementById("requests").style.display = 'block'; 
+        
+        // enable the schedule grid:
         for(index=0;index<=table; index++){
             document.getElementById("wed_start_"+index).disabled = false;
             document.getElementById("wed_end_"+index).disabled = false;
@@ -1554,6 +1592,16 @@ $_SESSION['full_sched_array']=$full_sched_array;
     
     function resetDaySelector(table){
         // reset all day selector fields as well as the day value on schedule
+        var req_table = document.getElementById("request_table");
+        for (var i = 1, row; row = req_table.rows[i]; i++) {
+            for (var j = 0, col; col = row.cells[j]; j++) {
+                document.getElementById("td_name_"+i).style.display = 'none';
+                document.getElementById("td_startdate_"+i).style.display = 'none';
+                document.getElementById("td_enddate_"+i).style.display = 'none';
+                document.getElementById("td_starttime_"+i).style.display = 'none';
+                document.getElementById("td_endtime_"+i).style.display = 'none';
+            }
+        }
         document.getElementById("month_sched").disabled = true;
         document.getElementById("day_sched").disabled = true;
         document.getElementById("day_sched").options.length = 1;
@@ -1584,6 +1632,5 @@ $_SESSION['full_sched_array']=$full_sched_array;
             document.getElementById("tue_start_"+index).disabled = true;
             document.getElementById("tue_end_"+index).disabled = true;            
         }
-        
     }
 </script>
