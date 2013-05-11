@@ -8,6 +8,7 @@ $start_time = $_POST['shift_start'];
 $end_time = $_POST['shift_end'];
 $id = $_POST['current_id'];
 $update_choice = $_POST['update_choice'];
+$store_id = 1;
     
 if($update_choice === "add"){
     $highest_id_value=0;
@@ -23,8 +24,8 @@ if($update_choice === "add"){
     
     $highest_id_value++;
     
-    $addSQLCommand = "INSERT INTO subway.shifts (shift_id, day, start_time, end_time)
-        VALUES('$highest_id_value', '$day', '$start_time', '$end_time')";
+    $addSQLCommand = "INSERT INTO subway.shifts (shift_id, store_id, day, start_time, end_time)
+        VALUES('$highest_id_value', '$store_id', '$day', '$start_time', '$end_time')";
     
     mysqli_query($db_connect, $addSQLCommand);
 }

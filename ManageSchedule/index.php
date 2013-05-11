@@ -1080,7 +1080,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
             document.getElementById("hour_total_"+index).value = total_hours.toFixed(2);
             document.getElementById("total_"+index).value = total_hours.toFixed(2);
             
-            if(employee_type == "F")
+            if(employee_type == "F" || employee_type == "M")
             {
                 if(Number(total_hours) > Number(max_full))
                 {
@@ -1137,7 +1137,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
         var isMinor = document.getElementById("minor_"+index).value;
         
         //if the employee is full-time
-        if(emp_type == "F")
+        if(emp_type == "F" || emp_type == "M")
         {
             if(end_time != "def")
             {       
