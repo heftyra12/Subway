@@ -5,9 +5,9 @@ if(!isset($_SESSION['user_name']))
 {
     header("Location: ../index.php");
 }
-if($_SESSION['current_prod'] != true){
-    header("Location: productivity.php");
-}
+//if($_SESSION['current_prod'] != true){
+//    header("Location: productivity.php");
+//}
 
 date_default_timezone_set('America/Chicago');
 
@@ -91,12 +91,12 @@ $_SESSION['full_sched_array']=$full_sched_array;
         
         <div id="normal_left">
             <div id="left_buttons">
-                <form action="productivity.php" method="POST">
+<!--                <form action="productivity.php" method="POST">
                     <input type="submit" value="Enter Productivity" class="subway_buttons"/>
                 </form>
                 
                     <br/>
-                    <br/>
+                    <br/>-->
             
                 <form action="shifts.php" method="POST">
                     <input type="submit" value="Schedule Shifts" class="subway_buttons"/>
@@ -186,9 +186,11 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='def'>start</option>";
                         
                         $dayNo=1;
-                        $sqlShiftSelect = 'select shift_id, start_time,end_time,concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
-                            ":00-",(substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),":00")as shift
-                            From subway.shifts where day='.$dayNo.'';
+                        $sqlShiftSelect = 'select shift_id, start_time,end_time,
+                        concat(substr(if(start_time>=1300, (start_time-1200), start_time),1,length(if(start_time>=1300, (start_time-1200), start_time))-2),
+                        ":", substr(start_time, length(start_time)-1,length(start_time)), "-",
+                        (substr(if(end_time>=1300, (end_time-1200), end_time),1,length(if(end_time>=1300, (end_time-1200), end_time))-2)),
+                        ":", substr(end_time, length(end_time)-1,length(end_time))) as shift from subway.shifts where day='.$dayNo.'';
                         $result = mysqli_query($db_connect, $sqlShiftSelect);
                         while ($row = mysqli_fetch_array($result)) {
                            echo "<option value='" . $row['start_time']."_".$row['end_time'] . "' id='shift' name='shift' class='schedule_table'>" . $row['shift'] . "</option>";

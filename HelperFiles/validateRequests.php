@@ -46,6 +46,11 @@ if($update_choice === "add"){
         $request_id=$row["val"]+1;
       }
     
+    if($start_request=='9999'){
+        $start_request='600';
+        $end_request="2200";
+        
+    }
     $addSQLCommand = "INSERT INTO subway.request(request_id, employee_id, start_date, end_date, start_time, end_time)
                       VALUES($request_id,$emp_id, '$fs', '$fe', $start_request, $end_request)";
     //echo $addSQLCommand;

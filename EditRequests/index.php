@@ -157,6 +157,7 @@ $_SESSION['request_array']=$request_array;
                                 <td>Start Time</td>
                                 <td><select id="start_request" name="start_request" onChange ="startTime('start_request')" class="default_time_drop_down">
                                         <option value="default">---</option>
+                                        <option value="9999">All Day</option>
                                         <option value="600">06:00</option>
                                         <option value="630">06:30</option>
                                         <option value="700">07:00</option>

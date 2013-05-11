@@ -65,11 +65,11 @@ $_SESSION['shift_array']=$shift_array;
 
         <div id="normal_left">
             <div id="left_buttons">
-            <form  action="productivity.php" method="POST">
+<!--            <form  action="productivity.php" method="POST">
                 <input type="submit" value="Enter Productivity" class="subway_buttons"/>
             </form>
                 <br/>
-                <br/>
+                <br/>-->
             <form action="index.php" method="POST">
                 <input type="submit" value="Create Schedule" class="subway_buttons"/>
             </form>
