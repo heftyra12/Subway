@@ -455,7 +455,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                         echo "<option value='830'>8:30</option>";
                         echo "<option value='900'>9:00</option>";
                         echo "<option value='930'>9:30</option>";
-                        echo "<option value='1000'>10:00</option>";
+                           echo "<option value='1000'>10:00</option>";
                         echo "<option value='1030'>10:30</option>";
                         echo "<option value='1100'>11:00</option>";
                         echo "<option value='1130'>11:30</option>";
@@ -916,7 +916,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 if(table_one.value == table_two[x].value)
                 {
                     var found_index = x;
-                    alert(table_two.length - (min_shift_hours *2));
+                    //alert(table_two.length - (min_shift_hours *2));
                     break;
                 }   
             }
@@ -1225,7 +1225,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
         {
             if(end_time != "def")
             {   
-                if((end_time - start_time > 600) && isMinor == "Y")
+                if((end_time - start_time >= 600) && isMinor == "Y")
                 {
                     switch(day)
                     {    
@@ -1323,7 +1323,7 @@ $_SESSION['full_sched_array']=$full_sched_array;
                 var shift_start = shift_split[0];
                 var shift_end = shift_split[1];
                 
-                if((shift_end - shift_start > 600) && isMinor == "Y")
+                if((shift_end - shift_start >= 600) && isMinor == "Y")
                 {
                     switch(day)
                     {    
