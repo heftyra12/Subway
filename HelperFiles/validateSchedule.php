@@ -3,7 +3,7 @@ include_once'scheduleClass.php';
 include_once'employeeClass.php';
 session_start();
 echo "<link rel='stylesheet' href='/CSS/print_table.css' type='text/css'>";
-$index = $_POST['index'] - 1;
+$index = $_POST['index'];
 
 //Function to convert time to make the schedule easier to read for employees
 function convertTime($start_time, $end_time) {
